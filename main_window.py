@@ -13,7 +13,8 @@ testLabel=TK.Label(mainContainer, textvariable=testLabel_text, relief=TK.RAISED)
 
 
 def start_intro_window():
-	testLabel_text.set("Everything looks good for now")
+	testLabel_text.set('''Everything looks good for now
+Yup''')
 	testLabel.pack()
 
 	mainContainer.mainloop()
