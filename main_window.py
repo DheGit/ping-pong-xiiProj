@@ -4,7 +4,7 @@ import tkinter as TK
 
 #Components are stacked together, buttons in a group, labels in another, etc. Naming convention for component Objects: camelCaseNaming
 
-#check StringVar(), it's causing errors
+
 mainContainer=TK.Tk()
 
 testLabel_text=TK.StringVar()
