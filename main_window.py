@@ -1,22 +1,25 @@
 """This file encloses the code for the main window which is displayed when the program starts, which includes the options for starting game, settings, and more"""
 #TODO: Add conditionals to the imports to enable cross-platform compatibility
 import tkinter as TK
+from resources import *
 
 #Components are stacked together, buttons in a group, labels in another, etc. Naming convention for component Objects: camelCaseNaming
-
 
 mainContainer=TK.Tk()
 
 testLabel_text=TK.StringVar()
-
 testLabel=TK.Label(mainContainer, textvariable=testLabel_text, relief=TK.RAISED)
 
+mainContainer.minsize(window_height, window_width)
+
+"""init_layout(): Contains the initialisation code for the layout, including the styling"""
+def init_layout():
+	global testLabel_text, testLabel
+	testLabel_text.set(r_test_label_txt)
+	testLabel.pack(side=TK.TOP, padx=10, pady=10)
 
 def start_intro_window():
-	testLabel_text.set('''Everything looks good for now
-Yup''')
-	testLabel.pack()
-
+	init_layout()
 	mainContainer.mainloop()
 
 start_intro_window()
