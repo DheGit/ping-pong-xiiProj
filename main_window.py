@@ -23,17 +23,17 @@ def init_layout():
 	global testLabel_text, testLabel, mainContainer
 	mainContainer.minsize(window_height, window_width)
 	
-	testLabel_text.set(r_test_label_txt)
-	testLabel.pack(side=TK.TOP, padx=10, pady=10)
+#	testLabel_text.set(r_test_label_txt)
+#	testLabel.grid(side=TK.TOP, padx=10, pady=10)
 
 	global p1NameEntry, p2NameEntry, p1EntryLabel, p2EntryLabel
-	p1EntryLabel.pack()
-	p2EntryLabel.pack()
-	p1NameEntry.pack()
-	p2NameEntry.pack()
+	p1EntryLabel.grid(row=0, column=0)
+	p2EntryLabel.grid(row=1, column=0)
+	p1NameEntry.grid(row=0,column=1)
+	p2NameEntry.grid(row=1,column=1)
 
 	global quitButton
-	quitButton.pack(side=TK.TOP)
+	quitButton.grid(row=2,column=0,columnspan=2)
 
 
 def start_intro_window():
