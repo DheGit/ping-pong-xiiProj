@@ -10,10 +10,13 @@ mainContainer=TK.Tk()
 testLabel_text=TK.StringVar()
 testLabel=TK.Label(mainContainer, textvariable=testLabel_text, relief=TK.SUNKEN)
 
-#The callback method for buttons must come before the definition of the buttons as it uses the callback method name
-def onClick_quitButton():
-	quit()
-quitButton=TK.Button(mainContainer, text=r_quit_button_txt, command=onClick_quitButton)
+p1EntryLabel=TK.Label(mainContainer, text=r_p1_name_label_txt)
+p2EntryLabel=TK.Label(mainContainer, text=r_p2_name_label_txt)
+
+p1NameEntry=TK.Entry(mainContainer)
+p2NameEntry=TK.Entry(mainContainer)
+
+quitButton=TK.Button(mainContainer, text=r_quit_button_txt, command=mainContainer.quit)
 
 """init_layout(): Contains the initialisation code for the layout, including the styling"""
 def init_layout():
@@ -22,6 +25,12 @@ def init_layout():
 	
 	testLabel_text.set(r_test_label_txt)
 	testLabel.pack(side=TK.TOP, padx=10, pady=10)
+
+	global p1NameEntry, p2NameEntry, p1EntryLabel, p2EntryLabel
+	p1EntryLabel.pack()
+	p2EntryLabel.pack()
+	p1NameEntry.pack()
+	p2NameEntry.pack()
 
 	global quitButton
 	quitButton.pack(side=TK.TOP)
