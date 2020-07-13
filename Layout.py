@@ -26,10 +26,10 @@ class Paddle(pygame.sprite.Sprite):
         
         self.rect = self.image.get_rect()
 
-paddle1 = Paddle(white,10,100)
+paddle1 = Paddle(white,12,120)
 paddle1.rect.x = 20
-paddle1.rect.y = 200
+paddle1.rect.y = 300
 
-paddle2 = Paddle(white,10,100)
-paddle2.rect.x = 670
-paddle2.rect.y = 200
+paddle2 = Paddle(white,12,120)
+paddle2.rect.x = 870
+paddle2.rect.y = 300
