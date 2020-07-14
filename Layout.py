@@ -8,28 +8,34 @@ white = (255,255,255)
 size = (900,600)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Ping Pong")
+pygame.mouse.set_visible(0)
 
 screen.fill(black)
 pygame.draw.line(screen,white,[449,0],[449,600],8)
-pygame.display.flip()
 
 class Paddle(pygame.sprite.Sprite):
     
-    def __init__(self,color,width,height):
+    def __init__(self):
         
         super().__init__()
         
-        self.image = pygame.Surface([width,height])
+        self.image = pygame.Surface([12,100])
         self.image.fill(white)
-        
-        pygame.draw.rect(self.image,color,[0,0,width,height])
         
         self.rect = self.image.get_rect()
 
-paddle1 = Paddle(white,12,120)
+paddle1 = Paddle()
 paddle1.rect.x = 20
-paddle1.rect.y = 300
+paddle1.rect.y = 250
 
-paddle2 = Paddle(white,12,120)
+paddle2 = Paddle()
 paddle2.rect.x = 870
-paddle2.rect.y = 300
+paddle2.rect.y = 250
+
+movingsprites = pygame.sprite.Group()
+movingsprites.add(paddle1)
+movingsprites.add(paddle2)
+
+movingsprites.draw(screen)
+
+pygame.display.flip()
