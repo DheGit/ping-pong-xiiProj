@@ -1,4 +1,6 @@
 import pygame
+import random
+import math
 
 pygame.init()
 
@@ -12,6 +14,7 @@ PADDLE_HEIGHT = 120
 PADDLE_MARGIN = 20
 BALL_WIDTH = 17
 BALL_HEIGHT = 17
+BALL_RESET_Y_MARGIN=50
 
 size = (SCREEN_WIDTH,SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
@@ -43,6 +46,38 @@ class Ball(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
+        self.speed = 0
+        self.x=0
+        self.y=0
+        self.direction=0
+
+        self.reset()
+
+    def reset(self):
+    	self.speed=8.0
+    	self.y=random.randrange(BALL_RESET_Y_MARGIN, SCREEN_HEIGHT - BALL_RESET_Y_MARGIN)
+    	self.x=PADDLE_MARGIN
+
+    	self.direction=random.randrange(-45,45)
+
+    	if random.randrange(2)==0:
+    		self.direction += 180
+    		self.x=SCREEN_WIDTH - BALL_WIDTH - PADDLE_MARGIN
+
+    def update(self):
+    	rads=math.radians(self.direction)
+
+    	self.x += math.cos(rads) * self.speed
+    	self.y -= math.sin(rads) * self.speed
+
+    	if self.x < 0 or self.x > SCREEN_WIDTH:
+    		self.reset()
+
+    	self.rect.x=int(self.x)
+    	self.rect.y=int(self.y)
+
+clock=pygame.time.Clock()
+
 paddle1 = Paddle()
 paddle1.rect.x = PADDLE_MARGIN
 paddle1.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2
@@ -52,17 +87,13 @@ paddle2.rect.x = SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_MARGIN
 paddle2.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2
 
 ball = Ball()
-ball.rect.x = SCREEN_WIDTH//2 - BALL_WIDTH//2 
-ball.rect.y = SCREEN_HEIGHT//2 - BALL_HEIGHT//2
+ball.reset()
+ball.update()
 
 movingsprites = pygame.sprite.Group()
 movingsprites.add(paddle1)
 movingsprites.add(paddle2)
 movingsprites.add(ball)
-
-movingsprites.draw(screen)
-
-pygame.display.flip()
 
 exit_window=False
 
@@ -71,5 +102,14 @@ while not exit_window:
 	for event in pygame.event.get():
 		if event.type==pygame.QUIT:
 			exit_window=True
+
+	ball.update()
+	print("Ball Speed: ", ball.speed)
+	
+	screen.fill(BLACK)
+	movingsprites.draw(screen)
+	pygame.display.flip()
+
+	clock.tick(30)
 
 pygame.quit()
