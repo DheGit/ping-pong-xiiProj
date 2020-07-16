@@ -5,11 +5,13 @@ pygame.init()
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 
-SCREEN_WIDTH=900
-SCREEN_HEIGHT=600
-PADDLE_WIDTH=12
-PADDLE_HEIGHT=120
-PADDLE_MARGIN=20
+SCREEN_WIDTH = 900
+SCREEN_HEIGHT = 600
+PADDLE_WIDTH = 12
+PADDLE_HEIGHT = 120
+PADDLE_MARGIN = 20
+BALL_WIDTH = 17
+BALL_HEIGHT = 17
 
 size = (SCREEN_WIDTH,SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
@@ -30,6 +32,17 @@ class Paddle(pygame.sprite.Sprite):
         
         self.rect = self.image.get_rect()
 
+class Ball(pygame.sprite.Sprite):
+
+    def __init__(self):
+
+        super().__init__()
+
+        self.image = pygame.Surface([BALL_WIDTH,BALL_HEIGHT])
+        self.image.fill(WHITE)
+
+        self.rect = self.image.get_rect()
+
 paddle1 = Paddle()
 paddle1.rect.x = PADDLE_MARGIN
 paddle1.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2
@@ -38,9 +51,14 @@ paddle2 = Paddle()
 paddle2.rect.x = SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_MARGIN
 paddle2.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2
 
+ball = Ball()
+ball.rect.x = SCREEN_WIDTH//2 - BALL_WIDTH//2 
+ball.rect.y = SCREEN_HEIGHT//2 - BALL_HEIGHT//2
+
 movingsprites = pygame.sprite.Group()
 movingsprites.add(paddle1)
 movingsprites.add(paddle2)
+movingsprites.add(ball)
 
 movingsprites.draw(screen)
 
