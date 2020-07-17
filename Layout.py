@@ -14,6 +14,7 @@ PADDLE_WIDTH = 12
 PADDLE_HEIGHT = 120
 PADDLE_MARGIN = 20
 PADDLE_BOUNCE_BIAS=80
+PADDLE_SPEED=15
 
 BALL_WIDTH = 17
 BALL_HEIGHT = 17
@@ -72,13 +73,12 @@ class Ball(pygame.sprite.Sprite):
     def reset(self):
         self.speed=8.0
         self.y=random.randrange(BALL_RESET_Y_MARGIN, SCREEN_HEIGHT - BALL_RESET_Y_MARGIN)
-        self.x=PADDLE_MARGIN
+        self.x=SCREEN_WIDTH/2 - BALL_WIDTH/2
 
         self.direction=random.randrange(-45,45)
 
         if random.randrange(2)==0:
             self.direction += 180
-            self.x=SCREEN_WIDTH - BALL_WIDTH - PADDLE_MARGIN
 
     def update(self):
         rads=math.radians(self.direction)
@@ -96,6 +96,9 @@ class Ball(pygame.sprite.Sprite):
             self.direction = (360-self.direction)%360
 
 clock=pygame.time.Clock()
+
+score1=0
+score2=0
 
 paddle1 = Paddle()
 paddle1.rect.x = PADDLE_MARGIN
@@ -136,22 +139,24 @@ while not exit_window:
         diff = (paddle1.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2)
         ball.x = PADDLE_MARGIN+PADDLE_WIDTH +1
         ball.bounce(diff)
+        score1 += 1
 
     if collides() == 2:
         diff = (paddle2.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2) 
         ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+1)
         ball.bounce(-diff)
+        score2+=1
 
     keys = pygame.key.get_pressed()
     
     if keys[pygame.K_w]:
-        paddle1.moveUp(10)
+        paddle1.moveUp(PADDLE_SPEED)
     if keys[pygame.K_s]:
-        paddle1.moveDown(10)
+        paddle1.moveDown(PADDLE_SPEED)
     if keys[pygame.K_UP]:
-        paddle2.moveUp(10)
+        paddle2.moveUp(PADDLE_SPEED)
     if keys[pygame.K_DOWN]:
-        paddle2.moveDown(10)
+        paddle2.moveDown(PADDLE_SPEED)
 
     movingsprites.update()
 
@@ -159,15 +164,14 @@ while not exit_window:
     pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,0],[SCREEN_WIDTH//2,SCREEN_HEIGHT],5)
 
     movingsprites.draw(screen)
-
-    # Scoring system
-    score1 = 0
-    score2 = 0
     
-    if ball.rect.x >= SCREEN_WIDTH - BALL_WIDTH:
-        score1 += 1
-    if ball.rect.x <= 0:
-        score2 += 1
+    #Erroneous code block. It updates the score decades of times when the ball crosses the line in concern
+    #So it is wise to count every collision as a score of the respective player.
+    #We can change scoring system later
+#    if ball.rect.x >= SCREEN_WIDTH - BALL_WIDTH:
+#        score1 += 1
+#    if ball.rect.x <= 0:
+#        score2 += 1
     
     font = pygame.font.Font(None,74)
     
@@ -179,6 +183,6 @@ while not exit_window:
     
     pygame.display.flip()
 
-    clock.tick(100) #Kept it that high only for testing purposes, change it to a comfortable 30-40 later.
+    clock.tick(45) #Kept it that high only for testing purposes, change it to a comfortable 30-40 later.
 
 pygame.quit()
