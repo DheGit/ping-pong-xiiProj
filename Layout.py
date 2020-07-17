@@ -24,9 +24,6 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Ping Pong")
 pygame.mouse.set_visible(0)
 
-screen.fill(BLACK)
-pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,0],[SCREEN_WIDTH//2,SCREEN_HEIGHT],4)
-
 class Paddle(pygame.sprite.Sprite):
     
     def __init__(self):
@@ -37,6 +34,18 @@ class Paddle(pygame.sprite.Sprite):
         self.image.fill(WHITE)
         
         self.rect = self.image.get_rect()
+
+    def moveUp(self,pixels):
+        self.rect.y -= pixels
+
+        if self.rect.y < 0:
+            self.rect.y = 0
+
+    def moveDown(self,pixels):
+        self.rect.y += pixels
+
+        if self.rect.y > SCREEN_HEIGHT - PADDLE_HEIGHT:
+            self.rect.y = SCREEN_HEIGHT - PADDLE_HEIGHT
 
 class Ball(pygame.sprite.Sprite):
 
@@ -57,34 +66,34 @@ class Ball(pygame.sprite.Sprite):
         self.reset()
 
     def bounce(self, b_param):
-    	self.direction = (180-self.direction)%360
-    	self.direction += (b_param/PADDLE_HEIGHT)*PADDLE_BOUNCE_BIAS
+        self.direction = (180-self.direction)%360
+        self.direction += (b_param/PADDLE_HEIGHT)*PADDLE_BOUNCE_BIAS
 
     def reset(self):
-    	self.speed=8.0
-    	self.y=random.randrange(BALL_RESET_Y_MARGIN, SCREEN_HEIGHT - BALL_RESET_Y_MARGIN)
-    	self.x=PADDLE_MARGIN
+        self.speed=8.0
+        self.y=random.randrange(BALL_RESET_Y_MARGIN, SCREEN_HEIGHT - BALL_RESET_Y_MARGIN)
+        self.x=PADDLE_MARGIN
 
-    	self.direction=random.randrange(-45,45)
+        self.direction=random.randrange(-45,45)
 
-    	if random.randrange(2)==0:
-    		self.direction += 180
-    		self.x=SCREEN_WIDTH - BALL_WIDTH - PADDLE_MARGIN
+        if random.randrange(2)==0:
+            self.direction += 180
+            self.x=SCREEN_WIDTH - BALL_WIDTH - PADDLE_MARGIN
 
     def update(self):
-    	rads=math.radians(self.direction)
+        rads=math.radians(self.direction)
 
-    	self.x += math.cos(rads) * self.speed
-    	self.y -= math.sin(rads) * self.speed
+        self.x += math.cos(rads) * self.speed
+        self.y -= math.sin(rads) * self.speed
 
-    	if self.x < -BALL_WIDTH*20 or self.x > SCREEN_WIDTH + BALL_WIDTH*20:
-    		self.reset()
+        if self.x < -BALL_WIDTH*20 or self.x > SCREEN_WIDTH + BALL_WIDTH*20:
+            self.reset()
 
-    	self.rect.x=int(self.x)
-    	self.rect.y=int(self.y)
+        self.rect.x=int(self.x)
+        self.rect.y=int(self.y)
 
-    	if self.y<=0 or self.y>=SCREEN_HEIGHT - BALL_HEIGHT:
-    		self.direction = (360-self.direction)%360
+        if self.y<=0 or self.y>=SCREEN_HEIGHT - BALL_HEIGHT:
+            self.direction = (360-self.direction)%360
 
 clock=pygame.time.Clock()
 
@@ -100,45 +109,76 @@ ball = Ball()
 ball.reset()
 ball.update()
 
-ball_group = pygame.sprite.Group()
-ball_group.add(ball)
-
-def collides():
-	if (ball.x <= PADDLE_MARGIN + PADDLE_WIDTH and ball.x >= PADDLE_MARGIN + PADDLE_WIDTH - ball.speed*2) and (ball.y >= paddle1.rect.y and ball.y <=paddle1.rect.y + PADDLE_HEIGHT):
-		return 1
-	if (ball.x >= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH) and ball.x <= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH) + ball.speed*2)and (ball.y >= paddle2.rect.y and ball.y <=paddle2.rect.y + PADDLE_HEIGHT):
-		return 2
-	return 0
-
 movingsprites = pygame.sprite.Group()
 movingsprites.add(paddle1)
 movingsprites.add(paddle2)
 movingsprites.add(ball)
 
+def collides():
+    if (ball.x <= PADDLE_MARGIN + PADDLE_WIDTH and ball.x >= PADDLE_MARGIN + PADDLE_WIDTH - ball.speed*2) and (ball.y >= paddle1.rect.y and ball.y <=paddle1.rect.y + PADDLE_HEIGHT):
+        return 1
+    if (ball.x >= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH) and ball.x <= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH) + ball.speed*2)and (ball.y >= paddle2.rect.y and ball.y <=paddle2.rect.y + PADDLE_HEIGHT):
+        return 2
+    return 0
+
 exit_window=False
 
 while not exit_window:
-	screen.fill(BLACK)
-	
-	for event in pygame.event.get():
-		if event.type==pygame.QUIT:
-			exit_window=True
+    screen.fill(BLACK)
+    
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+                    exit_window=True
+        
+    ball.update()
+    
+    if collides() == 1:
+        diff = (paddle1.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2)
+        ball.x = PADDLE_MARGIN+PADDLE_WIDTH +1
+        ball.bounce(diff)
 
-	ball.update()
-	
-	if collides() == 1:
-		diff = (paddle1.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2)
-		ball.x = PADDLE_MARGIN+PADDLE_WIDTH +1
-		ball.bounce(diff)
+    if collides() == 2:
+        diff = (paddle2.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2) 
+        ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+1)
+        ball.bounce(-diff)
 
-	if collides() == 2:
-		diff = (paddle2.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2) 
-		ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+1)
-		ball.bounce(-diff)
+    keys = pygame.key.get_pressed()
+    
+    if keys[pygame.K_w]:
+        paddle1.moveUp(10)
+    if keys[pygame.K_s]:
+        paddle1.moveDown(10)
+    if keys[pygame.K_UP]:
+        paddle2.moveUp(10)
+    if keys[pygame.K_DOWN]:
+        paddle2.moveDown(10)
 
-	movingsprites.draw(screen)
-	pygame.display.flip()
+    movingsprites.update()
 
-	clock.tick(100) #Kept it that high only for testing purposes, change it to a comfortable 30-40 later.
+    screen.fill(BLACK)
+    pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,0],[SCREEN_WIDTH//2,SCREEN_HEIGHT],5)
+
+    movingsprites.draw(screen)
+
+    # Scoring system
+    score1 = 0
+    score2 = 0
+    
+    if ball.rect.x >= SCREEN_WIDTH - BALL_WIDTH:
+        score1 += 1
+    if ball.rect.x <= 0:
+        score2 += 1
+    
+    font = pygame.font.Font(None,74)
+    
+    text1 = font.render(str(score1),1,WHITE)
+    screen.blit(text1,((SCREEN_WIDTH//2)//2,10))
+    
+    text2 = font.render(str(score2),1,WHITE)
+    screen.blit(text2,(3*((SCREEN_WIDTH//2)//2),10))
+    
+    pygame.display.flip()
+
+    clock.tick(100) #Kept it that high only for testing purposes, change it to a comfortable 30-40 later.
 
 pygame.quit()
