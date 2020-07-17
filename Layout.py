@@ -80,20 +80,24 @@ class Ball(pygame.sprite.Sprite):
         if random.randrange(2)==0:
             self.direction += 180
 
-    def update(self):
-        rads=math.radians(self.direction)
+    def update(self):        
+    	rads=math.radians(self.direction)
 
-        self.x += math.cos(rads) * self.speed
-        self.y -= math.sin(rads) * self.speed
+    	self.x += math.cos(rads) * self.speed
+    	self.y -= math.sin(rads) * self.speed
 
-        if self.x < -BALL_WIDTH*20 or self.x > SCREEN_WIDTH + BALL_WIDTH*20:
-            self.reset()
+    	if self.x < -BALL_WIDTH*20 or self.x > SCREEN_WIDTH + BALL_WIDTH*20:
+            self.reset()	
 
-        self.rect.x=int(self.x)
-        self.rect.y=int(self.y)
+    	self.rect.x = int(self.x)
+    	self.rect.y = int(self.y)
 
-        if self.y<=0 or self.y>=SCREEN_HEIGHT - BALL_HEIGHT:
-            self.direction = (360-self.direction)%360
+    	if self.y<=0:
+    		self.direction=(360-self.direction)%360
+    		self.y = 1
+    	if self.y>=SCREEN_HEIGHT-BALL_HEIGHT:
+    		self.direction=(360-self.direction)%360
+    		self.y = SCREEN_HEIGHT - BALL_HEIGHT - 1
 
 clock=pygame.time.Clock()
 
