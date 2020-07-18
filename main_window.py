@@ -2,7 +2,7 @@
 #TODO: Add conditionals to the imports to enable cross-platform compatibility
 import tkinter as TK
 from tkinter import messagebox
-from resources import *
+from res.rmain import *
 
 #Components are stacked together, buttons in a group, labels in another, etc. Naming convention for component Objects: camelCaseNaming
 

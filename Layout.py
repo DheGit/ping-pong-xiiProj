@@ -1,24 +1,9 @@
 import pygame
 import random
 import math
+from res.rgame import *
 
 pygame.init()
-
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-
-SCREEN_WIDTH = 900
-SCREEN_HEIGHT = 600
-
-PADDLE_WIDTH = 12
-PADDLE_HEIGHT = 120
-PADDLE_MARGIN = 20
-PADDLE_BOUNCE_BIAS=80
-PADDLE_SPEED=15
-
-BALL_WIDTH = 17
-BALL_HEIGHT = 17
-BALL_RESET_Y_MARGIN=50
 
 size = (SCREEN_WIDTH,SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
@@ -141,13 +126,13 @@ while not exit_window:
     
     if collides() == 1:
         diff = (paddle1.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2)
-        ball.x = PADDLE_MARGIN+PADDLE_WIDTH +1
+        ball.x = PADDLE_MARGIN+PADDLE_WIDTH + 2
         ball.bounce(diff)
         score1 += 1
 
     if collides() == 2:
         diff = (paddle2.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2) 
-        ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+1)
+        ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+2)
         ball.bounce(-diff)
         score2+=1
 
