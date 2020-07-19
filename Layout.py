@@ -24,8 +24,8 @@ class Paddle(pygame.sprite.Sprite):
     def moveUp(self,pixels):
         self.rect.y -= pixels
 
-        if self.rect.y < 0:
-            self.rect.y = 0
+        if self.rect.y < SCORE_MARGIN:
+            self.rect.y = SCORE_MARGIN
 
     def moveDown(self,pixels):
         self.rect.y += pixels
@@ -45,44 +45,45 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.speed = 0
-        self.x=0
-        self.y=0
-        self.direction=0
+        self.x = 0
+        self.y = 0
+        self.direction = 0
 
         self.reset()
 
-    def bounce(self, b_param):
+    def bounce(self,b_param):
         self.direction = (180-self.direction)%360
-        self.direction += (b_param/PADDLE_HEIGHT)*PADDLE_BOUNCE_BIAS
+        self.direction += (b_param//PADDLE_HEIGHT)*PADDLE_BOUNCE_BIAS
 
     def reset(self):
-        self.speed=8.0
-        self.y=random.randrange(BALL_RESET_Y_MARGIN, SCREEN_HEIGHT - BALL_RESET_Y_MARGIN)
-        self.x=SCREEN_WIDTH/2 - BALL_WIDTH/2
+        self.speed = 8.0
+        self.y = random.randrange(BALL_RESET_Y_MARGIN + SCORE_MARGIN, SCREEN_HEIGHT - BALL_RESET_Y_MARGIN + SCORE_MARGIN)
+        self.x = SCREEN_WIDTH//2 - BALL_WIDTH//2
 
-        self.direction=random.randrange(-45,45)
+        self.direction = random.randrange(-45,45)
 
-        if random.randrange(2)==0:
+        if random.randrange(2) == 0:
             self.direction += 180
 
     def update(self):        
-    	rads=math.radians(self.direction)
+        rads = math.radians(self.direction)
 
-    	self.x += math.cos(rads) * self.speed
-    	self.y -= math.sin(rads) * self.speed
+        self.x += math.cos(rads) * self.speed
+        self.y -= math.sin(rads) * self.speed
 
-    	if self.x < -BALL_WIDTH*20 or self.x > SCREEN_WIDTH + BALL_WIDTH*20:
-            self.reset()	
+        if self.x < -BALL_WIDTH*20 or self.x > SCREEN_WIDTH + BALL_WIDTH*20:
+            self.reset()        
 
-    	self.rect.x = int(self.x)
-    	self.rect.y = int(self.y)
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
 
-    	if self.y<=0:
-    		self.direction=(360-self.direction)%360
-    		self.y = 1
-    	if self.y>=SCREEN_HEIGHT-BALL_HEIGHT:
-    		self.direction=(360-self.direction)%360
-    		self.y = SCREEN_HEIGHT - BALL_HEIGHT - 1
+        if self.y <= SCORE_MARGIN:
+                self.direction = (360-self.direction)%360
+                self.y = 1 + SCORE_MARGIN
+        if self.y >= SCREEN_HEIGHT-BALL_HEIGHT:
+                self.direction = (360-self.direction)%360
+                self.y = SCREEN_HEIGHT - BALL_HEIGHT - 1
+
 
 clock=pygame.time.Clock()
 
@@ -151,6 +152,8 @@ while not exit_window:
 
     screen.fill(BLACK)
     pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,0],[SCREEN_WIDTH//2,SCREEN_HEIGHT],5)
+
+    pygame.draw.line(screen,WHITE,[0,SCORE_MARGIN],[SCREEN_WIDTH,SCORE_MARGIN],5)
 
     movingsprites.draw(screen)
     
