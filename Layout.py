@@ -7,8 +7,8 @@ from res.Ball import *
 
 pygame.init()
 
-size = (SCREEN_WIDTH,SCREEN_HEIGHT)
-screen = pygame.display.set_mode(size)
+screen_size = (SCREEN_WIDTH,SCREEN_HEIGHT)
+screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("Ping Pong")
 pygame.mouse.set_visible(0)
 
@@ -19,15 +19,15 @@ score2 = 0
 lastUp1 = FPS
 lastUp2 = FPS
 
-paddle1 = Paddle()
+paddle1 = Paddle(screen_size, (PADDLE_WIDTH,PADDLE_HEIGHT),SCORE_MARGIN)
 paddle1.rect.x = PADDLE_MARGIN
 paddle1.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2 + SCORE_MARGIN//2
 
-paddle2 = Paddle()
+paddle2 = Paddle(screen_size, (PADDLE_WIDTH,PADDLE_HEIGHT),SCORE_MARGIN)
 paddle2.rect.x = SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_MARGIN
 paddle2.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2 + SCORE_MARGIN//2
 
-ball = Ball((BALL_WIDTH,BALL_HEIGHT),(SCREEN_WIDTH,SCREEN_HEIGHT),(PADDLE_WIDTH,PADDLE_HEIGHT), SCORE_MARGIN)
+ball = Ball((BALL_WIDTH,BALL_HEIGHT),screen_size,(PADDLE_WIDTH,PADDLE_HEIGHT), SCORE_MARGIN)
 ball.setResetMargin(BALL_RESET_Y_MARGIN)
 ball.setBounceBias(PADDLE_BOUNCE_BIAS)
 ball.reset()
