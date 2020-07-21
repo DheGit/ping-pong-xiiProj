@@ -27,7 +27,9 @@ paddle2 = Paddle()
 paddle2.rect.x = SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_MARGIN
 paddle2.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2 + SCORE_MARGIN//2
 
-ball = Ball()
+ball = Ball((BALL_WIDTH,BALL_HEIGHT),(SCREEN_WIDTH,SCREEN_HEIGHT),(PADDLE_WIDTH,PADDLE_HEIGHT), SCORE_MARGIN)
+ball.setResetMargin(BALL_RESET_Y_MARGIN)
+ball.setBounceBias(PADDLE_BOUNCE_BIAS)
 ball.reset()
 ball.update()
 
