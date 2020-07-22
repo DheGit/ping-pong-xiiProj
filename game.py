@@ -94,6 +94,15 @@ while not exit_window:
 
     if keys[pygame.K_ESCAPE]:
         exit_window = True
+        
+    if keys[pygame.K_F11]:
+        screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+        
+    if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
+        while True:
+            event = pygame.event.wait()
+            if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
+                break
 
     movingsprites.update()
 
@@ -110,6 +119,21 @@ while not exit_window:
     
     text2 = font.render(str(score2),1,WHITE)
     screen.blit(text2,(3*((SCREEN_WIDTH//2)//2),10))
+
+    if score1 == 10 or score2 == 10:
+        screen.fill(BLACK)
+        pygame.mouse.set_visible(999999)
+        text3 = font.render("WINS",1,WHITE)
+        text4 = font.render("PLAYER 1",1,WHITE)
+        text5 = font.render("PLAYER 2",1,WHITE)
+
+        if score1 == 10:
+            screen.blit(text4,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
+            screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
+
+        else:
+            screen.blit(text5,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
+            screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
     
     pygame.display.flip()
 
