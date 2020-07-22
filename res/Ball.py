@@ -59,7 +59,7 @@ class Ball(pygame.sprite.Sprite):
         if self.y <= self.score_margin:
                 self.direction = (360-self.direction)%360
                 self.y = 1 + self.score_margin
-        if self.y >= self.screen_dimen[1]-self.ball_dimen[1]:
+        if self.y >= self.screen_dimen[1] - self.ball_dimen[1]:
                 self.direction = (360-self.direction)%360
                 self.y = self.screen_dimen[1] - self.ball_dimen[1] - 1
 
