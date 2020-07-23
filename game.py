@@ -97,12 +97,6 @@ while not exit_window:
         
     if keys[pygame.K_F11]:
         screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
-        
-    if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
-        while True:
-            event = pygame.event.wait()
-            if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
-                break
 
     movingsprites.update()
 
@@ -138,5 +132,20 @@ while not exit_window:
     pygame.display.flip()
 
     clock.tick(FPS)
+
+    KEY = pygame.KEYDOWN
+
+    if event.type == KEY and keys[pygame.K_p]:
+        while True:
+            event = pygame.event.wait()
+            if event.type == KEY and keys[pygame.K_p]:
+                KEY == pygame.KEYUP
+                break
+            if event.type == pygame.QUIT:
+                exit_window = True
+                break 
+            if keys[pygame.K_ESCAPE]:
+                exit_window = True
+        KEY == pygame.KEYDOWN
 
 pygame.quit()
