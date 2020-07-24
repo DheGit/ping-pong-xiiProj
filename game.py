@@ -10,7 +10,6 @@ pygame.init()
 screen_size = (SCREEN_WIDTH,SCREEN_HEIGHT)
 screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("Ping Pong")
-pygame.mouse.set_visible(0)
 
 clock = pygame.time.Clock()
 
@@ -100,7 +99,7 @@ while not exit_window:
 
     movingsprites.update()
 
-    pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,0],[SCREEN_WIDTH//2,SCREEN_HEIGHT],5)
+    pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,SCORE_MARGIN],[SCREEN_WIDTH//2,SCREEN_HEIGHT],5)
 
     pygame.draw.line(screen,WHITE,[0,SCORE_MARGIN],[SCREEN_WIDTH,SCORE_MARGIN],5)
 
@@ -116,7 +115,6 @@ while not exit_window:
 
     if score1 == 10 or score2 == 10:
         screen.fill(BLACK)
-        pygame.mouse.set_visible(999999)
         text3 = font.render("WINS",1,WHITE)
         text4 = font.render("PLAYER 1",1,WHITE)
         text5 = font.render("PLAYER 2",1,WHITE)
@@ -133,19 +131,16 @@ while not exit_window:
 
     clock.tick(FPS)
 
-    KEY = pygame.KEYDOWN
-
-    if event.type == KEY and keys[pygame.K_p]:
+    if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
         while True:
             event = pygame.event.wait()
-            if event.type == KEY and keys[pygame.K_p]:
-                KEY == pygame.KEYUP
+            if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
                 break
             if event.type == pygame.QUIT:
                 exit_window = True
                 break 
             if keys[pygame.K_ESCAPE]:
                 exit_window = True
-        KEY == pygame.KEYDOWN
+                break
 
 pygame.quit()
