@@ -3,6 +3,9 @@ import pygame.freetype
 from pygame.sprite import Sprite
 from pygame.rect import Rect
 from enum import Enum
+from res.rgame import *
+from res.Paddle import *
+from res.Ball import *
 
 BLUE = (106, 159, 181)
 WHITE = (255, 255, 255)
@@ -65,3 +68,68 @@ class UIElement(Sprite):
     def draw(self, surface):
         """ Draws element onto a surface """
         surface.blit(self.image, self.rect)
+
+def main():
+    pygame.init()
+
+    screen = pygame.display.set_mode((800, 600))
+    game_state = GameState.MENU
+
+    while True:
+        if game_state == GameState.MENU:
+            game_state = show_menu(screen)
+
+        if game_state == GameState.PLAYGAME:
+            game_state = play_game(screen)
+
+        if game_state == GameState.QUIT:
+            pygame.quit()
+            return
+
+def show_menu(screen):
+    start_btn = UIElement(
+        center_position=(400, 400),
+        font_size=30,
+        bg_rgb=BLUE,
+        text_rgb=WHITE,
+        text="Start",
+        action=GameState.PLAYGAME,
+    )
+    quit_btn = UIElement(
+        center_position=(400, 500),
+        font_size=30,
+        bg_rgb=BLUE,
+        text_rgb=WHITE,
+        text="Quit",
+        action=GameState.QUIT,
+    )
+
+    buttons = [start_btn, quit_btn]
+
+    while True:
+        mouse_up = False
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                mouse_up = True
+        screen.fill(BLUE)
+
+        for button in buttons:
+            ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
+            if ui_action is not None:
+                return ui_action
+            button.draw(screen)
+
+        pygame.display.flip()
+
+def play_game(screen):
+	pass
+
+class GameState(Enum):
+	QUIT=-1
+	MENU=0
+	PLAYGAME=1
+	PAUSE=2
+	ENDGAME=3
+
+if __name__=="__main__":
+	main()
