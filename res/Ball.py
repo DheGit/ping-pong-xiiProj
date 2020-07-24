@@ -37,7 +37,7 @@ class Ball(pygame.sprite.Sprite):
     def reset(self):
         self.speed = 5.0
         self.y = random.randrange(self.reset_margin + self.score_margin , self.screen_dimen[1] - self.reset_margin)
-        self.x =  self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
+        self.x = self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
 
         self.direction = random.randrange(-45,45)
 
@@ -57,17 +57,17 @@ class Ball(pygame.sprite.Sprite):
         self.rect.y = int(self.y)
 
         if self.y <= self.score_margin:
-                self.direction = (360-self.direction)%360
-                self.y = 1 + self.score_margin
+            self.direction = (360-self.direction)%360
+            self.y = 1 + self.score_margin
         if self.y >= self.screen_dimen[1] - self.ball_dimen[1]:
-                self.direction = (360-self.direction)%360
-                self.y = self.screen_dimen[1] - self.ball_dimen[1] - 1
+            self.direction = (360-self.direction)%360
+            self.y = self.screen_dimen[1] - self.ball_dimen[1] - 1
 
     def setBounceBias(self, bias):
-    	self.bounce_bias = bias
+        self.bounce_bias = bias
 
     def setResetMargin(self, margin):
-   		self.reset_margin = margin
+        self.reset_margin = margin
 
     def setBallSpeed(self, speed):
-   		self.speed = speed
+        self.speed = speed
