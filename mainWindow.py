@@ -99,23 +99,31 @@ def main():
 
 def show_menu(screen):
     start_btn = UIElement(
-        center_position=(400, 400),
-        font_size=30,
+        center_position=(450, 450),
+        font_size=45,
         bg_rgb=BLUE,
         text_rgb=WHITE,
         text="Start",
         action=GameState.PLAYGAME,
     )
     quit_btn = UIElement(
-        center_position=(400, 500),
-        font_size=30,
+        center_position=(450, 550),
+        font_size=45,
         bg_rgb=BLUE,
         text_rgb=WHITE,
         text="Quit",
         action=GameState.QUIT,
     )
+    game_name = UIElement(
+        center_position=(450, 220),
+        font_size=135,
+        bg_rgb=BLUE,
+        text_rgb=WHITE,
+        text="PING PONG",
+        action=None,
+    )
 
-    buttons = [start_btn, quit_btn]
+    buttons = [start_btn, quit_btn, game_name]
 
     while True:
         mouse_up = False
@@ -149,128 +157,125 @@ def updateScore(playerNum):
         lastUp2 = 0
 
 def play_game(screen):
-	global score1,score2, lastUp1,lastUp2, paddle1,paddle2, ball, screen_size
-	pygame.display.set_caption("Ping Pong")
-	pygame.mouse.set_visible(0)
+    global score1,score2, lastUp1,lastUp2, paddle1,paddle2, ball, screen_size
+    pygame.display.set_caption("Ping Pong")
 
-	clock = pygame.time.Clock()
+    clock = pygame.time.Clock()
 
-	paddle1.rect.x = PADDLE_MARGIN
-	paddle1.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2 + SCORE_MARGIN//2
+    paddle1.rect.x = PADDLE_MARGIN
+    paddle1.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2 + SCORE_MARGIN//2
 
-	paddle2.rect.x = SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_MARGIN
-	paddle2.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2 + SCORE_MARGIN//2
+    paddle2.rect.x = SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_MARGIN
+    paddle2.rect.y = SCREEN_HEIGHT//2 - PADDLE_HEIGHT//2 + SCORE_MARGIN//2
 
-	ball.setResetMargin(BALL_RESET_Y_MARGIN)
-	ball.setBounceBias(PADDLE_BOUNCE_BIAS)
-	ball.reset()
-	ball.update()
+    ball.setResetMargin(BALL_RESET_Y_MARGIN)
+    ball.setBounceBias(PADDLE_BOUNCE_BIAS)
+    ball.reset()
+    ball.update()
 
-	movingsprites = pygame.sprite.Group()
-	movingsprites.add(paddle1)
-	movingsprites.add(paddle2)
-	movingsprites.add(ball)
-	exit_window=False
-	while not exit_window:
+    movingsprites = pygame.sprite.Group()
+    movingsprites.add(paddle1)
+    movingsprites.add(paddle2)
+    movingsprites.add(ball)
+    
+    exit_window=False
+    
+    while not exit_window:
 
-	    screen.fill(BLACK)
-	    
-	    for event in pygame.event.get():
-	        if event.type == pygame.QUIT:
-	                    exit_window = True
-	        
-	    if ball.x > PADDLE_MARGIN + PADDLE_WIDTH and ball.x < SCREEN_WIDTH - (PADDLE_MARGIN + PADDLE_WIDTH):
-	        lastUp1 += 1
-	        lastUp2 += 1
-	    ball.update()
-	    
-	    if collides() == 1:
-	        diff = (paddle1.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2)
-	        ball.x = PADDLE_MARGIN+PADDLE_WIDTH + 2
-	        ball.bounce(diff)
-	        updateScore(1)
+        screen.fill(BLACK)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                        exit_window = True
+            
+        if ball.x > PADDLE_MARGIN + PADDLE_WIDTH and ball.x < SCREEN_WIDTH - (PADDLE_MARGIN + PADDLE_WIDTH):
+            lastUp1 += 1
+            lastUp2 += 1
+        ball.update()
+        
+        if collides() == 1:
+            diff = (paddle1.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2)
+            ball.x = PADDLE_MARGIN+PADDLE_WIDTH + 2
+            ball.bounce(diff)
+            updateScore(1)
 
-	    if collides() == 2:
-	        diff = (paddle2.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2) 
-	        ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+2)
-	        ball.bounce(-diff)
-	        updateScore(2)
+        if collides() == 2:
+            diff = (paddle2.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2) 
+            ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+2)
+            ball.bounce(-diff)
+            updateScore(2)
 
-	    keys = pygame.key.get_pressed()
-	    
-	    if keys[pygame.K_w]:
-	        paddle1.moveUp(PADDLE_SPEED)
-	    if keys[pygame.K_s]:
-	        paddle1.moveDown(PADDLE_SPEED)
-	    if keys[pygame.K_UP]:
-	        paddle2.moveUp(PADDLE_SPEED)
-	    if keys[pygame.K_DOWN]:
-	        paddle2.moveDown(PADDLE_SPEED)
+        keys = pygame.key.get_pressed()
+        
+        if keys[pygame.K_w]:
+            paddle1.moveUp(PADDLE_SPEED)
+        if keys[pygame.K_s]:
+            paddle1.moveDown(PADDLE_SPEED)
+        if keys[pygame.K_UP]:
+            paddle2.moveUp(PADDLE_SPEED)
+        if keys[pygame.K_DOWN]:
+            paddle2.moveDown(PADDLE_SPEED)
 
-	    if keys[pygame.K_ESCAPE]:
-	        exit_window = True
-	        
-	    if keys[pygame.K_F11]:
-	        screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+        if keys[pygame.K_ESCAPE]:
+            exit_window = True
+            
+        if keys[pygame.K_F11]:
+            screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 
-	    movingsprites.update()
+        movingsprites.update()
 
-	    pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,0],[SCREEN_WIDTH//2,SCREEN_HEIGHT],5)
+        pygame.draw.line(screen,WHITE,[SCREEN_WIDTH//2,SCORE_MARGIN],[SCREEN_WIDTH//2,SCREEN_HEIGHT],5)
 
-	    pygame.draw.line(screen,WHITE,[0,SCORE_MARGIN],[SCREEN_WIDTH,SCORE_MARGIN],5)
+        pygame.draw.line(screen,WHITE,[0,SCORE_MARGIN],[SCREEN_WIDTH,SCORE_MARGIN],5)
 
-	    movingsprites.draw(screen)
-	    
-	    font = pygame.font.Font(None,74)
-	    
-	    text1 = font.render(str(score1),1,WHITE)
-	    screen.blit(text1,((SCREEN_WIDTH//2)//2,10))
-	    
-	    text2 = font.render(str(score2),1,WHITE)
-	    screen.blit(text2,(3*((SCREEN_WIDTH//2)//2),10))
+        movingsprites.draw(screen)
+        
+        font = pygame.font.Font(None,74)
+        
+        text1 = font.render(str(score1),1,WHITE)
+        screen.blit(text1,((SCREEN_WIDTH//2)//2,10))
+        
+        text2 = font.render(str(score2),1,WHITE)
+        screen.blit(text2,(3*((SCREEN_WIDTH//2)//2),10))
 
-	    if score1 == 10 or score2 == 10:
-	        screen.fill(BLACK)
-	        pygame.mouse.set_visible(999999)
-	        text3 = font.render("WINS",1,WHITE)
-	        text4 = font.render("PLAYER 1",1,WHITE)
-	        text5 = font.render("PLAYER 2",1,WHITE)
+        if score1 == 10 or score2 == 10:
+            screen.fill(BLACK)
+            text3 = font.render("WINS",1,WHITE)
+            text4 = font.render("PLAYER 1",1,WHITE)
+            text5 = font.render("PLAYER 2",1,WHITE)
 
-	        if score1 == 10:
-	            screen.blit(text4,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
-	            screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
+            if score1 == 10:
+                screen.blit(text4,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
+                screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
 
-	        else:
-	            screen.blit(text5,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
-	            screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
-	    
-	    pygame.display.flip()
+            else:
+                screen.blit(text5,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
+                screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
+        
+        pygame.display.flip()
 
-	    clock.tick(FPS)
+        clock.tick(FPS)
+        
+        # if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
+        #     while True:
+        #         event = pygame.event.wait()
+        #         if event.type == pygame.KEYDOWN and keys[pygame.K_p]:
+        #             break
+        #         if event.type == pygame.QUIT:
+        #             exit_window = True
+        #             break 
+        #         if keys[pygame.K_ESCAPE]:
+        #             exit_window = True
+        #             break
 
-	    # KEY = pygame.KEYDOWN
-
-	    # if event.type == KEY and keys[pygame.K_p]:
-	    #     while True:
-	    #         event = pygame.event.wait()
-	    #         if event.type == KEY and keys[pygame.K_p]:
-	    #             KEY == pygame.KEYUP
-	    #             break
-	    #         if event.type == pygame.QUIT:
-	    #             exit_window = True
-	    #             break 
-	    #         if keys[pygame.K_ESCAPE]:
-	    #             exit_window = True
-	    #     KEY == pygame.KEYDOWN
-
-	pygame.quit()
+    pygame.quit()
 
 class GameState(Enum):
-	QUIT=-1
-	MENU=0
-	PLAYGAME=1
-	PAUSE=2
-	ENDGAME=3
+    QUIT=-1
+    MENU=0
+    PLAYGAME=1
+    PAUSE=2
+    ENDGAME=3
 
 if __name__=="__main__":
-	main()
+    main()
