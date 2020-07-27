@@ -5,10 +5,10 @@ from pygame.rect import Rect
 
 from enum import Enum
 
-import res.rmain
+from res.rmain import *
 from res.rgame import *
-from res.Paddle import *
-from res.Ball import *
+from sprites.Paddle import *
+from sprites.Ball import *
 
 BLUE = (106, 159, 181)
 WHITE = (255, 255, 255)
@@ -109,11 +109,11 @@ def main():
 
 def show_menu(screen):
     start_btn = UIElement(
-        center_position=(450, 450),
+        center_position=(450, 450), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
         font_size=45,
         bg_rgb=BLUE,
         text_rgb=WHITE,
-        text="Start",
+        text=r_start_button_txt,
         action=GameState.PLAYGAME,
     )
     quit_btn = UIElement(
@@ -121,7 +121,7 @@ def show_menu(screen):
         font_size=45,
         bg_rgb=BLUE,
         text_rgb=WHITE,
-        text="Quit",
+        text=r_quit_button_txt,
         action=GameState.QUIT,
     )
     game_name = UIElement(
@@ -129,7 +129,7 @@ def show_menu(screen):
         font_size=135,
         bg_rgb=BLUE,
         text_rgb=WHITE,
-        text="PING PONG",
+        text=r_title_label_txt,
         action=None,
     )
 

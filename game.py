@@ -2,8 +2,8 @@ import pygame
 import random
 import math
 from res.rgame import *
-from res.Paddle import *
-from res.Ball import *
+from sprites.Paddle import *
+from sprites.Ball import *
 
 pygame.init()
 
