@@ -2,7 +2,10 @@ import pygame
 import pygame.freetype
 from pygame.sprite import Sprite
 from pygame.rect import Rect
+
 from enum import Enum
+
+import res.rmain
 from res.rgame import *
 from res.Paddle import *
 from res.Ball import *
@@ -55,6 +58,8 @@ class UIElement(Sprite):
 
         self.action = action
 
+        self.highlightable = True
+
         super().__init__()
 
     @property
@@ -69,6 +74,8 @@ class UIElement(Sprite):
         """ Updates the mouse_over variable and returns the button's
             action value when clicked.
         """
+        if not self.highlightable:
+            return
         if self.rect.collidepoint(mouse_pos):
             self.mouse_over = True
             if mouse_up:
@@ -79,6 +86,9 @@ class UIElement(Sprite):
     def draw(self, surface):
         """ Draws element onto a surface """
         surface.blit(self.image, self.rect)
+
+    def setHighlightable(self, highlightable):
+        self.highlightable = highlightable
 
 def main():
     pygame.init()
@@ -122,6 +132,8 @@ def show_menu(screen):
         text="PING PONG",
         action=None,
     )
+
+    game_name.setHighlightable(False)
 
     buttons = [start_btn, quit_btn, game_name]
 
