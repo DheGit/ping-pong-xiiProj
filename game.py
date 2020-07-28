@@ -1,9 +1,14 @@
 import pygame
+import pygame.freetype
 
+from r.UIElement import *
 from r.game import *
+from r.main import *
+
 from sprites.Paddle import *
 from sprites.Ball import *
 
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 screen_size = (SCREEN_WIDTH,SCREEN_HEIGHT)
 
 paddle1 = Paddle(screen_size, (PADDLE_WIDTH,PADDLE_HEIGHT), SCORE_MARGIN)
@@ -113,20 +118,57 @@ def play_game(screen):
         text2 = font.render(str(score2),1,WHITE)
         screen.blit(text2,(3*((SCREEN_WIDTH//2)//2),10))
 
-        if score1 == 10 or score2 == 10:
+        if score1 == 1 or score2 == 1:
             screen.fill(BLACK)
             text3 = font.render("WINS",1,WHITE)
             text4 = font.render("PLAYER 1",1,WHITE)
             text5 = font.render("PLAYER 2",1,WHITE)
 
-            if score1 == 10:
+            if score1 == 1:
                 screen.blit(text4,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
                 screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
 
             else:
                 screen.blit(text5,(SCREEN_WIDTH//2 - 120,SCREEN_HEIGHT//2 - 74))
                 screen.blit(text3,(SCREEN_WIDTH//2 - 75,SCREEN_HEIGHT//2 - 4))
-        
+
+            score1 = 0
+            score2 = 0
+
+            playagain_btn = UIElement(
+                center_position=(SCREEN_WIDTH/2, 550),
+                font_size=45,
+                bg_rgb=BLACK,
+                text_rgb=WHITE,
+                text=r_playagain_button_txt,
+                action=play_game(screen),
+            )
+            quit_btn = UIElement(
+                center_position=(SCREEN_WIDTH/2, 650),
+                font_size=45,
+                bg_rgb=BLACK,
+                text_rgb=WHITE,
+                text=r_quit_button_txt,
+                action=pygame.quit(),
+            )
+
+            buttons = [playagain_btn, quit_btn]
+
+            while True:
+                mouse_up = False
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                        mouse_up = True
+                screen.fill(BLACK)
+
+                for button in buttons:
+                    ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                    if ui_action is not None:
+                        return ui_action
+                    button.draw(screen)
+
+                pygame.display.flip()
+
         pygame.display.flip()
 
         clock.tick(FPS)
