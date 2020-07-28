@@ -1,10 +1,6 @@
 import pygame
 
-from enum import Enum
-
 from r.game import *
-from r.main import *
-from r.UIElement import *
 from sprites.Paddle import *
 from sprites.Ball import *
 
