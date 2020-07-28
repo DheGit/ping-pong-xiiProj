@@ -2,15 +2,14 @@ import pygame
 
 from enum import Enum
 
-from r.UIElement import *
-from r.game import *
-from r.main import *
+from sprites.UIElement import *
+import r
 from game import *
 
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
     game_state = GameState.MENU
 
     while True:
@@ -26,27 +25,27 @@ def main():
 
 def show_menu(screen):
     start_btn = UIElement(
-        center_position=(SCREEN_WIDTH/2, 450), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+        center_position=(r.game.SCREEN_WIDTH/2, 450), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
         font_size=45,
-        bg_rgb=BLUE,
-        text_rgb=WHITE,
-        text=r_start_button_txt,
+        bg_rgb=r.game.BLUE,
+        text_rgb=r.game.WHITE,
+        text=r.main.r_start_button_txt,
         action=GameState.PLAYGAME,
     )
     quit_btn = UIElement(
-        center_position=(SCREEN_WIDTH/2, 550),
+        center_position=(r.game.SCREEN_WIDTH/2, 550),
         font_size=45,
-        bg_rgb=BLUE,
-        text_rgb=WHITE,
-        text=r_quit_button_txt,
+        bg_rgb=r.game.BLUE,
+        text_rgb=r.game.WHITE,
+        text=r.main.r_quit_button_txt,
         action=GameState.QUIT,
     )
     game_name = UIElement(
-        center_position=(SCREEN_WIDTH/2, 220),
+        center_position=(r.game.SCREEN_WIDTH/2, 220),
         font_size=135,
-        bg_rgb=BLUE,
-        text_rgb=WHITE,
-        text=r_title_label_txt,
+        bg_rgb=r.game.BLUE,
+        text_rgb=r.game.WHITE,
+        text=r.main.r_title_label_txt,
         action=None,
     )
 
@@ -59,7 +58,7 @@ def show_menu(screen):
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 mouse_up = True
-        screen.fill(BLUE)
+        screen.fill(r.game.BLUE)
 
         for button in buttons:
             ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
