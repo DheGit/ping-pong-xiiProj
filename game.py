@@ -2,9 +2,9 @@ import pygame
 
 from enum import Enum
 
-from res.rgame import *
-from res.rmain import *
-from res.UIElement import *
+from r.game import *
+from r.main import *
+from r.UIElement import *
 from sprites.Paddle import *
 from sprites.Ball import *
 
@@ -22,7 +22,7 @@ lastUp2 = FPS
 def collides():
     if (ball.x <= PADDLE_MARGIN + PADDLE_WIDTH and ball.x >= PADDLE_MARGIN + PADDLE_WIDTH - ball.speed*3) and (ball.y >= paddle1.rect.y and ball.y <=paddle1.rect.y + PADDLE_HEIGHT):
         return 1
-    if (ball.x >= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH) and ball.x <= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH) + ball.speed*3)and (ball.y >= paddle2.rect.y and ball.y <=paddle2.rect.y + PADDLE_HEIGHT):
+    if (ball.x >= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH + PADDLE_WIDTH) and ball.x <= SCREEN_WIDTH - (PADDLE_MARGIN + BALL_WIDTH + PADDLE_WIDTH) + ball.speed*3)and (ball.y >= paddle2.rect.y and ball.y <=paddle2.rect.y + PADDLE_HEIGHT):
         return 2
     return 0
 
@@ -80,7 +80,7 @@ def play_game(screen):
 
         if collides() == 2:
             diff = (paddle2.rect.y + PADDLE_HEIGHT/2) - (ball.rect.y+BALL_HEIGHT/2) 
-            ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+2)
+            ball.x = SCREEN_WIDTH - (PADDLE_MARGIN+BALL_WIDTH+PADDLE_WIDTH+2)
             ball.bounce(-diff)
             updateScore(2)
 
