@@ -12,4 +12,6 @@ r_quit_button_txt = "Quit"
 r_start_button_txt = "Start"
 r_enter_button_txt = "Enter"
 
+r_playagain_button_txt = "Play Again"
+
 r_coming_up_title = "Under Development"
