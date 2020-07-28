@@ -1,7 +1,7 @@
 import pygame
 import pygame.freetype
 
-from r.UIElement import *
+from sprites.UIElement import *
 from r.game import *
 from r.main import *
 
