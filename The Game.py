@@ -2,9 +2,9 @@ import pygame
 
 from enum import Enum
 
-from res.UIElement import *
-from res.rgame import *
-from res.rmain import *
+from r.UIElement import *
+from r.game import *
+from r.main import *
 from game import *
 
 def main():
