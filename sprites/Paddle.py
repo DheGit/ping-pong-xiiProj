@@ -1,5 +1,4 @@
 import pygame
-from res.rgame import *
 
 paddle_colour_default = (255,255,255)
 

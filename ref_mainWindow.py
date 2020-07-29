@@ -30,20 +30,14 @@ class UIElement(Sprite):
         """
         self.mouse_over = False
 
-        default_image = create_surface_with_text(
-            text=text, font_size=font_size, text_rgb=text_rgb, bg_rgb=bg_rgb
-        )
+        default_image = create_surface_with_text(text=text, font_size=font_size, text_rgb=text_rgb, bg_rgb=bg_rgb)
 
-        highlighted_image = create_surface_with_text(
-            text=text, font_size=font_size * 1.2, text_rgb=text_rgb, bg_rgb=bg_rgb
-        )
+        highlighted_image = create_surface_with_text(text=text, font_size=font_size * 1.2, text_rgb=text_rgb, bg_rgb=bg_rgb)
 
         self.images = [default_image, highlighted_image]
 
-        self.rects = [
-            default_image.get_rect(center=center_position),
-            highlighted_image.get_rect(center=center_position),
-        ]
+        self.rects = [default_image.get_rect(center=center_position),
+            highlighted_image.get_rect(center=center_position)]
 
         self.action = action
 
