@@ -6,18 +6,28 @@ from sprites.UIElement import *
 import r
 from game import *
 
+import game_as_class
+
 def main():
     pygame.init()
 
     screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
     game_state = GameState.MENU
 
+    game=game_as_class.Game(screen, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.game.SCORE_MARGIN, r.colors.BLACK, r.game.FPS)
+    game.setMovables(r.game.BALL_HEIGHT,(r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE)
+    game.setPaddleMargin(r.game.PADDLE_MARGIN)
+    game.setPaddleSpeed(r.game.PADDLE_SPEED)
+    game.setBallResetMargin(r.game.BALL_RESET_Y_MARGIN)
+    game.setBounceBias(r.game.PADDLE_BOUNCE_BIAS)
+
     while True:
         if game_state == GameState.MENU:
             game_state = show_menu(screen)
 
         if game_state == GameState.PLAYGAME:
-            game_state = play_game(screen)
+            # game_state = play_game(screen)
+            start_game_aliter(screen, game)
 
         if game_state == GameState.QUIT:
             pygame.quit()
@@ -67,6 +77,10 @@ def show_menu(screen):
             button.draw(screen)
 
         pygame.display.flip()
+
+def start_game_aliter(screen,game):
+    game.play()
+    game_state=GameState.MENU
 
 class GameState(Enum):
     QUIT=-1
