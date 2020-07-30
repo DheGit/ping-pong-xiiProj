@@ -27,7 +27,15 @@ def main():
 
         if game_state == GameState.PLAYGAME:
             # game_state = play_game(screen)
-            start_game_aliter(screen, game)
+            game_state = start_game_aliter(screen, game)
+
+        if game_state == GameState.PAUSE:
+            print("Pause GameState")
+            game_state = GameState.MENU #TODO: Invoke the respective function call here
+
+        if game_state == GameState.ENDGAME:
+            print("Endgame GameState")
+            game_state = GameState.MENU  #TODO: Invoke the respective function call here
 
         if game_state == GameState.QUIT:
             pygame.quit()
@@ -79,8 +87,18 @@ def show_menu(screen):
         pygame.display.flip()
 
 def start_game_aliter(screen,game):
-    game.play()
-    game_state=GameState.MENU
+    global game_state
+    new_state = game.play()
+
+    if new_state == game_as_class.CB_PAUSE:
+        return GameState.PAUSE
+    elif new_state == game_as_class.CB_ENDGAME:
+        return GameState.ENDGAME
+    elif new_state == game_as_class.CB_RETURN:
+        return GameState.MENU
+    elif new_state == game_as_class.CB_QUIT:
+        return GameState.QUIT
+    return GameState.MENU
 
 class GameState(Enum):
     QUIT=-1
