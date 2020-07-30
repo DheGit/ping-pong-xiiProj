@@ -6,6 +6,10 @@ from sprites.Ball import *
 
 from r import colors
 
+CB_RETURN = 0
+CB_PAUSE = 1
+CB_ENDGAME = 2
+CB_QUIT = 3
 
 """
 A class enclosing the game logic. All dimens are tuples (width,height)
@@ -18,12 +22,16 @@ class Game():
 		self.screen_dimen=screen_dimen
 		self.bg_color=bg_color
 
+		self.reset()
+
+		self.fps=fps
+
+	def reset(self):
 		self.lastUp1=0
 		self.lastUp2=0
 		self.score1=0
 		self.score2=0
 
-		self.fps=fps
 
 	def setMovables(self, ball_radius, paddle_dimen, color):
 		self.paddle_dimen=paddle_dimen
@@ -83,6 +91,7 @@ class Game():
 	        for event in pygame.event.get():
 	            if event.type == pygame.QUIT:
 	            	exit_window = True
+	            	return CB_QUIT
 	            
 	        if self.ball.x > self.paddle_margin + self.paddle_dimen[0] and self.ball.x < self.screen_dimen[0] - (self.paddle_margin + self.paddle_dimen[0]):
 	            self.lastUp1 += 1
@@ -116,6 +125,8 @@ class Game():
 
 	        if keys[pygame.K_ESCAPE]:
 	            exit_window = True
+	            self.reset()
+	            return CB_RETURN
 	            
 	        if keys[pygame.K_F11]:
 	            self.screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
@@ -136,19 +147,26 @@ class Game():
 	        text2 = font.render(str(self.score2),1,colors.WHITE)
 	        self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
 
+	        # if self.score1 == 10 or self.score2 == 10:
+	        #     self.screen.fill(colors.BLACK)
+	        #     text3 = font.render("WINS",1,colors.WHITE)
+	        #     text4 = font.render("PLAYER 1",1,colors.WHITE)
+	        #     text5 = font.render("PLAYER 2",1,colors.WHITE)
+
+	        #     if self.score1 == 10:
+	        #         self.screen.blit(text4,(self.screen_dimen[0]//2 - 120,self.screen_dimen[1]//2 - 74))
+	        #         self.screen.blit(text3,(self.screen_dimen[0]//2 - 75,self.screen_dimen[1]//2 - 4))
+
+	        #     else:
+	        #         self.screen.blit(text5,(self.screen_dimen[0]//2 - 120,self.screen_dimen[1]//2 - 74))
+	        #         self.screen.blit(text3,(self.screen_dimen[0]//2 - 75,self.screen_dimen[1]//2 - 4))
+
 	        if self.score1 == 10 or self.score2 == 10:
-	            self.screen.fill(colors.BLACK)
-	            text3 = font.render("WINS",1,colors.WHITE)
-	            text4 = font.render("PLAYER 1",1,colors.WHITE)
-	            text5 = font.render("PLAYER 2",1,colors.WHITE)
+	        	self.reset()
+	        	return CB_ENDGAME
 
-	            if self.score1 == 10:
-	                self.screen.blit(text4,(self.screen_dimen[0]//2 - 120,self.screen_dimen[1]//2 - 74))
-	                self.screen.blit(text3,(self.screen_dimen[0]//2 - 75,self.screen_dimen[1]//2 - 4))
-
-	            else:
-	                self.screen.blit(text5,(self.screen_dimen[0]//2 - 120,self.screen_dimen[1]//2 - 74))
-	                self.screen.blit(text3,(self.screen_dimen[0]//2 - 75,self.screen_dimen[1]//2 - 4))
+	       	if keys[pygame.K_p]:
+	       		return CB_PAUSE
 
 	        pygame.display.flip()
 
