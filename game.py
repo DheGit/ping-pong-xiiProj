@@ -136,40 +136,6 @@ def play_game(screen):
             score1 = 0
             score2 = 0
 
-            playagain_btn = UIElement(
-                center_position=(SCREEN_WIDTH/2, 550),
-                font_size=45,
-                bg_rgb=BLACK,
-                text_rgb=WHITE,
-                text=r_playagain_button_txt,
-                action=play_game(screen),
-            )
-            quit_btn = UIElement(
-                center_position=(SCREEN_WIDTH/2, 650),
-                font_size=45,
-                bg_rgb=BLACK,
-                text_rgb=WHITE,
-                text=r_quit_button_txt,
-                action=pygame.quit(),
-            )
-
-            buttons = [playagain_btn, quit_btn]
-
-            while True:
-                mouse_up = False
-                for event in pygame.event.get():
-                    if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                        mouse_up = True
-                screen.fill(BLACK)
-
-                for button in buttons:
-                    ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
-                    if ui_action is not None:
-                        return ui_action
-                    button.draw(screen)
-
-                pygame.display.flip()
-
         pygame.display.flip()
 
         clock.tick(FPS)
