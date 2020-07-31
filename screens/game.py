@@ -9,7 +9,7 @@ from r import colors
 CB_RETURN = 0
 CB_PAUSE = 1
 CB_ENDGAME = 2
-CB_QUIT = 3
+CB_QUIT = -1
 
 """
 A class enclosing the game logic. All dimens are tuples (width,height)
