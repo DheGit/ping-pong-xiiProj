@@ -14,7 +14,7 @@ CB_QUIT = 3
 """
 A class enclosing the game logic. All dimens are tuples (width,height)
 """
-class Game():
+class GameScreen():
 
 	def __init__(self, screen, screen_dimen, score_margin, bg_color, fps):
 		self.screen=screen
@@ -57,9 +57,9 @@ class Game():
 		self.bounce_bias=bounce_bias
 
 	def collides(self):
-	    if (self.ball.x <= self.paddle1.rect.x + self.paddle_dimen[0] and self.ball.x >= self.paddle1.rect.x + self.paddle_dimen[0] - self.ball.speed*3) and (self.ball.y >= self.paddle1.rect.y and self.ball.y <=self.paddle1.rect.y + self.paddle_dimen[1]):
+	    if (self.ball.x <= self.paddle1.rect.x + self.paddle_dimen[0] and self.ball.x >= self.paddle1.rect.x + self.paddle_dimen[0] - self.ball.speed*3) and (self.ball.y + self.ball_dimen[1] >= self.paddle1.rect.y and self.ball.y <=self.paddle1.rect.y + self.paddle_dimen[1]):
 	        return 1
-	    if (self.ball.x >= self.paddle2.rect.x - self.ball.ball_dimen[0] and self.ball.x <= self.paddle2.rect.x - self.ball.ball_dimen[0] + self.ball.speed*3)and (self.ball.y >= self.paddle2.rect.y and self.ball.y <=self.paddle2.rect.y + self.paddle_dimen[1]):
+	    if (self.ball.x >= self.paddle2.rect.x - self.ball.ball_dimen[0] and self.ball.x <= self.paddle2.rect.x - self.ball.ball_dimen[0] + self.ball.speed*3) and (self.ball.y + self.ball_dimen[1] >= self.paddle2.rect.y and self.ball.y <=self.paddle2.rect.y + self.paddle_dimen[1]):
 	        return 2
 	    return 0
 
