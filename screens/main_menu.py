@@ -4,7 +4,7 @@ import r
 
 from sprites.UIElement import *
 
-CB_PLAY = 4
+CB_NAMES = 3
 CB_QUIT = -1
 
 class MainMenuScreen():
@@ -18,7 +18,7 @@ class MainMenuScreen():
 	        bg_rgb=r.colors.BLUE,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_start_button_txt,
-	        action=CB_PLAY,
+	        action=CB_NAMES,
 	    )
 	    quit_btn = UIElement(
 	        center_position=(r.game.SCREEN_WIDTH/2, 550),
