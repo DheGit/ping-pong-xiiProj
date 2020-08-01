@@ -12,7 +12,7 @@ class PauseScreen():
         self.screen = screen
 
     def pause_game(self):
-        screen.fill(BLACK)
+        self.screen.fill(r.colors.BLACK)
         
         resume_btn = UIElement(
             center_position=(r.game.SCREEN_WIDTH/2, 450), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 

@@ -8,7 +8,7 @@ import r
 import screens
 
 def main():
-    global game, main_menu, pause
+    global game, main_menu, pauseScreen
     pygame.init()
 
     screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
@@ -24,7 +24,7 @@ def main():
 
     main_menu=screens.main_menu.MainMenuScreen(screen)
 
-    pause=screens.pause.PauseScreen(screen)
+    pauseScreen=screens.pause.PauseScreen(screen)
 
     while True:
         if game_state == GameState.MENU:
@@ -34,7 +34,7 @@ def main():
             game_state = start_game(screen, game)
 
         if game_state == GameState.PAUSE:
-            game_state = pause(screen) #TODO: Invoke the respective function call here
+            game_state = pause_game(screen) #TODO: Invoke the respective function call here
 
         if game_state == GameState.ENDGAME:
             print("Endgame GameState")
@@ -68,8 +68,8 @@ def start_game(screen,game):
         return GameState.QUIT
     return GameState.MENU
 
-def pause(screen):
-    new_state = pause.pause_game()
+def pause_game(screen):
+    new_state = pauseScreen.pause_game()
 
     if new_state == screens.pause.CB_QUIT:
         return GameState.QUIT
