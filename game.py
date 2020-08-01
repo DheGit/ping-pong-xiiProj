@@ -136,6 +136,9 @@ def play_game(screen):
             score1 = 0
             score2 = 0
 
+            if keys[pygame.K_ESCAPE]:
+                exit_window = True
+
         pygame.display.flip()
 
         clock.tick(FPS)
