@@ -8,8 +8,9 @@ import r
 import screens
 
 def main():
-    global game, main_menu
+    global game, main_menu, pause_screen
     pygame.init()
+    pygame.display.set_caption(r.main.r_title_label_txt)
 
     screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
     game_state = GameState.MENU
@@ -24,6 +25,8 @@ def main():
 
     main_menu=screens.main_menu.MainMenuScreen(screen)
 
+    pause_screen=screens.pause.PauseScreen(screen)
+
     while True:
         if game_state == GameState.MENU:
             game_state = start_menu(screen)
@@ -32,8 +35,7 @@ def main():
             game_state = start_game(screen, game)
 
         if game_state == GameState.PAUSE:
-            print("Pause GameState")
-            game_state = GameState.MENU #TODO: Invoke the respective function call here
+            game_state = pause_game(screen) #TODO: Invoke the respective function call here
 
         if game_state == GameState.ENDGAME:
             print("Endgame GameState")
@@ -66,6 +68,18 @@ def start_game(screen,game):
     elif new_state == screens.game.CB_QUIT:
         return GameState.QUIT
     return GameState.MENU
+
+def pause_game(screen):
+    new_state = pause_screen.pause_game()
+
+    if new_state == screens.pause.CB_QUIT:
+        return GameState.QUIT
+    if new_state == screens.pause.CB_PLAY:
+        return GameState.PLAYGAME
+    if new_state == screens.game.CB_RETURN:
+        return GameState.MENU
+
+    return GameState.QUIT
 
 class GameState(Enum):
     QUIT=-1
