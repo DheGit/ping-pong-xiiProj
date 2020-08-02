@@ -8,7 +8,7 @@ import r
 import screens
 
 def main():
-    global game, main_menu, pause_screen
+    global game, main_menu, pause_screen, endgame_screen
     pygame.init()
     pygame.display.set_caption(r.main.r_title_label_txt)
 
@@ -22,10 +22,11 @@ def main():
     game.setBallResetMargin(r.game.BALL_RESET_Y_MARGIN)
     game.setBounceBias(r.game.PADDLE_BOUNCE_BIAS)
 
-
     main_menu=screens.main_menu.MainMenuScreen(screen)
 
     pause_screen=screens.pause.PauseScreen(screen)
+
+    endgame_screen=screens.endgame.EndgameScreen(screen, r.colors.BLACK)
 
     while True:
         if game_state == GameState.MENU:
@@ -35,11 +36,10 @@ def main():
             game_state = start_game(screen, game)
 
         if game_state == GameState.PAUSE:
-            game_state = pause_game(screen) #TODO: Invoke the respective function call here
-
+            game_state = pause_game(screen)
+            
         if game_state == GameState.ENDGAME:
-            print("Endgame GameState")
-            game_state = GameState.MENU  #TODO: Invoke the respective function call here
+            game_state = launch_endgame(screen)
 
         if game_state == GameState.QUIT:
             pygame.quit()
@@ -56,7 +56,6 @@ def start_menu(screen):
     return GameState.QUIT
 
 def start_game(screen,game):
-    global game_state
     new_state = game.play()
 
     if new_state == screens.game.CB_PAUSE:
@@ -80,6 +79,18 @@ def pause_game(screen):
         return GameState.MENU
 
     return GameState.QUIT
+
+def launch_endgame(screen):
+    endgame_screen.setWinnerName(game.getWinnerName())
+
+    new_state=endgame_screen.showEndScreen()
+
+    if new_state==screens.endgame.CB_PLAY:
+        return GameState.PLAYGAME
+    if new_state==screens.endgame.CB_RETURN:
+        return GameState.MENU
+
+    return GameState.MENU
 
 class GameState(Enum):
     QUIT=-1

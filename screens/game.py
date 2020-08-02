@@ -26,6 +26,11 @@ class GameScreen():
 
 		self.fps=fps
 
+		self.p1Name="Player1"
+		self.p2Name="Player2"
+
+		self.winnerName="TheHulk" # :P
+
 	def reset(self):
 		self.lastUp1=0
 		self.lastUp2=0
@@ -55,6 +60,15 @@ class GameScreen():
 
 	def setBounceBias(self, bounce_bias):
 		self.bounce_bias=bounce_bias
+
+	def setPlayer1Name(self, p1Name):
+		self.p1Name=p1Name
+
+	def setPlayer1Name(self, p1Name):
+		self.p2Name=p2Name
+
+	def getWinnerName(self):
+		return self.winnerName
 
 	def collides(self):
 	    if (self.ball.x <= self.paddle1.rect.x + self.paddle_dimen[0] and self.ball.x >= self.paddle1.rect.x + self.paddle_dimen[0] - self.ball.speed*3) and (self.ball.y + self.ball_dimen[1] >= self.paddle1.rect.y and self.ball.y <=self.paddle1.rect.y + self.paddle_dimen[1]):
@@ -102,14 +116,12 @@ class GameScreen():
 	            diff = (self.paddle1.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2)
 	            self.ball.x = self.paddle_margin+self.paddle_dimen[0] + 2
 	            self.ball.bounce(diff)
-	            # updateScore(1)
 	            self.score1+=1
 
 	        if self.collides() == 2:
 	            diff = (self.paddle2.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2) 
 	            self.ball.x = self.screen_dimen[0] - (self.paddle_margin+self.ball_dimen[0]+self.paddle_dimen[0]+2)
 	            self.ball.bounce(-diff)
-	            # updateScore(2)
 	            self.score2+=1
 
 	        keys = pygame.key.get_pressed()
@@ -147,21 +159,11 @@ class GameScreen():
 	        text2 = font.render(str(self.score2),1,colors.WHITE)
 	        self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
 
-	        # if self.score1 == 10 or self.score2 == 10:
-	        #     self.screen.fill(colors.BLACK)
-	        #     text3 = font.render("WINS",1,colors.WHITE)
-	        #     text4 = font.render("PLAYER 1",1,colors.WHITE)
-	        #     text5 = font.render("PLAYER 2",1,colors.WHITE)
-
-	        #     if self.score1 == 10:
-	        #         self.screen.blit(text4,(self.screen_dimen[0]//2 - 120,self.screen_dimen[1]//2 - 74))
-	        #         self.screen.blit(text3,(self.screen_dimen[0]//2 - 75,self.screen_dimen[1]//2 - 4))
-
-	        #     else:
-	        #         self.screen.blit(text5,(self.screen_dimen[0]//2 - 120,self.screen_dimen[1]//2 - 74))
-	        #         self.screen.blit(text3,(self.screen_dimen[0]//2 - 75,self.screen_dimen[1]//2 - 4))
-
 	        if self.score1 == 10 or self.score2 == 10:
+	        	if self.score1==10:
+	        		self.winnerName=self.p1Name
+	        	if self.score2==10:
+	        		self.winnerName=self.p2Name
 	        	self.reset()
 	        	return CB_ENDGAME
 
