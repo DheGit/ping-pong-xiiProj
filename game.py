@@ -39,7 +39,6 @@ def updateScore(playerNum):
 def play_game(screen):
     pygame.init()
     global score1,score2, lastUp1,lastUp2, paddle1,paddle2, ball, screen_size
-    pygame.display.set_caption("Ping Pong")
 
     clock = pygame.time.Clock()
 
