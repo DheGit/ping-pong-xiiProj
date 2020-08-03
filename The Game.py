@@ -89,6 +89,8 @@ def launch_endgame(screen):
         return GameState.PLAYGAME
     if new_state==screens.endgame.CB_RETURN:
         return GameState.MENU
+    if new_state == screens.pause.CB_QUIT:
+        return GameState.QUIT
 
     return GameState.MENU
 
