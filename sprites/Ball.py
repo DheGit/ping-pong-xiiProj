@@ -35,7 +35,7 @@ class Ball(pygame.sprite.Sprite):
         self.direction += (b_param/self.paddle_dimen[1])*self.bounce_bias
 
     def reset(self):
-        self.speed = 5.0
+        self.speed = 3.0
         self.y = random.randrange(self.reset_margin + self.score_margin , self.screen_dimen[1] - self.reset_margin)
         self.x = self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
 

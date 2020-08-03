@@ -21,6 +21,7 @@ def main():
     game.setPaddleSpeed(r.game.PADDLE_SPEED)
     game.setBallResetMargin(r.game.BALL_RESET_Y_MARGIN)
     game.setBounceBias(r.game.PADDLE_BOUNCE_BIAS)
+    game.setBounceAcceleration(r.game.BALL_BOUNCE_ACC)
 
     main_menu=screens.main_menu.MainMenuScreen(screen)
 

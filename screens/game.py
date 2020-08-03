@@ -31,6 +31,8 @@ class GameScreen():
 
 		self.winnerName="TheHulk" # :P
 
+		self.bounce_acceleration = 1
+
 	def reset(self):
 		self.lastUp1=0
 		self.lastUp2=0
@@ -66,6 +68,9 @@ class GameScreen():
 
 	def setPlayer1Name(self, p1Name):
 		self.p2Name=p2Name
+
+	def setBounceAcceleration(self, bounce_acceleration):
+		self.bounce_acceleration = bounce_acceleration
 
 	def getWinnerName(self):
 		return self.winnerName
@@ -117,12 +122,14 @@ class GameScreen():
 	            self.ball.x = self.paddle_margin+self.paddle_dimen[0] + 2
 	            self.ball.bounce(diff)
 	            self.score1+=1
-
+	            self.ball.speed = self.ball.speed*self.bounce_acceleration
+	            
 	        if self.collides() == 2:
 	            diff = (self.paddle2.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2) 
 	            self.ball.x = self.screen_dimen[0] - (self.paddle_margin+self.ball_dimen[0]+self.paddle_dimen[0]+2)
 	            self.ball.bounce(-diff)
 	            self.score2+=1
+	            self.ball.speed = self.ball.speed*self.bounce_acceleration
 
 	        keys = pygame.key.get_pressed()
 	        
