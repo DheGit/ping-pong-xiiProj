@@ -72,11 +72,14 @@ def start_game(screen,game):
 def pause_game(screen):
     new_state = pause_screen.pause_game()
 
+    global game
+
     if new_state == screens.pause.CB_QUIT:
         return GameState.QUIT
     if new_state == screens.pause.CB_PLAY:
         return GameState.PLAYGAME
     if new_state == screens.game.CB_RETURN:
+        game.reset()
         return GameState.MENU
 
     return GameState.QUIT
