@@ -34,6 +34,8 @@ class GameScreen():
 
 		self.winnerName="TheHulk" # :P
 
+		self.game_obj = ""
+
 		self.bounce_acceleration = 1
 
 	def reset(self):
@@ -41,42 +43,6 @@ class GameScreen():
 		self.lastUp2=0
 		self.score1=0
 		self.score2=0
-
-
-	def setMovables(self, ball_radius, paddle_dimen, color):
-		self.paddle_dimen=paddle_dimen
-		self.ball_dimen=(ball_radius,ball_radius)
-
-		self.ball=Ball(self.ball_dimen, self.screen_dimen, self.paddle_dimen, self.score_margin)
-		self.ball_group=pygame.sprite.Group()
-		self.ball_group.add(self.ball)
-
-		self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
-		self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
-
-	def setPaddleMargin(self, paddle_margin):
-		self.paddle_margin=paddle_margin
-
-	def setPaddleSpeed(self, paddle_speed):
-		self.paddle_speed=paddle_speed
-
-	def setBallResetMargin(self, ball_reset_margin):
-		self.ball_reset_margin=ball_reset_margin
-
-	def setBounceBias(self, bounce_bias):
-		self.bounce_bias=bounce_bias
-
-	def setPlayer1Name(self, p1Name):
-		self.p1Name=p1Name
-
-	def setPlayer1Name(self, p1Name):
-		self.p2Name=p2Name
-
-	def setBounceAcceleration(self, bounce_acceleration):
-		self.bounce_acceleration = bounce_acceleration
-
-	def getWinnerName(self):
-		return self.winnerName
 
 	def collides(self):
 	    if (self.ball.x <= self.paddle1.rect.x + self.paddle_dimen[0] and self.ball.x >= self.paddle1.rect.x + self.paddle_dimen[0] - self.ball.speed*3) and (self.ball.y + self.ball_dimen[1] >= self.paddle1.rect.y and self.ball.y <=self.paddle1.rect.y + self.paddle_dimen[1]):
@@ -209,17 +175,72 @@ class GameScreen():
 			bg_rgb=self.bg_color,
 			text_rgb=fg_color_default)
 
-		for i in range(1,self.fps*3+1):
+		go=UIElement(
+			center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
+			text="GO!",
+			font_size=120,
+			bg_rgb=self.bg_color,
+			text_rgb=fg_color_default)
+
+		game_objective=UIElement(
+			center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2+100),
+			text=self.game_obj,
+			font_size=40,
+			bg_rgb=self.bg_color,
+			text_rgb=fg_color_default)
+
+		for i in range(1,self.fps*4+1):
 			self.screen.fill(self.bg_color)
 
-			num=3-i//self.fps
+			game_objective.draw(self.screen)
+			num=4-i//self.fps
 			if num==1:
-				one.draw(self.screen)
+				go.draw(self.screen)
 			elif num==2:
-				two.draw(self.screen)
+				one.draw(self.screen)
 			elif num==3:
+				two.draw(self.screen)
+			elif num==4:
 				three.draw(self.screen)
 
 			pygame.display.flip()
 			
 			clock.tick(self.fps)
+
+	def setGameObjective(self, game_obj):
+		self.game_obj=game_obj
+
+	def setMovables(self, ball_radius, paddle_dimen, color):
+		self.paddle_dimen=paddle_dimen
+		self.ball_dimen=(ball_radius,ball_radius)
+
+		self.ball=Ball(self.ball_dimen, self.screen_dimen, self.paddle_dimen, self.score_margin)
+		self.ball_group=pygame.sprite.Group()
+		self.ball_group.add(self.ball)
+
+		self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
+		self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
+
+	def setPaddleMargin(self, paddle_margin):
+		self.paddle_margin=paddle_margin
+
+	def setPaddleSpeed(self, paddle_speed):
+		self.paddle_speed=paddle_speed
+
+	def setBallResetMargin(self, ball_reset_margin):
+		self.ball_reset_margin=ball_reset_margin
+
+	def setBounceBias(self, bounce_bias):
+		self.bounce_bias=bounce_bias
+
+	def setPlayer1Name(self, p1Name):
+		self.p1Name=p1Name
+
+	def setPlayer1Name(self, p1Name):
+		self.p2Name=p2Name
+
+	def setBounceAcceleration(self, bounce_acceleration):
+		self.bounce_acceleration = bounce_acceleration
+
+	def getWinnerName(self):
+		return self.winnerName
