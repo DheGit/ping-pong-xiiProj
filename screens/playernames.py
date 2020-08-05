@@ -3,17 +3,17 @@ import pygame
 import r
 from r.main import *
 from r.colors import *
+from r.game import *
 
 from sprites.UIElement import *
 
 CB_PLAY = 4
 
 class PlayerNamesScreen():
-    
     def __init__(self, screen):
         self.screen = screen
 
-    def player_names(self):
+    def names(self):
         Player_Names = UIElement(
             center_position = (SCREEN_WIDTH/2, 150),
             font_size = 70,
@@ -40,7 +40,7 @@ class PlayerNamesScreen():
         )
         enter_btn = UIElement(
             center_position = (SCREEN_WIDTH/2, 550),
-            font_size = 45,
+            font_size = 55,
             bg_rgb = r.colors.BLUE,
             text_rgb = r.colors.WHITE,
             text = r_enter_button_txt,
