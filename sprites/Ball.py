@@ -50,7 +50,7 @@ class Ball(pygame.sprite.Sprite):
         return r1==r2
 
     def reset(self):
-        self.speed = 3.0
+        self.speed = 4.0
         self.y = random.randrange(self.reset_margin + self.score_margin , self.screen_dimen[1] - self.reset_margin)
         self.x = self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
 
