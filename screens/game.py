@@ -189,7 +189,7 @@ class GameScreen():
 		game_objective=UIElement(
 			center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2+100),
 			text=self.game_obj,
-			font_size=40,
+			font_size=70,
 			bg_rgb=self.bg_color,
 			text_rgb=fg_color_default)
 
