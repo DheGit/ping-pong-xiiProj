@@ -13,8 +13,8 @@ class MainMenuScreen():
 
 	def show_menu(self):
 	    start_btn = UIElement(
-	        center_position=(r.game.SCREEN_WIDTH/2, 450), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-	        font_size=45,
+	        center_position=(r.game.SCREEN_WIDTH/2, 430), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+	        font_size=60,
 	        bg_rgb=r.colors.BLUE,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_start_button_txt,
@@ -22,7 +22,7 @@ class MainMenuScreen():
 	    )
 	    quit_btn = UIElement(
 	        center_position=(r.game.SCREEN_WIDTH/2, 550),
-	        font_size=45,
+	        font_size=60,
 	        bg_rgb=r.colors.BLUE,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_quit_button_txt,

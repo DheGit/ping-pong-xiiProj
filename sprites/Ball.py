@@ -31,11 +31,26 @@ class Ball(pygame.sprite.Sprite):
         self.reset()
 
     def bounce(self,b_param):
+        p_dir=self.direction
         self.direction = (180-self.direction)%360
-        self.direction += (b_param/self.paddle_dimen[1])*self.bounce_bias
+        if not self.same_dir(p_dir,self.direction + (b_param/self.paddle_dimen[1])*self.bounce_bias):
+            self.direction += (b_param/self.paddle_dimen[1])*self.bounce_bias
+
+    def same_dir(self,dir1,dir2):
+        dir1=dir1%360
+        dir2=dir2%360
+        r1=-1
+        r2=-1
+
+        if (dir1<=90 and dir2>=0) or (dir1>=270 and dir1<=360):
+            r1=1
+        if (dir2<=90 and dir2>=0) or (dir2>=270 and dir2<=360):
+            r2=1
+
+        return r1==r2
 
     def reset(self):
-        self.speed = 5.0
+        self.speed = 4.0
         self.y = random.randrange(self.reset_margin + self.score_margin , self.screen_dimen[1] - self.reset_margin)
         self.x = self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
 
@@ -71,3 +86,20 @@ class Ball(pygame.sprite.Sprite):
 
     def setBallSpeed(self, speed):
         self.speed = speed
+
+if __name__=="__main__":
+    dir1=45
+    dir2=315
+    dir1=dir1%360
+    dir2=dir2%360
+    r1=-1
+    r2=-1
+
+    if (dir1<=90 and dir2>=0) or (dir1>=270 and dir1<=360):
+        r1=1
+    if (dir2<=90 and dir2>=0) or (dir2>=270 and dir2<=360):
+        r2=1
+
+    print(str(dir1) + " , " + str(dir2))
+    print(r1==r2)  
+    # return r1==r2
