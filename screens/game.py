@@ -93,6 +93,7 @@ class GameScreen():
 
 	    self.ball.setResetMargin(self.ball_reset_margin)
 	    self.ball.setBounceBias(self.bounce_bias)
+	    self.ball.reset()
 	    self.ball.update()
 
 	    movingsprites = pygame.sprite.Group()
@@ -171,7 +172,6 @@ class GameScreen():
 	        	if self.score2==10:
 	        		self.winnerName=self.p2Name
 	        	self.reset()
-	        	self.ball.reset()
 	        	return CB_ENDGAME
 
 	       	if keys[pygame.K_p]:
