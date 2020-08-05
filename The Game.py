@@ -68,6 +68,7 @@ def start_game(screen,game):
         return GameState.MENU
     elif new_state == screens.game.CB_QUIT:
         return GameState.QUIT
+    
     return GameState.MENU
 
 def pause_game(screen):
@@ -83,7 +84,7 @@ def pause_game(screen):
         game.reset()
         return GameState.MENU
 
-    return GameState.QUIT
+    return GameState.MENU
 
 def launch_endgame(screen):
     endgame_screen.setWinnerName(game.getWinnerName())
