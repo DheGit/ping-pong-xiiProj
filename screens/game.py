@@ -3,6 +3,7 @@ import pygame.freetype
 
 from sprites.Paddle import *
 from sprites.Ball import *
+from sprites.UIElement import *
 
 from r import colors
 
@@ -10,6 +11,8 @@ CB_RETURN = 0
 CB_PAUSE = 1
 CB_ENDGAME = 2
 CB_QUIT = -1
+
+fg_color_default=(255,255,255)
 
 """
 A class enclosing the game logic. All dimens are tuples (width,height)
@@ -100,6 +103,8 @@ class GameScreen():
 	    movingsprites.add(self.paddle1)
 	    movingsprites.add(self.paddle2)
 	    movingsprites.add(self.ball)
+
+	    self.countdown()
 	    
 	    exit_window = False
 	    
@@ -180,3 +185,41 @@ class GameScreen():
 	        pygame.display.flip()
 
 	        clock.tick(self.fps)
+
+	def countdown(self):
+		clock=pygame.time.Clock()
+		three=UIElement(
+			center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
+			text="3",
+			font_size=120,
+			bg_rgb=self.bg_color,
+			text_rgb=fg_color_default)
+
+		two=UIElement(
+			center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
+			text="2",
+			font_size=120,
+			bg_rgb=self.bg_color,
+			text_rgb=fg_color_default)
+
+		one=UIElement(
+			center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
+			text="1",
+			font_size=120,
+			bg_rgb=self.bg_color,
+			text_rgb=fg_color_default)
+
+		for i in range(1,self.fps*3+1):
+			self.screen.fill(self.bg_color)
+
+			num=3-i//self.fps
+			if num==1:
+				one.draw(self.screen)
+			elif num==2:
+				two.draw(self.screen)
+			elif num==3:
+				three.draw(self.screen)
+
+			pygame.display.flip()
+			
+			clock.tick(self.fps)
