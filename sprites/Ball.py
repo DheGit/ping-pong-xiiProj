@@ -13,7 +13,6 @@ class Ball(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface([ball_dimen[0] , ball_dimen[1]])
-        # self.image.fill(ball_color_default)
         pygame.draw.circle(self.image, ball_color_default, (ball_dimen[0]//2, ball_dimen[0]//2),ball_dimen[0]//2)
 
         self.rect = self.image.get_rect()
@@ -21,6 +20,8 @@ class Ball(pygame.sprite.Sprite):
         self.speed = 0
         self.x = 0
         self.y = 0
+        self.px=0
+        self.py=0
         self.direction = 0
         self.bounce_bias=0
         self.reset_margin=0
@@ -50,10 +51,15 @@ class Ball(pygame.sprite.Sprite):
 
         return r1==r2
 
+    def crossed(self,xcor):
+        return (self.x-xcor)*(self.px-xcor) < 0
+
     def reset(self):
         self.speed = 4.0
         self.y = random.randrange(self.reset_margin + self.score_margin , self.screen_dimen[1] - self.reset_margin)
         self.x = self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
+        self.py=self.y
+        self.px=self.x
 
         self.direction = random.randrange(-45,45)
 
@@ -63,6 +69,8 @@ class Ball(pygame.sprite.Sprite):
     def update(self):        
         rads = math.radians(self.direction)
 
+        self.px=self.x
+        self.py=self.y
         self.x += math.cos(rads) * self.speed
         self.y -= math.sin(rads) * self.speed
 
@@ -102,5 +110,4 @@ if __name__=="__main__":
         r2=1
 
     print(str(dir1) + " , " + str(dir2))
-    print(r1==r2)  
-    # return r1==r2
+    print(r1==r2)
