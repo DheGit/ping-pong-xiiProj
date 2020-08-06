@@ -136,7 +136,7 @@ class GameScreen():
 				if self.score1==10:
 					self.winnerName=self.p1Name
 				if self.score2==10:
-					self.winnerName=self.p2Nam
+					self.winnerName=self.p2Name
 					
 				self.reset()
 

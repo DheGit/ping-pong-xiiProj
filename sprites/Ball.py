@@ -13,7 +13,8 @@ class Ball(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface([ball_dimen[0] , ball_dimen[1]])
-        self.image.fill(ball_color_default)
+        # self.image.fill(ball_color_default)
+        pygame.draw.circle(self.image, ball_color_default, (ball_dimen[0]//2, ball_dimen[0]//2),ball_dimen[0]//2)
 
         self.rect = self.image.get_rect()
 
