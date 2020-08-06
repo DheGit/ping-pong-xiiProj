@@ -52,7 +52,7 @@ class Ball(pygame.sprite.Sprite):
         return r1==r2
 
     def crossed(self,xcor):
-        return (self.x-xcor)*(self.px-xcor) < 0
+        return (((self.x+self.px)/2-xcor)*((self.px+self.ppx)/2-self.getXSpeed()-xcor) < 0)
 
     def reset(self):
         self.speed = 4.0
@@ -69,6 +69,8 @@ class Ball(pygame.sprite.Sprite):
     def update(self):        
         rads = math.radians(self.direction)
 
+        self.ppx=self.px
+        self.ppy=self.py
         self.px=self.x
         self.py=self.y
         self.x += math.cos(rads) * self.speed
@@ -95,6 +97,9 @@ class Ball(pygame.sprite.Sprite):
 
     def setBallSpeed(self, speed):
         self.speed = speed
+
+    def getXSpeed(self):
+        return math.cos(math.radians(self.direction)) * self.speed
 
 if __name__=="__main__":
     dir1=45

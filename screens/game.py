@@ -41,8 +41,6 @@ class GameScreen():
 		self.bounce_acceleration = 1
 
 	def reset(self):
-		self.lastUp1=0
-		self.lastUp2=0
 		self.score1=0
 		self.score2=0
 
@@ -77,25 +75,25 @@ class GameScreen():
 				if event.type == pygame.QUIT:
 					exit_window = True
 					return CB_QUIT
-				
-			if self.ball.x > self.paddle_margin + self.paddle_dimen[0] and self.ball.x < self.screen_dimen[0] - (self.paddle_margin + self.paddle_dimen[0]):
-				self.lastUp1 += 1
-				self.lastUp2 += 1
+
 			self.ball.update()
 			
 			if self.collides() == 1:
 				diff = (self.paddle1.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2)
 				self.ball.x = self.paddle_margin+self.paddle_dimen[0] + 2
 				self.ball.bounce(diff)
-				self.score1+=1
 				self.ball.speed = self.ball.speed*self.bounce_acceleration
 				
 			if self.collides() == 2:
 				diff = (self.paddle2.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2) 
 				self.ball.x = self.screen_dimen[0] - (self.paddle_margin+self.ball_dimen[0]+self.paddle_dimen[0]+2)
 				self.ball.bounce(-diff)
-				self.score2+=1
 				self.ball.speed = self.ball.speed*self.bounce_acceleration
+
+			if self.ball.crossed(self.paddle_margin):
+				self.score2+=1
+			if self.ball.crossed(self.screen_dimen[0]-self.paddle_margin):
+				self.score1+=1
 
 			keys = pygame.key.get_pressed()
 			
