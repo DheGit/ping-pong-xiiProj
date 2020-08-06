@@ -2,6 +2,7 @@ r_title_label_txt = "Ping-Pong"
 
 r_p1_name_label_txt = "Enter the name of Player 1 :"
 r_p2_name_label_txt = "Enter the name of Player 2 :"
+r_color_label_txt = "Enter color :"
 r_playernames_label_txt = "Player Names"
 
 r_quit_button_txt = "Quit"
