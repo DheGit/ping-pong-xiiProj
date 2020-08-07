@@ -119,7 +119,7 @@ class GameScreen():
 
             movingsprites.update()
 
-            pygame.draw.line(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
+            pygame.draw.line(self.screen,colors.WHITE,[self.screen_dimen[0]//2,0],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
 
             pygame.draw.line(self.screen,colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
 
@@ -128,10 +128,10 @@ class GameScreen():
             font = pygame.font.Font(None,74)
             
             text1 = font.render(str(self.score1),1,colors.WHITE)
-            self.screen.blit(text1,(int(self.screen_dimen[0]/4),10))
+            self.screen.blit(text1,(int(self.screen_dimen[0]/4),85))
             
             text2 = font.render(str(self.score2),1,colors.WHITE)
-            self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
+            self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),85))
 
             if self.score1 == 10 or self.score2 == 10:
                 if self.score1==10:
