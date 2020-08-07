@@ -50,6 +50,8 @@ def main():
 def start_menu(screen):
     new_state=main_menu.show_menu()
 
+    game.setMovables(r.game.BALL_HEIGHT,(r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE)
+
     if new_state == screens.main_menu.CB_QUIT:
         return GameState.QUIT
     if new_state == screens.main_menu.CB_PLAY:
