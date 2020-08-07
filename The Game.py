@@ -16,11 +16,13 @@ def main():
     game_state = GameState.MENU
 
     game=screens.game.GameScreen(screen, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.game.SCORE_MARGIN, r.colors.BLACK, r.game.FPS)
-    game.setMovables(r.game.BALL_HEIGHT,(r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE)
     game.setPaddleMargin(r.game.PADDLE_MARGIN)
     game.setPaddleSpeed(r.game.PADDLE_SPEED)
     game.setBallResetMargin(r.game.BALL_RESET_Y_MARGIN)
     game.setBounceBias(r.game.PADDLE_BOUNCE_BIAS)
+    game.setBounceAcceleration(r.game.BALL_BOUNCE_ACC)
+    game.setGameObjective(r.game.game_obj_txt)
+    game.setMovables(r.game.BALL_HEIGHT,(r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE)
 
     main_menu=screens.main_menu.MainMenuScreen(screen)
 
@@ -48,6 +50,8 @@ def main():
 def start_menu(screen):
     new_state=main_menu.show_menu()
 
+    game.reset()
+
     if new_state == screens.main_menu.CB_QUIT:
         return GameState.QUIT
     if new_state == screens.main_menu.CB_PLAY:
@@ -66,10 +70,13 @@ def start_game(screen,game):
         return GameState.MENU
     elif new_state == screens.game.CB_QUIT:
         return GameState.QUIT
+    
     return GameState.MENU
 
 def pause_game(screen):
     new_state = pause_screen.pause_game()
+
+    global game
 
     if new_state == screens.pause.CB_QUIT:
         return GameState.QUIT
@@ -78,7 +85,7 @@ def pause_game(screen):
     if new_state == screens.game.CB_RETURN:
         return GameState.MENU
 
-    return GameState.QUIT
+    return GameState.MENU
 
 def launch_endgame(screen):
     endgame_screen.setWinnerName(game.getWinnerName())
