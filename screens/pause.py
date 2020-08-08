@@ -14,41 +14,41 @@ class PauseScreen():
         self.scores=(0,0)
         
     def pause_game(self):
-        score_label=UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 250), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size = 45,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = str(self.scores[0])+" : "+str(self.scores[1]),
-            action = None,
-        )
         paused = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 150), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size = 90,
+            center_position = (r.game.SCREEN_WIDTH/2, 125), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size = 125,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
             text = r.main.r_paused_button_txt,
             action = None,
         )
+        score_label=UIElement(
+            center_position = (r.game.SCREEN_WIDTH/2, 285), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size = 60,
+            bg_rgb = r.colors.BLACK,
+            text_rgb = r.colors.WHITE,
+            text = str(self.scores[0])+" : "+str(self.scores[1]),
+            action = None,
+        )
         resume_btn = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 350), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size = 45,
+            center_position = (r.game.SCREEN_WIDTH/2, 385), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
             text = r.main.r_resume_button_txt,
             action=CB_PLAY,
         )
         return_to_mainmenu_btn = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 450), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size = 45,
+            center_position = (r.game.SCREEN_WIDTH/2, 485), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
             text = r.main.r_return_to_mainmenu_button_txt,
             action=CB_RETURN,
         )
         quit_btn = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 550),
-            font_size = 45,
+            center_position = (r.game.SCREEN_WIDTH/2, 585),
+            font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
             text = r.main.r_quit_button_txt,
