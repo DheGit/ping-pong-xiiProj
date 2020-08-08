@@ -5,6 +5,7 @@ from r.main import *
 from r.game import *
 
 from sprites.UIElement import *
+from sprites.Textbox import *
 
 CB_RETURN = 0
 CB_PLAY = 4
@@ -159,11 +160,20 @@ class PlayerNamesScreen():
 
         buttons = [Player_Names, Player1, Name1, Blue1, Green1, Yellow1, Orange1, Red1, Player2, Name2, Blue2, Green2, Yellow2, Orange2, Red2, enter_btn, return_to_mainmenu_btn]
 
+        P1 = Textbox(200, 96, 200, 24, 24, 20, False)
+        P2 = Textbox(200, 146, 200, 24, 24, 20, False)
+
+        textboxes = [P1, P2]
+
         while True:
             mouse_up = False
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
+                
+                # for textbox in textboxes:
+                #     textbox.handle_event(event)
+                    
             self.screen.fill(r.game.BLACK)
 
             for button in buttons:
@@ -174,5 +184,9 @@ class PlayerNamesScreen():
                 pygame.draw.line(self.screen,r.colors.WHITE,[r.game.SCREEN_WIDTH/2,95],[r.game.SCREEN_WIDTH/2,505],5)
 
                 button.draw(self.screen)
+
+            # for textbox in textboxes:
+            #     textbox.update()
+            #     textbox.draw(self.screen)
 
             pygame.display.flip()
