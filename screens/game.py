@@ -246,3 +246,6 @@ class GameScreen():
 
     def getWinnerName(self):
         return self.winnerName
+
+    def getScores(self):
+        return (self.score1,self.score2)
