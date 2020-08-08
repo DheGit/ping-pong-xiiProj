@@ -69,6 +69,8 @@ def names(screen):
 
     if new_state == screens.playernames.CB_PLAY:
         return GameState.PLAYGAME
+    if new_state == screens.game.CB_RETURN:
+        return GameState.MENU
 
     return GameState.QUIT
 
