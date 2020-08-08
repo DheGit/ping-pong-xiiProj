@@ -85,12 +85,16 @@ class GameScreen():
             self.ball.update()
             
             if self.collides() == 1:
+                collide = pygame.mixer.Sound('sound/bounce1.wav')
+                collide.play()
                 diff = (self.paddle1.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2)
                 self.ball.x = self.paddle_margin+self.paddle_dimen[0] + 2
                 self.ball.bounce(diff)
                 self.ball.speed = self.ball.speed*self.bounce_acceleration
                 
             if self.collides() == 2:
+                collide = pygame.mixer.Sound('sound/bounce1.wav')
+                collide.play()
                 diff = (self.paddle2.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2) 
                 self.ball.x = self.screen_dimen[0] - (self.paddle_margin+self.ball_dimen[0]+self.paddle_dimen[0]+2)
                 self.ball.bounce(-diff)
@@ -144,8 +148,6 @@ class GameScreen():
             pygame.display.flip()
 
             clock.tick(self.fps)
-
-            self.display()
 
     def countdown(self):
         clock=pygame.time.Clock()
