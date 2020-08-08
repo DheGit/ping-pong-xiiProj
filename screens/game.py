@@ -5,6 +5,7 @@ from sprites.Paddle import *
 from sprites.Ball import *
 from sprites.UIElement import *
 
+from r.main import *
 from r.game import *
 
 from r import colors
@@ -119,19 +120,11 @@ class GameScreen():
 
             movingsprites.update()
 
-            pygame.draw.line(self.screen,colors.WHITE,[self.screen_dimen[0]//2,0],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
+            pygame.draw.line(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
 
             pygame.draw.line(self.screen,colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
 
             movingsprites.draw(self.screen)
-            
-            font = pygame.font.Font(None,74)
-            
-            text1 = font.render(str(self.score1),1,colors.WHITE)
-            self.screen.blit(text1,(int(self.screen_dimen[0]/4),85))
-            
-            text2 = font.render(str(self.score2),1,colors.WHITE)
-            self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),85))
 
             if self.score1 == 10 or self.score2 == 10:
                 if self.score1==10:
@@ -148,6 +141,8 @@ class GameScreen():
             pygame.display.flip()
 
             clock.tick(self.fps)
+
+            self.display()
 
     def countdown(self):
         clock=pygame.time.Clock()
@@ -203,6 +198,59 @@ class GameScreen():
             pygame.display.flip()
             
             clock.tick(self.fps)
+
+    def display(self):
+        Score1=UIElement(
+            center_position=(self.screen_dimen[0]/4,self.score_margin/2),
+            font_size=70,
+            bg_rgb=colors.BLACK,
+            text_rgb=colors.WHITE,
+            text=str(self.score1),
+            action=None
+        )
+
+        Score2=UIElement(
+            center_position=(3*(self.screen_dimen[0]/4),self.score_margin/2),
+            font_size=70,
+            bg_rgb=colors.BLACK,
+            text_rgb=colors.WHITE,
+            text=str(self.score2),
+            action=None
+        )
+
+        Pause_btn=UIElement(
+            center_position=(self.screen_dimen[0]/2,self.score_margin/2),
+            font_size=32,
+            bg_rgb=colors.BLACK,
+            text_rgb=colors.WHITE,
+            text=r_pause_button,
+            action=CB_PAUSE
+        )
+
+        Score1.setHighlightable(False)
+        Score2.setHighlightable(False)
+
+        buttons = [Score1, Score2, Pause_btn]
+
+        while True:
+            mouse_up = False
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    mouse_up = True
+            self.screen.fill(colors.BLACK)
+
+            for button in buttons:
+                ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                if ui_action is not None:
+                    return ui_action
+
+                pygame.draw.circle(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin//2],30)
+                pygame.draw.circle(self.screen,colors.BLACK,[self.screen_dimen[0]//2,self.score_margin//2],28)
+                
+                button.draw(self.screen)
+
+            pygame.display.flip()
+        
 
     def setGameObjective(self, game_obj):
         self.game_obj=game_obj
