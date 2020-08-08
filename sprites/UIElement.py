@@ -47,6 +47,8 @@ class UIElement(Sprite):
         if self.rect.collidepoint(mouse_pos):
             self.mouse_over = True
             if mouse_up:
+                click = pygame.mixer.Sound('sound/click3.wav')
+                click.play()
                 return self.action
         else:
             self.mouse_over = False
