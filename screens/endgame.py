@@ -48,7 +48,7 @@ class EndgameScreen():
         quit_btn = UIElement(
             center_position = (r.game.SCREEN_WIDTH/2, 500),
             font_size = 45,
-            bg_rgb = r.colors.BLACK,
+            bg_rgb = self.bg_rgb,
             text_rgb = r.colors.WHITE,
             text = r.main.r_quit_button_txt,
             action = CB_QUIT,
