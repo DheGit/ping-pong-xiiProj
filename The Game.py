@@ -22,7 +22,7 @@ def main():
     game.setBounceBias(r.game.PADDLE_BOUNCE_BIAS)
     game.setBounceAcceleration(r.game.BALL_BOUNCE_ACC)
     game.setGameObjective(r.game.game_obj_txt)
-    game.setMovables(r.game.BALL_HEIGHT,(r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE)
+    game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE, r.colors.WHITE)
 
     main_menu=screens.main_menu.MainMenuScreen(screen)
 
@@ -69,8 +69,38 @@ def names(screen):
 
     if new_state == screens.playernames.CB_PLAY:
         return GameState.PLAYGAME
-    if new_state == screens.game.CB_RETURN:
+    if new_state == screens.playernames.CB_RETURN:
         return GameState.MENU
+    if new_state == screens.playernames.CB_B1:
+        Color1 = r.colors.LIGHTBLUE
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_P1:
+        Color1 = r.colors.PINK
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_G1:
+        Color1 = r.colors.GREEN
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_Y1:
+        Color1 = r.colors.YELLOW
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_R1:
+        Color1 = r.colors.RED
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_B2:
+        Color2 = r.colors.LIGHTBLUE
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_P2:
+        Color2 = r.colors.PINK
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_G2:
+        Color2 = r.colors.GREEN
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_Y2:
+        Color2 = r.colors.YELLOW
+        return GameState.PLAYERNAMES
+    if new_state == screens.playernames.CB_R2:
+        Color2 = r.colors.RED
+        return GameState.PLAYERNAMES
 
     return GameState.QUIT
 
