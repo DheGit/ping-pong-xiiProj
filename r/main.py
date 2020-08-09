@@ -10,7 +10,7 @@ r_name_label_txt = "Name :"
 r_color_blue_label_txt = "Blue"
 r_color_green_label_txt = "Green"
 r_color_yellow_label_txt = "Yellow"
-r_color_orange_label_txt = "Orange"
+r_color_pink_label_txt = "Pink"
 r_color_red_label_txt = "Red"
 
 r_enter_button_txt = "Enter"
