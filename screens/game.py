@@ -260,16 +260,19 @@ class GameScreen():
     def setGameObjective(self, game_obj):
         self.game_obj=game_obj
 
-    def setMovables(self, ball_radius, paddle_dimen, color):
+    def setMovables(self, ball_radius, paddle_dimen, color1, color2):
         self.paddle_dimen=paddle_dimen
+        self.color1=color1
+        self.color2=color2
+        
         self.ball_dimen=(ball_radius,ball_radius)
-
+        
         self.ball=Ball(self.ball_dimen, self.screen_dimen, self.paddle_dimen, self.score_margin)
         self.ball_group=pygame.sprite.Group()
         self.ball_group.add(self.ball)
 
-        self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
-        self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
+        self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
+        self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
 
         self.reset()
 
