@@ -236,7 +236,7 @@ class GameScreen():
             font_size=32,
             bg_rgb=colors.BLACK,
             text_rgb=colors.WHITE,
-            text=r_pause_button,
+            text=pause_button,
             action=CB_PAUSE
         )
 
