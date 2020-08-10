@@ -31,6 +31,22 @@ class Textbox:
         self.clock=pygame.time.Clock()
 
 
+    def handle_events(self,events):
+        for event in events:
+            self.handle_event(event)
+
+        for k in self.repeater_count:
+            self.repeater_count[k][0]+=self.clock.get_time()
+            if self.repeater_count[k][0] >= self.nr_init:
+                self.repeater_count[k][0]=(self.nr_init - self.nr_inter)
+
+                e_key, e_uni=k,self.repeater_count[k][1]
+                pygame.event.post(pygame.event.Event(pygame.KEYDOWN,key=e_key,unicode=e_uni))
+        
+        self.txt_surface = self.font.render(self.text, True, self.textcolor)
+        
+        self.clock.tick()
+
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
@@ -54,20 +70,9 @@ class Textbox:
                 else:
                     if len(self.text) < self.maxlength:
                         self.text += event.unicode
-                        # print("added ",event.unicode)
 
             elif event.type==pygame.KEYUP:
                 del self.repeater_count[event.key]
-
-            for k in self.repeater_count:
-                self.repeater_count[k][0]+=self.clock.get_time()
-                if self.repeater_count[k][0] >= self.nr_init:
-                    self.repeater_count[k][0]=(self.nr_init - self.nr_inter)
-
-                    e_key, e_uni=k,self.repeater_count[k][1]
-                    pygame.event.post(pygame.event.Event(pygame.KEYDOWN,key=e_key,unicode=e_uni))
-
-            self.txt_surface = self.font.render(self.text, True, self.textcolor)
 
     def update(self):
         if self.resizable:

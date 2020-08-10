@@ -177,14 +177,19 @@ class PlayerNamesScreen():
 
         while True:
             mouse_up = False
-            for event in pygame.event.get():
+            events=pygame.event.get()
+            for event in events:
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
                 
-                for textbox in textboxes:
-                    textbox.handle_event(event)
+                # for textbox in textboxes:
+                #     textbox.handle_event(event)
                     
             self.screen.fill(r.game.BLACK)
+
+            for textbox in textboxes:
+                textbox.handle_events(events)
+                textbox.draw(self.screen)
 
             for button in buttons:
                 ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
@@ -195,8 +200,5 @@ class PlayerNamesScreen():
 
                 button.draw(self.screen)
 
-            for textbox in textboxes:
-                textbox.update()
-                textbox.draw(self.screen)
 
             pygame.display.flip()
