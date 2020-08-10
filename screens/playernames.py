@@ -170,8 +170,8 @@ class PlayerNamesScreen():
 
         buttons = [Player_Names, Player1, Name1, Blue1, Green1, Yellow1, Pink1, Red1, Player2, Name2, Blue2, Green2, Yellow2, Pink2, Red2, enter_btn, return_to_mainmenu_btn]
 
-        P1 = Textbox(200, 96, 200, 24, 24, 20, False)
-        P2 = Textbox(200, 146, 200, 24, 24, 20, False)
+        P1 = Textbox(200, 195, 200, 24, 24, 20, False)
+        P2 = Textbox(SCREEN_WIDTH/2+200, 195, 200, 24, 24, 20, False)
 
         textboxes = [P1, P2]
 
@@ -181,8 +181,8 @@ class PlayerNamesScreen():
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
                 
-                # for textbox in textboxes:
-                #     textbox.handle_event(event)
+                for textbox in textboxes:
+                    textbox.handle_event(event)
                     
             self.screen.fill(r.game.BLACK)
 
@@ -195,8 +195,8 @@ class PlayerNamesScreen():
 
                 button.draw(self.screen)
 
-            # for textbox in textboxes:
-            #     textbox.update()
-            #     textbox.draw(self.screen)
+            for textbox in textboxes:
+                textbox.update()
+                textbox.draw(self.screen)
 
             pygame.display.flip()

@@ -16,8 +16,9 @@ class Textbox:
         self.resizable = resizable
         self.text = text
         self.fontsize = fontsize
-        Font = pygame.font.Font(None, self.fontsize)
-        self.txt_surface = Font.render(text, True, self.color)
+        self.font=pygame.font.Font(None, self.fontsize)
+        self.txt_surface = self.font.render(text, True, self.color)
+        self.txt_surface.set_alpha(0)
         self.active = False
 
     def handle_event(self, event):
@@ -40,9 +41,9 @@ class Textbox:
                 else:
                     if len(self.text) < self.maxlength:
                         self.text += event.unicode
+                        print("added ",event.unicode)
 
-                Font = pygame.font.Font(None, self.fontsize)
-                self.txt_surface = Font.render(self.text, True, self.textcolor)
+                self.txt_surface = self.font.render(self.text, True, self.textcolor)
 
     def update(self):
         if self.resizable:
