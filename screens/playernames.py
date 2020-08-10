@@ -1,7 +1,7 @@
 import pygame
 
 import r
-from r.main import *
+from r.playernames import *
 from r.game import *
 
 from sprites.UIElement import *
@@ -9,16 +9,6 @@ from sprites.Textbox import *
 
 CB_RETURN = 0
 CB_PLAY = 4
-CB_B1 = 5
-CB_P1 = 6
-CB_G1 = 7
-CB_Y1 = 8
-CB_R1 = 9
-CB_B2 = 10
-CB_P2 = 11
-CB_G2 = 12
-CB_Y2 = 13
-CB_R2 = 14
 
 class PlayerNamesScreen():
     def __init__(self, screen):
@@ -34,7 +24,7 @@ class PlayerNamesScreen():
             font_size = 80,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r_playernames_label_txt,
+            text = playernames_label_txt,
             action = None,
         )
         Player1 = UIElement(
@@ -42,7 +32,7 @@ class PlayerNamesScreen():
             font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r_p1_label_txt,
+            text = p1_label_txt,
             action = None,
         )
         Name1 = UIElement(
@@ -50,7 +40,7 @@ class PlayerNamesScreen():
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r_name_label_txt,
+            text = name_label_txt,
             action = None,
         )
         Blue1 = UIElement(
@@ -58,47 +48,47 @@ class PlayerNamesScreen():
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.LIGHTBLUE,
-            text = r_color_blue_label_txt,
-            action = CB_B1,
+            text = color_blue_label_txt,
+            action = None,
         )
         Pink1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 320),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.PINK,
-            text = r_color_pink_label_txt,
-            action = CB_P1,
+            text = color_pink_label_txt,
+            action = None,
         )
         Green1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 370),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.GREEN,
-            text = r_color_green_label_txt,
-            action = CB_G1,
+            text = color_green_label_txt,
+            action = None,
         )
         Yellow1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 420),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.YELLOW,
-            text = r_color_yellow_label_txt,
-            action = CB_Y1,
+            text = color_yellow_label_txt,
+            action = None,
         )
         Red1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 470),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.RED,
-            text = r_color_red_label_txt,
-            action = CB_R1,
+            text = color_red_label_txt,
+            action = None,
         )
         Player2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 135),
             font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r_p2_label_txt,
+            text = p2_label_txt,
             action = None,
         )
         Name2 = UIElement(
@@ -106,7 +96,7 @@ class PlayerNamesScreen():
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r_name_label_txt,
+            text = name_label_txt,
             action = None,
         )
         Blue2 = UIElement(
@@ -114,47 +104,47 @@ class PlayerNamesScreen():
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.LIGHTBLUE,
-            text = r_color_blue_label_txt,
-            action = CB_B2,
+            text = color_blue_label_txt,
+            action = None,
         )
         Pink2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 320),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.PINK,
-            text = r_color_pink_label_txt,
-            action = CB_P2,
+            text = color_pink_label_txt,
+            action = None,
         )
         Green2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 370),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.GREEN,
-            text = r_color_green_label_txt,
-            action = CB_G2,
+            text = color_green_label_txt,
+            action = None,
         )
         Yellow2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 420),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.YELLOW,
-            text = r_color_yellow_label_txt,
-            action = CB_Y2,
+            text = color_yellow_label_txt,
+            action = None,
         )
         Red2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 470),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.RED,
-            text = r_color_red_label_txt,
-            action = CB_R2,
+            text = color_red_label_txt,
+            action = None,
         )
         enter_btn = UIElement(
             center_position = (SCREEN_WIDTH/2, 550),
             font_size = 50,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r_enter_button_txt,
+            text = enter_button_txt,
             action = CB_PLAY,
         )
         return_to_mainmenu_btn = UIElement(
@@ -162,7 +152,7 @@ class PlayerNamesScreen():
             font_size = 50,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r.main.r_return_to_mainmenu_button_txt,
+            text = return_to_mainmenu_button_txt,
             action=CB_RETURN,
         )
 
@@ -174,8 +164,8 @@ class PlayerNamesScreen():
 
         buttons = [Player_Names, Player1, Name1, Blue1, Green1, Yellow1, Pink1, Red1, Player2, Name2, Blue2, Green2, Yellow2, Pink2, Red2, enter_btn, return_to_mainmenu_btn]
 
-        P1 = Textbox(200, 195, 200, 24, 24, 20, False)
-        P2 = Textbox(SCREEN_WIDTH/2+200, 195, 200, 24, 24, 20, False)
+        P1 = Textbox(180, 190, 200, 30, 31, 13, True)
+        P2 = Textbox(SCREEN_WIDTH/2+180, 190, 200, 30, 31, 13, False)
 
         textboxes = [P1, P2]
 
@@ -211,10 +201,14 @@ class PlayerNamesScreen():
 
                 button.draw(self.screen)
 
-
             pygame.display.flip()
 
     def getPlayer1Name(self):
         return self.p1name
+    def getColor1(self):
+        return self.color1
+    
     def getPlayer2Name(self):
         return self.p2name
+    def getColor2(self):
+        return self.color2
