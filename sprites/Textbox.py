@@ -6,7 +6,7 @@ pygame.init()
 
 class Textbox:
     
-    def __init__(self, x, y, w, h, fontsize=24, maxlength=100, resizable=True, text='', textcolor=colors.WHITE, bordercolor=(40,120,180), activebordercolor=(200,0,0)):
+    def __init__(self, x, y, w, h, fontsize=24, maxlength=100, resizable=True, text='', textcolor=colors.BLACK, bordercolor=(40,120,180), activebordercolor=(200,0,0)):
         self.rect = pygame.Rect(x, y, w, h)
         self.color = bordercolor
         self.inactivecolor = bordercolor
@@ -61,7 +61,7 @@ class Textbox:
                 if event.key not in self.repeater_count:
                     self.repeater_count[event.key]=[0,event.unicode]
 
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_DELETE:
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
@@ -80,8 +80,9 @@ class Textbox:
             self.rect.w = width
 
     def draw(self, screen):
+        pygame.draw.line(screen,colors.WHITE,(self.rect.x+2,self.rect.y+self.rect.h/2),(self.rect.x+self.rect.w-2,self.rect.y+self.rect.h/2),30)
+        pygame.draw.rect(screen, self.color, self.rect, 3)
         screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
-        pygame.draw.rect(screen, self.color, self.rect, 2)
 
     def getText(self):
         return self.text
