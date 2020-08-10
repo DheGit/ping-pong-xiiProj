@@ -1,6 +1,6 @@
 #Making consistent font size throughout
 
-xxxsl=20
+xxxs=20
 xxs=30
 xs=40
 s=50
