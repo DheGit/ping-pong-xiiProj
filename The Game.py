@@ -73,37 +73,6 @@ def names(screen):
         return GameState.PLAYGAME
     if new_state == screens.playernames.CB_RETURN:
         return GameState.MENU
-    if new_state == screens.playernames.CB_B1:
-        Color1 = r.colors.LIGHTBLUE
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_P1:
-        Color1 = r.colors.PINK
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_G1:
-        Color1 = r.colors.GREEN
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_Y1:
-        Color1 = r.colors.YELLOW
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_R1:
-        Color1 = r.colors.RED
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_B2:
-        Color2 = r.colors.LIGHTBLUE
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_P2:
-        Color2 = r.colors.PINK
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_G2:
-        Color2 = r.colors.GREEN
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_Y2:
-        Color2 = r.colors.YELLOW
-        return GameState.PLAYERNAMES
-    if new_state == screens.playernames.CB_R2:
-        Color2 = r.colors.RED
-        return GameState.PLAYERNAMES
-
 
     return GameState.QUIT
 
@@ -150,6 +119,14 @@ def launch_endgame(screen):
         return GameState.QUIT
 
     return GameState.MENU
+        
+def setColor1(self, color1):
+    self.color1=color1
+    return color1
+
+def setColor1(self, color2):
+    self.color2=color2
+    return color2
 
 class GameState(Enum):
     QUIT=-1
