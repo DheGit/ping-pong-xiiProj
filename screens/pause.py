@@ -15,15 +15,15 @@ class PauseScreen():
         
     def pause_game(self):
         paused = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 125), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            center_position = (r.game.SCREEN_WIDTH/2, 125),
             font_size = 125,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r.main.r_paused_button_txt,
+            text = r.pause.paused_label_txt,
             action = None,
         )
         score_label=UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 285), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            center_position = (r.game.SCREEN_WIDTH/2, 285),
             font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
@@ -31,19 +31,19 @@ class PauseScreen():
             action = None,
         )
         resume_btn = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 385), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            center_position = (r.game.SCREEN_WIDTH/2, 385),
             font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r.main.r_resume_button_txt,
+            text = r.pause.resume_button_txt,
             action=CB_PLAY,
         )
         return_to_mainmenu_btn = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 485), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            center_position = (r.game.SCREEN_WIDTH/2, 485),
             font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r.main.r_return_to_mainmenu_button_txt,
+            text = r.pause.return_to_mainmenu_button_txt,
             action=CB_RETURN,
         )
         quit_btn = UIElement(
@@ -51,7 +51,7 @@ class PauseScreen():
             font_size = 60,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
-            text = r.main.r_quit_button_txt,
+            text = r.pause.quit_button_txt,
             action = CB_QUIT,
         )
 
