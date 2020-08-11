@@ -15,6 +15,8 @@ class UIElement(Sprite):
         
         self.mouse_over = False
 
+        self.text_rgb=text_rgb
+
         default_image = create_surface_with_text(text=text, font_size=font_size, text_rgb=text_rgb, bg_rgb=bg_rgb)
 
         highlighted_image = create_surface_with_text(text=text, font_size=font_size * 1.2, text_rgb=text_rgb, bg_rgb=bg_rgb)
@@ -28,15 +30,17 @@ class UIElement(Sprite):
 
         self.highlightable = True
 
+        self.stay_highlighted=False
+
         super().__init__()
 
     @property
     def image(self):
-        return self.images[1] if self.mouse_over else self.images[0]
+        return self.images[1] if (self.mouse_over or self.stay_highlighted) else self.images[0]
 
     @property
     def rect(self):
-        return self.rects[1] if self.mouse_over else self.rects[0]
+        return self.rects[1] if (self.mouse_over or self.stay_highlighted) else self.rects[0]
 
     def update(self, mouse_pos, mouse_up):
         """ Updates the mouse_over variable and returns the button's
@@ -59,3 +63,12 @@ class UIElement(Sprite):
 
     def setHighlightable(self, highlightable):
         self.highlightable = highlightable
+
+    def stayHighlighted(self,stay):
+    	self.stay_highlighted=stay
+
+    def staysHighlighted(self):
+    	return self.stay_highlighted
+
+    def getTextRgb(self):
+    	return self.text_rgb
