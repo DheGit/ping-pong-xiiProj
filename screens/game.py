@@ -291,7 +291,7 @@ class GameScreen():
     def setPlayer1Name(self, p1Name):
         self.p1Name=p1Name
 
-    def setPlayer1Name(self, p1Name):
+    def setPlayer2Name(self, p2Name):
         self.p2Name=p2Name
 
     def setBounceAcceleration(self, bounce_acceleration):

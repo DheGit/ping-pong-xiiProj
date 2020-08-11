@@ -68,6 +68,8 @@ def names(screen):
     new_state=player_names.names()
 
     if new_state == screens.playernames.CB_PLAY:
+        game.setPlayer1Name(player_names.getPlayer1Name())
+        game.setPlayer2Name(player_names.getPlayer2Name())
         return GameState.PLAYGAME
     if new_state == screens.playernames.CB_RETURN:
         return GameState.MENU
@@ -101,6 +103,7 @@ def names(screen):
     if new_state == screens.playernames.CB_R2:
         Color2 = r.colors.RED
         return GameState.PLAYERNAMES
+
 
     return GameState.QUIT
 

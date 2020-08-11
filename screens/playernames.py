@@ -23,6 +23,10 @@ CB_R2 = 14
 class PlayerNamesScreen():
     def __init__(self, screen):
         self.screen = screen
+        self.p1name="Player1"
+        self.p2name="Player2"
+        self.p1color=(0,0,0)
+        self.p2color=(0,0,0)
 
     def names(self):
         Player_Names = UIElement(
@@ -194,6 +198,13 @@ class PlayerNamesScreen():
             for button in buttons:
                 ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
                 if ui_action is not None:
+                    
+                    if ui_action==CB_PLAY:
+                        self.p1name=P1.getText()
+                        self.p2name=P2.getText()
+
+                        #Add code here to set the colours according to what is selected
+                    
                     return ui_action
 
                 pygame.draw.line(self.screen,r.colors.WHITE,[r.game.SCREEN_WIDTH/2,95],[r.game.SCREEN_WIDTH/2,505],5)
@@ -202,3 +213,8 @@ class PlayerNamesScreen():
 
 
             pygame.display.flip()
+
+    def getPlayer1Name(self):
+        return self.p1name
+    def getPlayer2Name(self):
+        return self.p2name
