@@ -38,6 +38,8 @@ class GameScreen():
 
         self.bounce_acceleration = 1
 
+        self.font=pygame.font.Font(None,80)
+
     def reset(self):
         self.score1=0
         self.score2=0
@@ -134,6 +136,12 @@ class GameScreen():
             pygame.draw.line(self.screen,colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
 
             movingsprites.draw(self.screen)
+
+            text1 = self.font.render(str(self.score1),1,colors.WHITE)
+            self.screen.blit(text1,(int(self.screen_dimen[0]/4),10))
+            
+            text2 = self.font.render(str(self.score2),1,colors.WHITE)
+            self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
 
             if self.score1 == 10 or self.score2 == 10:
                 if self.score1==10:
