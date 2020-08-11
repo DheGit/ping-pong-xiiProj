@@ -70,6 +70,7 @@ def names(screen):
     if new_state == screens.playernames.CB_PLAY:
         game.setPlayer1Name(player_names.getPlayer1Name())
         game.setPlayer2Name(player_names.getPlayer2Name())
+        game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), player_names.getColor1(), player_names.getColor2())
         return GameState.PLAYGAME
     if new_state == screens.playernames.CB_RETURN:
         return GameState.MENU
@@ -120,13 +121,13 @@ def launch_endgame(screen):
 
     return GameState.MENU
         
-def setColor1(self, color1):
-    self.color1=color1
-    return color1
+# def setColor1(self, color1):
+#     self.color1=color1
+#     return color1
 
-def setColor1(self, color2):
-    self.color2=color2
-    return color2
+# def setColor1(self, color2):
+#     self.color2=color2
+#     return color2
 
 class GameState(Enum):
     QUIT=-1

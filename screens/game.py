@@ -34,6 +34,9 @@ class GameScreen():
 
         self.winnerName="TheHulk" # :P
 
+        self.color1=fg_color_default
+        self.color2=fg_color_default
+
         self.game_obj = ""
 
         self.bounce_acceleration = 1
@@ -304,6 +307,13 @@ class GameScreen():
 
     def setBounceAcceleration(self, bounce_acceleration):
         self.bounce_acceleration = bounce_acceleration
+
+    def setPlayerColors(self,color1,color2):
+        self.color1=color1
+        self.color2=color2
+
+        self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
+        self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
 
     def getWinnerName(self):
         return self.winnerName
