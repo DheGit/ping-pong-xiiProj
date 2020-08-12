@@ -21,18 +21,26 @@ class EndgameScreen():
         self.winnerName = winnerName
 
         self.winner_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 150), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            center_position=(r.game.SCREEN_WIDTH/2, 100), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
             font_size=90,
             bg_rgb=self.bg_rgb,
             text_rgb=r.colors.WHITE,
-            text=self.winnerName + r.endgame.win_statement,
+            text=self.winnerName,
+        )
+
+        self.win_label = UIElement(
+            center_position=(r.game.SCREEN_WIDTH/2, 200), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size=90,
+            bg_rgb=self.bg_rgb,
+            text_rgb=r.colors.WHITE,
+            text=r.endgame.win_statement,
         )
 
     def showEndScreen(self):
         self.winner_label.setHighlightable(False)
+        self.win_label.setHighlightable(False)
 
-        ui_els = [self.winner_label, self.play_btn, self.back_btn, self.quit_btn]
-
+        ui_els = [self.winner_label, self.win_label, self.play_btn, self.back_btn, self.quit_btn]
 
         while True:
             mouse_up = False
@@ -56,17 +64,9 @@ class EndgameScreen():
             pygame.display.flip()
 
     def setUI(self):
-        self.winner_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 150), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=90,
-            bg_rgb=self.bg_rgb,
-            text_rgb=r.colors.WHITE,
-            text=self.winnerName + r.endgame.win_statement,
-        )
-
         self.play_btn =  UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 300), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=45,
+            center_position=(r.game.SCREEN_WIDTH/2, 370), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size=60,
             bg_rgb=self.bg_rgb,
             text_rgb=r.colors.WHITE,
             text=r.endgame.play_again_btn_txt,
@@ -74,16 +74,16 @@ class EndgameScreen():
         )
 
         self.back_btn = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 400), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=45,
+            center_position=(r.game.SCREEN_WIDTH/2, 470), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size=60,
             bg_rgb=self.bg_rgb,
             text_rgb=r.colors.WHITE,
             text=r.endgame.return_btn_txt,
             action=CB_RETURN
         )
         self.quit_btn = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 500),
-            font_size = 45,
+            center_position = (r.game.SCREEN_WIDTH/2, 570),
+            font_size = 60,
             bg_rgb = self.bg_rgb,
             text_rgb = r.colors.WHITE,
             text = r.main.r_quit_button_txt,
