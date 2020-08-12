@@ -23,13 +23,15 @@ RED2=19
 
 CLICKABLE_COLOURS=[BLUE1,PINK1,GREEN1,YELLOW1,RED1,BLUE2,PINK2,GREEN2,YELLOW2,RED2]
 
+_color_default=(255,255,255)
+
 class PlayerNamesScreen():
     def __init__(self, screen):
         self.screen = screen
         self.p1name="Player1"
         self.p2name="Player2"
-        self.color1=(0,0,0)
-        self.color2=(0,0,0)
+        self.color1=_color_default
+        self.color2=_color_default
 
     def names(self):
         Player_Names = UIElement(
@@ -125,6 +127,11 @@ class PlayerNamesScreen():
                     if ui_action==CB_PLAY:
                         self.p1name=P1.getText()
                         self.p2name=P2.getText()
+
+                        if self.p1name=="":  #TODO: Add code to check if there is an empty name(a single space also counts as empty), and make that turn into Player1 or Player2
+                            self.p1name="Player1"
+                        if self.p2name=="":
+                            self.p2name="Player2"
 
                     if ui_action in CLICKABLE_COLOURS:
                         self.handleColorClick(ui_action)
