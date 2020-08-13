@@ -15,7 +15,7 @@ class MainMenuScreen():
 	    start_btn = UIElement(
 	        center_position=(r.game.SCREEN_WIDTH/2, 430), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
 	        font_size=60,
-	        bg_rgb=r.colors.BLUE,
+	        bg_rgb=r.colors.BLACK,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_start_button_txt,
 	        action=CB_NAMES,
@@ -23,7 +23,7 @@ class MainMenuScreen():
 	    quit_btn = UIElement(
 	        center_position=(r.game.SCREEN_WIDTH/2, 550),
 	        font_size=60,
-	        bg_rgb=r.colors.BLUE,
+	        bg_rgb=r.colors.BLACK,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_quit_button_txt,
 	        action=CB_QUIT,
@@ -31,7 +31,7 @@ class MainMenuScreen():
 	    game_name = UIElement(
 	        center_position=(r.game.SCREEN_WIDTH/2, 220),
 	        font_size=135,
-	        bg_rgb=r.colors.BLUE,
+	        bg_rgb=r.colors.BLACK,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_title_label_txt,
 	        action=None,
@@ -46,7 +46,7 @@ class MainMenuScreen():
 	        for event in pygame.event.get():
 	            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
 	                mouse_up = True
-	        self.screen.fill(r.game.BLUE)
+	        self.screen.fill(r.game.BLACK)
 
 	        for button in buttons:
 	            ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
