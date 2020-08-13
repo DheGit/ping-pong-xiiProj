@@ -21,7 +21,7 @@ GREEN2=17
 YELLOW2=18
 RED2=19
 
-CLICKABLE_COLOURS=[BLUE1,PINK1,GREEN1,YELLOW1,RED1,BLUE2,PINK2,GREEN2,YELLOW2,RED2]
+CLICKABLE_COLORS=[BLUE1,PINK1,GREEN1,YELLOW1,RED1,BLUE2,PINK2,GREEN2,YELLOW2,RED2]
 
 _color_default=(255,255,255)
 
@@ -133,7 +133,7 @@ class PlayerNamesScreen():
                         if self.p2name=="":
                             self.p2name="Player2"
 
-                    if ui_action in CLICKABLE_COLOURS:
+                    if ui_action in CLICKABLE_COLORS:
                         self.handleColorClick(ui_action)
                         # print("color1: "+str(self.color1)+", color2: "+str(self.color2))
                     else:
@@ -146,14 +146,14 @@ class PlayerNamesScreen():
             pygame.display.flip()
 
     def handleColorClick(self, clicked):
-        if clicked in CLICKABLE_COLOURS[:5]:
+        if clicked in CLICKABLE_COLORS[:5]:
             self.Blue1.stayHighlighted(False)
             self.Pink1.stayHighlighted(False)
             self.Green1.stayHighlighted(False)
             self.Yellow1.stayHighlighted(False)
             self.Red1.stayHighlighted(False)
 
-        elif clicked in CLICKABLE_COLOURS[5:]:
+        elif clicked in CLICKABLE_COLORS[5:]:
             self.Blue2.stayHighlighted(False)
             self.Pink2.stayHighlighted(False)
             self.Green2.stayHighlighted(False)
