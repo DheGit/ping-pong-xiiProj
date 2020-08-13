@@ -7,21 +7,20 @@ from r.game import *
 from sprites.UIElement import *
 from sprites.Textbox import *
 
-CB_RETURN = 0
-CB_PLAY = 4
+CB_RETURN = 101
+CB_PLAY = 104
 
-BLUE1=10
-PINK1=11
-GREEN1=12
-YELLOW1=13
-RED1=14
-BLUE2=15
-PINK2=16
-GREEN2=17
-YELLOW2=18
-RED2=19
+BLUE=0
+PINK=1
+GREEN=2
+YELLOW=3
+RED=4
+P1=0
+P2=1
 
-CLICKABLE_COLORS=[BLUE1,PINK1,GREEN1,YELLOW1,RED1,BLUE2,PINK2,GREEN2,YELLOW2,RED2]
+COLOR_BTN_ACTIONS=[BLUE*10+P1,PINK*10+P1,GREEN*10+P1,YELLOW*10+P1,RED*10+P1,BLUE*10+P2,PINK*10+P2,GREEN*10+P2,YELLOW*10+P2,RED*10+P2]
+
+COLOR_LIST=[r.colors.LIGHTBLUE,r.colors.PINK,r.colors.GREEN,r.colors.YELLOW,r.colors.RED]
 
 _color_default=(255,255,255)
 
@@ -132,7 +131,7 @@ class PlayerNamesScreen():
                         if self.p2name=="":
                             self.p2name="Player2"
 
-                    if ui_action in CLICKABLE_COLORS:
+                    if ui_action in COLOR_BTN_ACTIONS:
                         self.handleColorClick(ui_action)
                         # print("color1: "+str(self.color1)+", color2: "+str(self.color2))
                     else:
@@ -145,51 +144,20 @@ class PlayerNamesScreen():
             pygame.display.flip()
 
     def handleColorClick(self, clicked):
-        if clicked in CLICKABLE_COLORS[:5]:
-            self.Blue1.stayHighlighted(False)
-            self.Pink1.stayHighlighted(False)
-            self.Green1.stayHighlighted(False)
-            self.Yellow1.stayHighlighted(False)
-            self.Red1.stayHighlighted(False)
+        i=P1
+        for p in self.colorBtnList:
+            if p[clicked//10].staysHighlighted() and i!=clicked//10:
+                return
+            i+=1
 
-        elif clicked in CLICKABLE_COLORS[5:]:
-            self.Blue2.stayHighlighted(False)
-            self.Pink2.stayHighlighted(False)
-            self.Green2.stayHighlighted(False)
-            self.Yellow2.stayHighlighted(False)
-            self.Red2.stayHighlighted(False)
+        for btn in self.colorBtnList[clicked%10]:
+            btn.stayHighlighted(False)
 
-        if clicked==BLUE1:
-            self.Blue1.stayHighlighted(True)
-            self.color1=r.colors.LIGHTBLUE
-        elif clicked==PINK1:
-            self.Pink1.stayHighlighted(True)
-            self.color1=r.colors.PINK
-        elif clicked==GREEN1:
-            self.Green1.stayHighlighted(True)
-            self.color1=r.colors.GREEN
-        elif clicked==YELLOW1:
-            self.Yellow1.stayHighlighted(True)
-            self.color1=r.colors.YELLOW
-        elif clicked==RED1:
-            self.Red1.stayHighlighted(True)
-            self.color1=r.colors.RED
-
-        if clicked==BLUE2:
-            self.Blue2.stayHighlighted(True)
-            self.color2=r.colors.LIGHTBLUE
-        elif clicked==PINK2:
-            self.Pink2.stayHighlighted(True)
-            self.color2=r.colors.PINK
-        elif clicked==GREEN2:
-            self.Green2.stayHighlighted(True)
-            self.color2=r.colors.GREEN
-        elif clicked==YELLOW2:
-            self.Yellow2.stayHighlighted(True)
-            self.color2=r.colors.YELLOW
-        elif clicked==RED2:
-            self.Red2.stayHighlighted(True)
-            self.color2=r.colors.RED
+        self.colorBtnList[clicked%10][clicked//10].stayHighlighted(True)
+        if clicked%10==P1:
+            self.color1=COLOR_LIST[clicked//10]
+        elif clicked%10==P2:
+            self.color2=COLOR_LIST[clicked//10]
 
 
     def getPlayer1Name(self):
@@ -208,7 +176,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.LIGHTBLUE,
             text = color_blue_label_txt,
-            action = BLUE1,
+            action = BLUE*10+P1,
         )
         self.Pink1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 320),
@@ -216,7 +184,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.PINK,
             text = color_pink_label_txt,
-            action = PINK1,
+            action = PINK*10+P1,
         )
         self.Green1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 370),
@@ -224,7 +192,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.GREEN,
             text = color_green_label_txt,
-            action = GREEN1,
+            action = GREEN*10+P1,
         )
         self.Yellow1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 420),
@@ -232,7 +200,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.YELLOW,
             text = color_yellow_label_txt,
-            action = YELLOW1,
+            action = YELLOW*10+P1,
         )
         self.Red1 = UIElement(
             center_position = (SCREEN_WIDTH/4, 470),
@@ -240,7 +208,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.RED,
             text = color_red_label_txt,
-            action = RED1,
+            action = RED*10+P1,
         )
 
         self.Blue2 = UIElement(
@@ -249,7 +217,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.LIGHTBLUE,
             text = color_blue_label_txt,
-            action = BLUE2,
+            action = BLUE*10+P2,
         )
         self.Pink2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 320),
@@ -257,7 +225,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.PINK,
             text = color_pink_label_txt,
-            action = PINK2,
+            action = PINK*10+P2,
         )
         self.Green2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 370),
@@ -265,7 +233,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.GREEN,
             text = color_green_label_txt,
-            action = GREEN2,
+            action = GREEN*10+P2,
         )
         self.Yellow2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 420),
@@ -273,7 +241,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.YELLOW,
             text = color_yellow_label_txt,
-            action = YELLOW2,
+            action = YELLOW*10+P2,
         )
         self.Red2 = UIElement(
             center_position = (3*(SCREEN_WIDTH/4), 470),
@@ -281,8 +249,10 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.RED,
             text = color_red_label_txt,
-            action = RED2,
+            action = RED*10+P2,
         )
+
+        self.colorBtnList=[[self.Blue1,self.Pink1,self.Green1,self.Yellow1,self.Red1], [self.Blue2,self.Pink2,self.Green2,self.Yellow2,self.Red2]]
 
     def reset(self):
         self.p1name="Player1"

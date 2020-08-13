@@ -120,14 +120,6 @@ def launch_endgame(screen):
         return GameState.QUIT
 
     return GameState.MENU
-        
-# def setColor1(self, color1):
-#     self.color1=color1
-#     return color1
-
-# def setColor1(self, color2):
-#     self.color2=color2
-#     return color2
 
 class GameState(Enum):
     QUIT=-1
