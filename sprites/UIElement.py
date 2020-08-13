@@ -19,11 +19,14 @@ class UIElement(Sprite):
 
         default_image = create_surface_with_text(text=text, font_size=font_size, text_rgb=text_rgb, bg_rgb=bg_rgb)
 
+        bordered_image = create_surface_with_text(text=text, font_size=font_size * 1.4, text_rgb=(255,255,255), bg_rgb=bg_rgb)
+
         highlighted_image = create_surface_with_text(text=text, font_size=font_size * 1.2, text_rgb=text_rgb, bg_rgb=bg_rgb)
 
-        self.images = [default_image, highlighted_image]
+        self.images = [default_image, bordered_image, highlighted_image]
 
         self.rects = [default_image.get_rect(center=center_position),
+            bordered_image.get_rect(center=center_position),
             highlighted_image.get_rect(center=center_position)]
 
         self.action = action
@@ -36,11 +39,11 @@ class UIElement(Sprite):
 
     @property
     def image(self):
-        return self.images[1] if (self.mouse_over or self.stay_highlighted) else self.images[0]
+        return self.images[2] if self.mouse_over else self.images[1] if self.stay_highlighted else self.images[0]
 
     @property
     def rect(self):
-        return self.rects[1] if (self.mouse_over or self.stay_highlighted) else self.rects[0]
+        return self.rects[2] if self.mouse_over else self.rects[1] if self.stay_highlighted else self.rects[0]
 
     def update(self, mouse_pos, mouse_up):
         """ Updates the mouse_over variable and returns the button's
