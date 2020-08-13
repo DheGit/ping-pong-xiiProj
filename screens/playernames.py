@@ -28,12 +28,11 @@ _color_default=(255,255,255)
 class PlayerNamesScreen():
     def __init__(self, screen):
         self.screen = screen
-        self.p1name="Player1"
-        self.p2name="Player2"
-        self.color1=_color_default
-        self.color2=_color_default
+        self.reset()
 
     def names(self):
+        self.reset()
+
         Player_Names = UIElement(
             center_position = (SCREEN_WIDTH/2, 50),
             font_size = 80,
@@ -284,3 +283,9 @@ class PlayerNamesScreen():
             text = color_red_label_txt,
             action = RED2,
         )
+
+    def reset(self):
+        self.p1name="Player1"
+        self.p2name="Player2"
+        self.color1=_color_default
+        self.color2=_color_default
