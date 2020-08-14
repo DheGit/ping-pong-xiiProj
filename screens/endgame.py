@@ -21,6 +21,14 @@ class EndgameScreen():
     def setWinnerColor(self, winnerColor):
         self.winnerColor = winnerColor
 
+        self.winner_label = UIElement(
+            center_position=(r.game.SCREEN_WIDTH/2, 100), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size=90,
+            bg_rgb=self.bg_rgb,
+            text_rgb=self.winnerColor,
+            text=self.winnerName,
+        )
+
     def setWinnerName(self, winnerName):
         self.winnerName = winnerName
 
@@ -30,14 +38,6 @@ class EndgameScreen():
             bg_rgb=self.bg_rgb,
             text_rgb=self.winnerColor,
             text=self.winnerName,
-        )
-
-        self.win_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 200), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=90,
-            bg_rgb=self.bg_rgb,
-            text_rgb=self.winnerColor,
-            text=r.endgame.win_statement,
         )
 
     def showEndScreen(self):
@@ -93,6 +93,13 @@ class EndgameScreen():
             text = r.main.r_quit_button_txt,
             action = CB_QUIT,
         )
+        self.win_label = UIElement(
+            center_position=(r.game.SCREEN_WIDTH/2, 200), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
+            font_size=90,
+            bg_rgb=self.bg_rgb,
+            text_rgb=(255,255,255),
+            text=r.endgame.win_statement,
+        )
 
 
 if __name__=="__main__":
@@ -103,6 +110,7 @@ if __name__=="__main__":
     egScreen=EndgameScreen(screen, r.colors.BLUE)
     egScreen.setWinnerName("Player 1")
 
+    egScreen.setWinnerColor(r.colors.RED)
     new_status = egScreen.showEndScreen()
 
     if new_status == CB_RETURN:
