@@ -20,4 +20,6 @@ BALL_HEIGHT = 21
 BALL_RESET_Y_MARGIN=50
 BALL_BOUNCE_ACC=1.05
 
+pause_button = "⏸️"
+
 game_obj_txt = "Race to 10"

@@ -1,17 +1,15 @@
 import pygame
 
-paddle_colour_default = (255,255,255)
-
 class Paddle(pygame.sprite.Sprite):
     """
     The constructor. All the dimen parameters are in the order (width,height)
     """
-    def __init__(self, screen_dimen, paddle_dimen, score_margin):
+    def __init__(self, screen_dimen, paddle_dimen, score_margin, color):
         
         super().__init__()
         
         self.image = pygame.Surface([paddle_dimen[0],paddle_dimen[1]])
-        self.image.fill(paddle_colour_default)
+        self.image.fill(color)
         self.screen_dimen=screen_dimen
         self.paddle_dimen=paddle_dimen
         self.score_margin=score_margin
@@ -21,8 +19,8 @@ class Paddle(pygame.sprite.Sprite):
     def moveUp(self,pixels):
         self.rect.y -= pixels
 
-        if self.rect.y < self.score_margin:
-            self.rect.y = self.score_margin
+        if self.rect.y < self.score_margin + 3:
+            self.rect.y = self.score_margin + 3
 
     def moveDown(self,pixels):
         self.rect.y += pixels

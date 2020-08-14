@@ -30,6 +30,9 @@ class Ball(pygame.sprite.Sprite):
         self.paddle_dimen = paddle_dimen
         self.score_margin=score_margin
 
+        self.bounceSound=pygame.mixer.Sound('sound/bounce1.wav')
+        self.crossedSound=pygame.mixer.Sound('sound/bounce2.wav')
+
         self.reset()
 
     def bounce(self,b_param):
@@ -77,15 +80,18 @@ class Ball(pygame.sprite.Sprite):
         self.y -= math.sin(rads) * self.speed
 
         if self.x < -self.ball_dimen[0]*5 or self.x > self.screen_dimen[0] + self.ball_dimen[0]*5:
+            self.crossedSound.play()
             self.reset()        
 
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
         if self.y <= self.score_margin:
+            self.bounceSound.play()
             self.direction = (360-self.direction)%360
             self.y = 1 + self.score_margin
         if self.y >= self.screen_dimen[1] - self.ball_dimen[1]:
+            self.bounceSound.play()
             self.direction = (360-self.direction)%360
             self.y = self.screen_dimen[1] - self.ball_dimen[1] - 1
 

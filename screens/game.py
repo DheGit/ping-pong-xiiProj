@@ -5,6 +5,7 @@ from sprites.Paddle import *
 from sprites.Ball import *
 from sprites.UIElement import *
 
+from r.main import *
 from r.game import *
 
 from r import colors
@@ -33,9 +34,16 @@ class GameScreen():
 
         self.winnerName="TheHulk" # :P
 
+        self.color1=fg_color_default
+        self.color2=fg_color_default
+
         self.game_obj = ""
 
         self.bounce_acceleration = 1
+
+        self.font=pygame.font.Font(None,80)
+
+        self.collideSound=pygame.mixer.Sound('sound/bounce1.wav')
 
     def reset(self):
         self.score1=0
@@ -84,12 +92,14 @@ class GameScreen():
             self.ball.update()
             
             if self.collides() == 1:
+                self.collideSound.play()
                 diff = (self.paddle1.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2)
                 self.ball.x = self.paddle_margin+self.paddle_dimen[0] + 2
                 self.ball.bounce(diff)
                 self.ball.speed = self.ball.speed*self.bounce_acceleration
                 
             if self.collides() == 2:
+                self.collideSound.play()
                 diff = (self.paddle2.rect.y + self.paddle_dimen[1]/2) - (self.ball.rect.y+self.ball_dimen[1]/2) 
                 self.ball.x = self.screen_dimen[0] - (self.paddle_margin+self.ball_dimen[0]+self.paddle_dimen[0]+2)
                 self.ball.bounce(-diff)
@@ -129,13 +139,11 @@ class GameScreen():
             pygame.draw.line(self.screen,colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
 
             movingsprites.draw(self.screen)
-            
-            font = pygame.font.Font(None,74)
-            
-            text1 = font.render(str(self.score1),1,colors.WHITE)
+
+            text1 = self.font.render(str(self.score1),1,colors.WHITE)
             self.screen.blit(text1,(int(self.screen_dimen[0]/4),10))
             
-            text2 = font.render(str(self.score2),1,colors.WHITE)
+            text2 = self.font.render(str(self.score2),1,colors.WHITE)
             self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
 
             if self.score1 == 10 or self.score2 == 10:
@@ -207,19 +215,75 @@ class GameScreen():
             
             clock.tick(self.fps)
 
+    def display(self):
+        Score1=UIElement(
+            center_position=(self.screen_dimen[0]/4,self.score_margin/2),
+            font_size=70,
+            bg_rgb=colors.BLACK,
+            text_rgb=colors.WHITE,
+            text=str(self.score1),
+            action=None
+        )
+
+        Score2=UIElement(
+            center_position=(3*(self.screen_dimen[0]/4),self.score_margin/2),
+            font_size=70,
+            bg_rgb=colors.BLACK,
+            text_rgb=colors.WHITE,
+            text=str(self.score2),
+            action=None
+        )
+
+        Pause_btn=UIElement(
+            center_position=(self.screen_dimen[0]/2,self.score_margin/2),
+            font_size=32,
+            bg_rgb=colors.BLACK,
+            text_rgb=colors.WHITE,
+            text=pause_button,
+            action=CB_PAUSE
+        )
+
+        Score1.setHighlightable(False)
+        Score2.setHighlightable(False)
+
+        buttons = [Score1, Score2, Pause_btn]
+
+        while True:
+            mouse_up = False
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    mouse_up = True
+            self.screen.fill(colors.BLACK)
+
+            for button in buttons:
+                ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                if ui_action is not None:
+                    return ui_action
+
+                pygame.draw.circle(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin//2],30)
+                pygame.draw.circle(self.screen,colors.BLACK,[self.screen_dimen[0]//2,self.score_margin//2],28)
+                
+                button.draw(self.screen)
+
+            pygame.display.flip()
+        
+
     def setGameObjective(self, game_obj):
         self.game_obj=game_obj
 
-    def setMovables(self, ball_radius, paddle_dimen, color):
+    def setMovables(self, ball_radius, paddle_dimen, color1, color2):
         self.paddle_dimen=paddle_dimen
+        self.color1=color1
+        self.color2=color2
+        
         self.ball_dimen=(ball_radius,ball_radius)
-
+        
         self.ball=Ball(self.ball_dimen, self.screen_dimen, self.paddle_dimen, self.score_margin)
         self.ball_group=pygame.sprite.Group()
         self.ball_group.add(self.ball)
 
-        self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
-        self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin)
+        self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
+        self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
 
         self.reset()
 
@@ -238,11 +302,18 @@ class GameScreen():
     def setPlayer1Name(self, p1Name):
         self.p1Name=p1Name
 
-    def setPlayer1Name(self, p1Name):
+    def setPlayer2Name(self, p2Name):
         self.p2Name=p2Name
 
     def setBounceAcceleration(self, bounce_acceleration):
         self.bounce_acceleration = bounce_acceleration
+
+    def setPlayerColors(self,color1,color2):
+        self.color1=color1
+        self.color2=color2
+
+        self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
+        self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
 
     def getWinnerName(self):
         return self.winnerName
