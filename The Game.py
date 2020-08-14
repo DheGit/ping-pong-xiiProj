@@ -109,6 +109,7 @@ def pause_game(screen):
 
 def launch_endgame(screen):
     endgame_screen.setWinnerName(game.getWinnerName())
+    endgame_screen.setWinnerColor(game.getWinnerColor())
 
     new_state=endgame_screen.showEndScreen()
 
