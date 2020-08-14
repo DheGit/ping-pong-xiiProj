@@ -69,10 +69,14 @@ class PauseScreen():
             self.screen.fill(r.game.BLACK)
 
             for button in buttons:
-                ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                ui_action = button.update(pygame.mouse.get_pos(), mouse_up)                    
                 if ui_action is not None:
                     return ui_action
                 button.draw(self.screen)
+
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_r]:
+                    return CB_PLAY
 
             pygame.display.flip()
 
