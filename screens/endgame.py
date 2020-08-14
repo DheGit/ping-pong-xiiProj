@@ -14,8 +14,12 @@ class EndgameScreen():
     def __init__(self, screen, bg_rgb):
         self.screen=screen
         self.winnerName = ""
+        self.winnerColor = r.colors.WHITE
         self.bg_rgb = bg_rgb
         self.setUI()
+
+    def setWinnerColor(self, winnerColor):
+        self.winnerColor = winnerColor
 
     def setWinnerName(self, winnerName):
         self.winnerName = winnerName
@@ -24,7 +28,7 @@ class EndgameScreen():
             center_position=(r.game.SCREEN_WIDTH/2, 100), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
             font_size=90,
             bg_rgb=self.bg_rgb,
-            text_rgb=r.colors.WHITE,
+            text_rgb=self.winnerColor,
             text=self.winnerName,
         )
 
@@ -32,7 +36,7 @@ class EndgameScreen():
             center_position=(r.game.SCREEN_WIDTH/2, 200), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
             font_size=90,
             bg_rgb=self.bg_rgb,
-            text_rgb=r.colors.WHITE,
+            text_rgb=self.winnerColor,
             text=r.endgame.win_statement,
         )
 
