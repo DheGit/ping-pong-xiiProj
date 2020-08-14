@@ -33,6 +33,7 @@ class GameScreen():
         self.p2Name="Player2"
 
         self.winnerName="TheHulk" # :P
+        self.winnerColor=colors.WHITE
 
         self.color1=fg_color_default
         self.color2=fg_color_default
@@ -149,8 +150,10 @@ class GameScreen():
             if self.score1 == 10 or self.score2 == 10:
                 if self.score1==10:
                     self.winnerName=self.p1Name
+                    self.winnerColor=self.color1
                 if self.score2==10:
                     self.winnerName=self.p2Name
+                    self.winnerColor=self.color2
                     
                 self.reset()
                                 
@@ -314,6 +317,9 @@ class GameScreen():
 
         self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
         self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
+
+    def getWinnerColor(self):
+        return self.winnerColor
 
     def getWinnerName(self):
         return self.winnerName
