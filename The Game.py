@@ -2,7 +2,6 @@ import pygame
 
 from enum import Enum
 
-from sprites.UIElement import *
 import r
 
 import screens
