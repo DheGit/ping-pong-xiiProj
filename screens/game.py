@@ -3,12 +3,12 @@ import pygame.freetype
 
 from sprites.Paddle import *
 from sprites.Ball import *
-from sprites.UIElement import *
+from sprites.Button import *
+
+import r
 
 from r.main import *
 from r.game import *
-
-from r import colors
 
 CB_RETURN = 0
 CB_PAUSE = 1
@@ -33,7 +33,7 @@ class GameScreen():
         self.p2Name="Player2"
 
         self.winnerName="TheHulk" # :P
-        self.winnerColor=colors.WHITE
+        self.winnerColor=r.colors.WHITE
 
         self.color1=fg_color_default
         self.color2=fg_color_default
@@ -42,7 +42,7 @@ class GameScreen():
 
         self.bounce_acceleration = 1
 
-        self.font=pygame.font.Font(None,80)
+        self.font=pygame.font.Font(None,r.font_size.l)
 
         self.collideSound=pygame.mixer.Sound('sound/bounce1.wav')
 
@@ -135,16 +135,16 @@ class GameScreen():
 
             movingsprites.update()
 
-            pygame.draw.line(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
+            pygame.draw.line(self.screen,r.colors.WHITE,[self.screen_dimen[0]//2,self.score_margin],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
 
-            pygame.draw.line(self.screen,colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
+            pygame.draw.line(self.screen,r.colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
 
             movingsprites.draw(self.screen)
 
-            text1 = self.font.render(str(self.score1),1,colors.WHITE)
+            text1 = self.font.render(str(self.score1),1,r.colors.WHITE)
             self.screen.blit(text1,(int(self.screen_dimen[0]/4),10))
             
-            text2 = self.font.render(str(self.score2),1,colors.WHITE)
+            text2 = self.font.render(str(self.score2),1,r.colors.WHITE)
             self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
 
             if self.score1 == 10 or self.score2 == 10:
@@ -165,38 +165,38 @@ class GameScreen():
 
     def countdown(self):
         clock=pygame.time.Clock()
-        three=UIElement(
+        three=Button(
             center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
             text="3",
-            font_size=200,
+            font_size=r.font_size.xxxxl,
             bg_rgb=self.bg_color,
             text_rgb=fg_color_default)
 
-        two=UIElement(
+        two=Button(
             center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
             text="2",
-            font_size=200,
+            font_size=r.font_size.xxxxl,
             bg_rgb=self.bg_color,
             text_rgb=fg_color_default)
 
-        one=UIElement(
+        one=Button(
             center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
             text="1",
-            font_size=200,
+            font_size=r.font_size.xxxxl,
             bg_rgb=self.bg_color,
             text_rgb=fg_color_default)
 
-        go=UIElement(
+        go=Button(
             center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
             text="GO!",
-            font_size=200,
+            font_size=r.font_size.xxxxl,
             bg_rgb=self.bg_color,
             text_rgb=fg_color_default)
 
-        game_objective=UIElement(
+        game_objective=Button(
             center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2+200),
             text=self.game_obj,
-            font_size=100,
+            font_size=r.font_size.xl,
             bg_rgb=self.bg_color,
             text_rgb=fg_color_default)
 
@@ -219,57 +219,35 @@ class GameScreen():
             clock.tick(self.fps)
 
     def display(self):
-        Score1=UIElement(
-            center_position=(self.screen_dimen[0]/4,self.score_margin/2),
-            font_size=70,
-            bg_rgb=colors.BLACK,
-            text_rgb=colors.WHITE,
-            text=str(self.score1),
-            action=None
-        )
-
-        Score2=UIElement(
-            center_position=(3*(self.screen_dimen[0]/4),self.score_margin/2),
-            font_size=70,
-            bg_rgb=colors.BLACK,
-            text_rgb=colors.WHITE,
-            text=str(self.score2),
-            action=None
-        )
-
-        Pause_btn=UIElement(
+        Pause_btn=Button(
             center_position=(self.screen_dimen[0]/2,self.score_margin/2),
-            font_size=32,
-            bg_rgb=colors.BLACK,
-            text_rgb=colors.WHITE,
+            font_size=r.font_size.xxs,
+            bg_rgb=r.colors.BLACK,
+            text_rgb=r.colors.WHITE,
             text=pause_button,
             action=CB_PAUSE
         )
 
-        Score1.setHighlightable(False)
-        Score2.setHighlightable(False)
-
-        buttons = [Score1, Score2, Pause_btn]
+        buttons = [Pause_btn]
 
         while True:
             mouse_up = False
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
-            self.screen.fill(colors.BLACK)
+            self.screen.fill(r.colors.BLACK)
 
             for button in buttons:
-                ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
-                if ui_action is not None:
-                    return ui_action
+                button_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                if button_action is not None:
+                    return button_action
 
-                pygame.draw.circle(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin//2],30)
-                pygame.draw.circle(self.screen,colors.BLACK,[self.screen_dimen[0]//2,self.score_margin//2],28)
+                pygame.draw.circle(self.screen,r.colors.WHITE,[self.screen_dimen[0]//2,self.score_margin//2],30)
+                pygame.draw.circle(self.screen,r.colors.BLACK,[self.screen_dimen[0]//2,self.score_margin//2],28)
                 
                 button.draw(self.screen)
 
-            pygame.display.flip()
-        
+            pygame.display.flip()       
 
     def setGameObjective(self, game_obj):
         self.game_obj=game_obj
