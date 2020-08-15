@@ -1,19 +1,17 @@
 import pygame
 
-from r import colors
+import r
 
 pygame.init()
 
 class Textbox:
-    
-    def __init__(self, x, y, w, h, fontsize=24, maxlength=100, resizable=True, text='', textcolor=colors.BLACK, bordercolor=colors.SILVER, activebordercolor=colors.GOLD):
-        self.rect = pygame.Rect(x, y, w, h)
-        self.color = bordercolor
-        self.inactivecolor = bordercolor
+    def __init__(self, x, y, width, height, fontsize=r.font_size.xxs+1, maxlength=13, text='', textcolor=r.colors.BLACK, inactivebordercolor=r.colors.SILVER, activebordercolor=r.colors.GOLD):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = inactivebordercolor
+        self.inactivecolor = inactivebordercolor
         self.textcolor = textcolor
         self.activecolor = activebordercolor
         self.maxlength = maxlength
-        self.resizable = resizable
         self.text = text
         
         self.fontsize = fontsize
@@ -31,23 +29,23 @@ class Textbox:
         self.clock=pygame.time.Clock()
 
 
-    def handle_events(self,events):
+    def handle_event(self,events):
         for event in events:
-            self.handle_event(event)
+            self.define_event(event)
 
         for k in self.repeater_count:
             self.repeater_count[k][0]+=self.clock.get_time()
             if self.repeater_count[k][0] >= self.nr_init:
                 self.repeater_count[k][0]=(self.nr_init - self.nr_inter)
 
-                e_key, e_uni=k,self.repeater_count[k][1]
+                e_key, e_uni = k, self.repeater_count[k][1]
                 pygame.event.post(pygame.event.Event(pygame.KEYDOWN,key=e_key,unicode=e_uni))
         
-        self.txt_surface = self.font.render(self.text, True, self.textcolor)
+        self.text_surface = self.font.render(self.text, True, self.textcolor)
         
         self.clock.tick()
 
-    def handle_event(self, event):
+    def define_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 self.active = True
@@ -74,15 +72,10 @@ class Textbox:
             elif event.type==pygame.KEYUP:
                 del self.repeater_count[event.key]
 
-    def update(self):
-        if self.resizable:
-            width = max(200, self.txt_surface.get_width()+10)
-            self.rect.w = width
-
     def draw(self, screen):
-        pygame.draw.line(screen,colors.WHITE,(self.rect.x+2,self.rect.y+self.rect.h/2),(self.rect.x+self.rect.w-2,self.rect.y+self.rect.h/2),30)
+        pygame.draw.line(screen, r.colors.WHITE, (self.rect.x+2,self.rect.y+self.rect.height/2), (self.rect.x+self.rect.width-2,self.rect.y+self.rect.height/2), 30)
         pygame.draw.rect(screen, self.color, self.rect, 4)
-        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
 
     def getText(self):
         return self.text
