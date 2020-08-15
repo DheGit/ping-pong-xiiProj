@@ -2,7 +2,7 @@ import pygame
 
 import r
 
-from sprites.UIElement import *
+from sprites.Button import *
 
 CB_NAMES = 3
 CB_QUIT = -1
@@ -12,25 +12,25 @@ class MainMenuScreen():
 		self.screen = screen
 
 	def show_menu(self):
-	    start_btn = UIElement(
-	        center_position=(r.game.SCREEN_WIDTH/2, 430), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-	        font_size=60,
+	    start_btn = Button(
+	        center_position=(r.game.SCREEN_WIDTH/2, 430),
+	        font_size=r.font_size.m,
 	        bg_rgb=r.colors.BLACK,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_start_button_txt,
 	        action=CB_NAMES,
 	    )
-	    quit_btn = UIElement(
+	    quit_btn = Button(
 	        center_position=(r.game.SCREEN_WIDTH/2, 550),
-	        font_size=60,
+	        font_size=r.font_size.m,
 	        bg_rgb=r.colors.BLACK,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_quit_button_txt,
 	        action=CB_QUIT,
 	    )
-	    game_name = UIElement(
+	    game_name = Button(
 	        center_position=(r.game.SCREEN_WIDTH/2, 220),
-	        font_size=135,
+	        font_size=r.font_size.xxxl,
 	        bg_rgb=r.colors.BLACK,
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_title_label_txt,
@@ -49,9 +49,9 @@ class MainMenuScreen():
 	        self.screen.fill(r.game.BLACK)
 
 	        for button in buttons:
-	            ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
-	            if ui_action is not None:
-	                return ui_action
+	            button_action = button.update(pygame.mouse.get_pos(), mouse_up)
+	            if button_action is not None:
+	                return button_action
 	            button.draw(self.screen)
 
 	        pygame.display.flip()
