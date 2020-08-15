@@ -20,7 +20,7 @@ P2=1
 
 COLOR_BTN_ACTIONS=[BLUE*10+P1,PINK*10+P1,GREEN*10+P1,YELLOW*10+P1,RED*10+P1,BLUE*10+P2,PINK*10+P2,GREEN*10+P2,YELLOW*10+P2,RED*10+P2]
 
-COLOR_LIST=[r.colors.LIGHTBLUE,r.colors.PINK,r.colors.GREEN,r.colors.YELLOW,r.colors.RED]
+COLOR_LIST=[r.colors.BLUE,r.colors.PINK,r.colors.GREEN,r.colors.YELLOW,r.colors.RED]
 
 _color_default=(255,255,255)
 
@@ -174,7 +174,7 @@ class PlayerNamesScreen():
             center_position = (SCREEN_WIDTH/4, 270),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.LIGHTBLUE,
+            text_rgb = r.colors.BLUE,
             text = color_blue_label_txt,
             action = BLUE*10+P1,
         )
@@ -215,7 +215,7 @@ class PlayerNamesScreen():
             center_position = (3*(SCREEN_WIDTH/4), 270),
             font_size = 40,
             bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.LIGHTBLUE,
+            text_rgb = r.colors.BLUE,
             text = color_blue_label_txt,
             action = BLUE*10+P2,
         )
