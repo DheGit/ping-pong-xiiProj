@@ -1,6 +1,7 @@
 import pygame
 
-from sprites.UIElement import *
+from sprites.Button import *
+
 import r
 
 CB_RETURN = 0
@@ -16,35 +17,49 @@ class EndgameScreen():
         self.winnerName = ""
         self.winnerColor = r.colors.WHITE
         self.bg_rgb = bg_rgb
-        self.setUI()
+        self.setButtons()
 
     def setWinnerColor(self, winnerColor):
         self.winnerColor = winnerColor
 
-        self.winner_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 100), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=90,
+        self.winner_label = Button(
+            center_position=(r.game.SCREEN_WIDTH/2, 100),
+            font_size=r.font_size.xxl,
             bg_rgb=self.bg_rgb,
             text_rgb=self.winnerColor,
             text=self.winnerName,
+        )
+        self.win_label = Button(
+            center_position=(r.game.SCREEN_WIDTH/2, 220),
+            font_size=r.font_size.xxl,
+            bg_rgb=self.bg_rgb,
+            text_rgb=self.winnerColor,
+            text=r.endgame.win_statement,
         )
 
     def setWinnerName(self, winnerName):
         self.winnerName = winnerName
 
-        self.winner_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 100), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=90,
+        self.winner_label = Button(
+            center_position=(r.game.SCREEN_WIDTH/2, 100),
+            font_size=r.font_size.xxl,
             bg_rgb=self.bg_rgb,
             text_rgb=self.winnerColor,
             text=self.winnerName,
+        )
+        self.win_label = Button(
+            center_position=(r.game.SCREEN_WIDTH/2, 220),
+            font_size=r.font_size.xxl,
+            bg_rgb=self.bg_rgb,
+            text_rgb=self.winnerColor,
+            text=r.endgame.win_statement,
         )
 
     def showEndScreen(self):
         self.winner_label.setHighlightable(False)
         self.win_label.setHighlightable(False)
 
-        ui_els = [self.winner_label, self.win_label, self.play_btn, self.back_btn, self.quit_btn]
+        buttons = [self.winner_label, self.win_label, self.play_btn, self.return_to_mainmenu_btn, self.quit_btn]
 
         while True:
             mouse_up = False
@@ -55,11 +70,11 @@ class EndgameScreen():
                     mouse_up = True
 
             self.screen.fill(self.bg_rgb)
-            for ui_el in ui_els:
-                ui_action=ui_el.update(pygame.mouse.get_pos(), mouse_up)
-                if ui_action is not None:
-                    return ui_action
-                ui_el.draw(self.screen)
+            for button in buttons:
+                button_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                if button_action is not None:
+                    return button_action
+                button.draw(self.screen)
 
             keys=pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
@@ -67,54 +82,28 @@ class EndgameScreen():
 
             pygame.display.flip()
 
-    def setUI(self):
-        self.play_btn =  UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 370), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=60,
-            bg_rgb=self.bg_rgb,
-            text_rgb=r.colors.WHITE,
-            text=r.endgame.play_again_btn_txt,
-            action=CB_PLAY
-        )
-
-        self.back_btn = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 470), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=60,
-            bg_rgb=self.bg_rgb,
-            text_rgb=r.colors.WHITE,
-            text=r.endgame.return_btn_txt,
-            action=CB_RETURN
-        )
-        self.quit_btn = UIElement(
-            center_position = (r.game.SCREEN_WIDTH/2, 570),
-            font_size = 60,
+    def setButtons(self):
+        self.play_btn =  Button(
+            center_position = (r.game.SCREEN_WIDTH/2, 370),
+            font_size = r.font_size.m,
             bg_rgb = self.bg_rgb,
             text_rgb = r.colors.WHITE,
-            text = r.main.r_quit_button_txt,
+            text = r.endgame.play_again_btn_txt,
+            action = CB_PLAY
+        )
+        self.return_to_mainmenu_btn = Button(
+            center_position = (r.game.SCREEN_WIDTH/2, 470), 
+            font_size = r.font_size.m,
+            bg_rgb = self.bg_rgb,
+            text_rgb = r.colors.WHITE,
+            text = r.endgame.return_to_mainmenu_button_txt,
+            action = CB_RETURN
+        )
+        self.quit_btn = Button(
+            center_position = (r.game.SCREEN_WIDTH/2, 570),
+            font_size = r.font_size.m,
+            bg_rgb = self.bg_rgb,
+            text_rgb = r.colors.WHITE,
+            text = r.endgame.quit_button_txt,
             action = CB_QUIT,
         )
-        self.win_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 200), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=90,
-            bg_rgb=self.bg_rgb,
-            text_rgb=(255,255,255),
-            text=r.endgame.win_statement,
-        )
-
-
-if __name__=="__main__":
-    #Testing
-    pygame.init()
-    screen=pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
-
-    egScreen=EndgameScreen(screen, r.colors.BLUE)
-    egScreen.setWinnerName("Player 1")
-
-    egScreen.setWinnerColor(r.colors.RED)
-    new_status = egScreen.showEndScreen()
-
-    if new_status == CB_RETURN:
-        print("Returning to main menu now")
-    if new_status == CB_PLAY:
-        print("Restarting game now")
-    pygame.quit()
