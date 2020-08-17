@@ -15,19 +15,31 @@ class Label():
 		y=self.limitRect.top
 		fh=self.font.size("Tg")[1]
 		temptxt=self.text
+		
+		flag=False
+
 		while temptxt:
 			i=1
 
 			if y+fh>self.limitRect.bottom:
 				break
 
-			while self.font.size(temptxt[:i])[0] < self.limitRect.width and i < len(temptxt):
-				i+=1
+			flag=False
 
-			if i<len(temptxt):
+			while self.font.size(temptxt[:i])[0] < self.limitRect.width and i < len(temptxt) and not flag:
+				i+=1
+				if i<len(temptxt) and temptxt[i] == '\n':
+					flag=True
+
+			if i<len(temptxt) and not flag:
 				i=temptxt.rfind(" ",0,i)+1
 
+
 			image=self.font.render(temptxt[:i],1,self.fg_color)
+
+			if i<len(temptxt) and temptxt[i]=='\n':
+				temptxt=temptxt[:i]+temptxt[i+1:]
+				i+=1
 
 			self.screen.blit(image,(self.limitRect.left,y))
 			y+=fh+self.lineSpacing

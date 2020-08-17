@@ -6,6 +6,7 @@ from sprites.Button import *
 
 CB_NAMES = 3
 CB_QUIT = -1
+CB_ABOUT = 7
 
 class MainMenuScreen():
 	def __init__(self, screen):
@@ -41,12 +42,17 @@ class MainMenuScreen():
 
 	    buttons = [start_btn, quit_btn, game_name]
 
+
 	    while True:
 	        mouse_up = False
 	        for event in pygame.event.get():
 	            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
 	                mouse_up = True
 	        self.screen.fill(r.game.BLACK)
+
+	        keys = pygame.key.get_pressed()
+	        if keys[pygame.K_m]:
+	        	return CB_ABOUT
 
 	        for button in buttons:
 	            button_action = button.update(pygame.mouse.get_pos(), mouse_up)
