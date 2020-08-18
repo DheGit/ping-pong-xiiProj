@@ -11,14 +11,18 @@ class Label():
 		self.text=text
 		self.lineSpacing=lineSpacing
 
-	def draw(self):
+	def foo_draw(self): #To be removed once draw() is tested to work fine
 		y=self.limitRect.top
 		fh=self.font.size("Tg")[1]
 		temptxt=self.text
-		
+
 		flag=False
 
 		while temptxt:
+			if temptxt[0]=='\n':
+				y+=fh+self.lineSpacing
+				temptxt=temptxt[1:]
+				continue
 			i=1
 
 			if y+fh>self.limitRect.bottom:
@@ -28,24 +32,66 @@ class Label():
 
 			while self.font.size(temptxt[:i])[0] < self.limitRect.width and i < len(temptxt) and not flag:
 				i+=1
-				if i<len(temptxt) and temptxt[i] == '\n':
+				if i<len(temptxt) and temptxt[i]=='\n':
 					flag=True
 
 			if i<len(temptxt) and not flag:
 				i=temptxt.rfind(" ",0,i)+1
 
+			# if flag:
+			# 	i-=1
 
 			image=self.font.render(temptxt[:i],1,self.fg_color)
-
-			if i<len(temptxt) and temptxt[i]=='\n':
-				temptxt=temptxt[:i]+temptxt[i+1:]
-				i+=1
 
 			self.screen.blit(image,(self.limitRect.left,y))
 			y+=fh+self.lineSpacing
 
 			temptxt=temptxt[i:]
+
 		return temptxt
+
+	def draw(self):
+		#getting the blit list first
+		fh=self.font.size("Tg")[1]
+		blit_list=[]
+		j=0
+		temptxt=self.text
+		i=1
+		flag=True
+
+		while temptxt and (len(blit_list)*(fh+self.lineSpacing)<=self.limitRect.height):
+			if temptxt[0] == '\n':
+				for x in range(1,len(temptxt)):
+					if temptxt[x]!='\n':
+						break
+					blit_list.append("")
+				temptxt=temptxt[x:]
+				continue
+
+			i=1
+			flag=True
+
+			while self.font.size(temptxt[:i])[0] < self.limitRect.width and i < len(temptxt) and flag:
+				i+=1
+				if temptxt[i-1]=='\n':
+					flag=False
+
+			if i<len(temptxt) and flag:
+				i=temptxt.rfind(" ",0,i)+1
+
+			if not flag:
+				i-=1
+
+			blit_list.append(temptxt[:i])
+			temptxt=temptxt[i:]
+
+		#blitting it now
+		y=self.limitRect.top
+		for st in blit_list:
+			image=self.font.render(st,1,self.fg_color)
+			self.screen.blit(image,(self.limitRect.left,y))
+			y+=fh+self.lineSpacing
+			
 
 	def setText(self,text):
 		self.text=text
