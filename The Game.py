@@ -7,7 +7,7 @@ import r
 import screens
 
 def main():
-    global game, main_menu, player_names, pause_screen, endgame_screen
+    global game, main_menu, player_names, pause_screen, endgame_screen, about_screen
     pygame.init()
     pygame.display.set_caption(r.main.r_title_label_txt)
 
@@ -31,12 +31,14 @@ def main():
 
     endgame_screen=screens.endgame.EndgameScreen(screen, r.colors.BLACK)
 
+    about_screen=screens.about.AboutScreen(screen,r.about.text_about,(r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT),r.colors.BLACK,r.colors.WHITE,r.game.FPS,fontsize=r.font_size.s)
+
     while True:
         if game_state == GameState.MENU:
             game_state = start_menu(screen)
 
         if game_state == GameState.PLAYERNAMES:
-            game_state = names(screen) 
+            game_state = names(screen)
 
         if game_state == GameState.PLAYGAME:
             game_state = start_game(screen, game)
@@ -46,6 +48,9 @@ def main():
             
         if game_state == GameState.ENDGAME:
             game_state = launch_endgame(screen)
+
+        if game_state == GameState.ABOUT:
+            game_state = launchAbout(screen)
 
         if game_state == GameState.QUIT:
             pygame.quit()
@@ -60,6 +65,8 @@ def start_menu(screen):
         return GameState.QUIT
     if new_state == screens.main_menu.CB_NAMES:
         return GameState.PLAYERNAMES
+    if new_state == screens.main_menu.CB_ABOUT:
+        return GameState.ABOUT
 
     return GameState.QUIT
 
@@ -107,6 +114,8 @@ def pause_game(screen):
     return GameState.MENU
 
 def launch_endgame(screen):
+    global endgame_screen,game
+
     endgame_screen.setWinnerName(game.getWinnerName())
     endgame_screen.setWinnerColor(game.getWinnerColor())
 
@@ -121,6 +130,19 @@ def launch_endgame(screen):
 
     return GameState.MENU
 
+def launchAbout(screen):
+    global about_screen
+
+    new_state=about_screen.showAbout()
+
+    if new_state==screens.about.CB_RETURN:
+        return GameState.MENU
+    if new_state==screens.about.CB_QUIT:
+        return GameState.QUIT
+
+    return GameState.MENU
+
+
 class GameState(Enum):
     QUIT=-1
     MENU=0
@@ -128,6 +150,7 @@ class GameState(Enum):
     PAUSE=2
     ENDGAME=3
     PLAYERNAMES=4
+    ABOUT=5
 
 if __name__=="__main__":
     main()
