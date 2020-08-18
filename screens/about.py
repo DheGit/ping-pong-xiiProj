@@ -26,7 +26,7 @@ class AboutScreen():
 	def showAbout(self):
 		exitw=False
 
-		btns=[self.return_btn]
+		buttons=[self.return_btn]
 
 		while not exitw:
 			mouse_up=False
@@ -39,16 +39,16 @@ class AboutScreen():
 
 			keys=pygame.key.get_pressed()
 
-			if(keys[pygame.K_ESCAPE]):
+			if keys[pygame.K_ESCAPE]:
 				return CB_RETURN
 
 			self.screen.fill(self.bg_color)
 
-			for btn in btns:
-				btn_action=btn.update(pygame.mouse.get_pos(),mouse_up)
-				if btn_action is not None:
-					return btn_action
-				btn.draw(self.screen)
+			for button in buttons:
+				button_action=button.update(pygame.mouse.get_pos(),mouse_up)
+				if button_action is not None:
+					return button_action
+				button.draw(self.screen)
 
 			self.aboutLabel.draw()
 
@@ -61,9 +61,9 @@ class AboutScreen():
 		self.aboutLabel=Label(self.screen,pygame.Rect(40,40,self.screen_dimen[0]-80,self.screen_dimen[1]-80),self.fg_color,self.bg_color,self.font,text=self.abouttext,lineSpacing=-2)
 
 	def setUI(self):
-		self.return_btn=Button((self.screen_dimen[0]-150,self.screen_dimen[1]-40), 
+		self.return_btn=Button((self.screen_dimen[0]-220,self.screen_dimen[1]-40), 
 			text=r.about.txt_return_btn, 
-			font_size=r.font_size.xxxs, 
+			font_size=r.font_size.xxs, 
 			bg_rgb=self.bg_color, 
 			text_rgb=self.fg_color, 
 			action=CB_RETURN)
