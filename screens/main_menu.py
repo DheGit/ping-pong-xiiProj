@@ -13,6 +13,14 @@ class MainMenuScreen():
 		self.screen = screen
 
 	def show_menu(self):
+            game_name = Button(
+	        center_position=(r.game.SCREEN_WIDTH/2, 220),
+	        font_size=r.font_size.xxxl,
+	        bg_rgb=r.colors.BLACK,
+	        text_rgb=r.colors.WHITE,
+	        text=r.main.r_title_label_txt,
+	        action=None,
+	    )
 	    start_btn = Button(
 	        center_position=(r.game.SCREEN_WIDTH/2, 430),
 	        font_size=r.font_size.m,
@@ -36,14 +44,6 @@ class MainMenuScreen():
 	        text_rgb=r.colors.WHITE,
 	        text=r.main.r_quit_button_txt,
 	        action=CB_QUIT,
-	    )
-	    game_name = Button(
-	        center_position=(r.game.SCREEN_WIDTH/2, 220),
-	        font_size=r.font_size.xxxl,
-	        bg_rgb=r.colors.BLACK,
-	        text_rgb=r.colors.WHITE,
-	        text=r.main.r_title_label_txt,
-	        action=None,
 	    )
 
 	    game_name.setHighlightable(False)
