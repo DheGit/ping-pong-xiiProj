@@ -8,7 +8,10 @@ import screens
 
 def main():
     global game, main_menu, player_names, pause_screen, endgame_screen, about_screen
+    pygame.mixer.pre_init(22050, -16, 1, 512)
     pygame.init()
+    pygame.mixer.quit()
+    pygame.mixer.init(22050, -16, 1, 512)
     pygame.display.set_caption(r.main.r_title_label_txt)
 
     screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
