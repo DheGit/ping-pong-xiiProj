@@ -146,7 +146,7 @@ class PlayerNamesScreen():
     def handleColorClick(self, clicked):
         i=P1
         for p in self.colorBtnList:
-            if p[clicked//10].staysHighlighted() and i!=clicked//10:
+            if p[clicked//10].staysHighlighted() and i!=clicked%10:
                 return
             i+=1
 
