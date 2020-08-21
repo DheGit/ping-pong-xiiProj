@@ -10,12 +10,11 @@ CB_RETURN=0
 CB_QUIT=-1
 
 class AboutScreen():
-	def __init__(self,screen,abouttext,screen_dimen,bg_color,fg_color,fps,fontsize=30):
+	def __init__(self,screen,abouttext,screen_dimen,bg_color,fg_color,fontsize=r.font_size.xxs):
 		self.screen=screen
 		self.screen_dimen=screen_dimen
 		self.bg_color=bg_color
 		self.fg_color=fg_color
-		self.fps=fps
 		self.abouttext=abouttext
 
 		self.font=pygame.font.Font(None,fontsize)
