@@ -57,7 +57,7 @@ class AboutScreen():
 
 	def setAboutText(self,abouttext):
 		self.abouttext=abouttext
-		self.aboutLabel=Label(self.screen,pygame.Rect(40,40,self.screen_dimen[0]-80,self.screen_dimen[1]-80),self.fg_color,self.bg_color,self.font,text=self.abouttext,lineSpacing=-2)
+		self.aboutLabel=Label(self.screen,pygame.Rect(40,40,self.screen_dimen[0]-80,self.screen_dimen[1]-80),self.fg_color,self.bg_color,self.font,text=self.abouttext,lineSpacing=6)
 
 	def setUI(self):
 		self.return_btn=Button((self.screen_dimen[0]-220,self.screen_dimen[1]-40), 

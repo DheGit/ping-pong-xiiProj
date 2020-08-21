@@ -58,9 +58,6 @@ class MainMenuScreen():
                     mouse_up = True
             self.screen.fill(r.game.BLACK)
 
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_m]:
-                return CB_ABOUT
 
             for button in buttons:
                 button_action = button.update(pygame.mouse.get_pos(), mouse_up)
