@@ -17,12 +17,12 @@ class MainMenuScreen():
         self.bg_color = bg_color
         self.fg_color = fg_color
         self.gamename=gamename
-        self.font=pygame.font.Font(None,fontsize)
+        self.font=pygame.font.Font(None,fontsize) #TODO: Can add a font style to the r package to make things better and compatible with Label
 
     def show_menu(self):
 
-        game_name = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 220, 50,50), self.fg_color, self.bg_color, self.font, text=self.gamename)
-        
+        game_name = Label(self.screen, pygame.Rect(250, 100, 500 ,500), self.fg_color, self.bg_color, self.font, text=self.gamename)
+
         start_btn = Button(
             center_position=(r.game.SCREEN_WIDTH/2, 430),
             font_size=r.font_size.m,
