@@ -10,12 +10,13 @@ CB_RETURN=0
 CB_QUIT=-1
 
 class AboutScreen():
-	def __init__(self,screen,abouttext,screen_dimen,bg_color,fg_color,fontsize=r.font_size.xxs):
+	def __init__(self,screen,abouttext,screen_dimen,bg_color,fg_color,fontsize=r.font_size.xxs, bg=None):
 		self.screen=screen
 		self.screen_dimen=screen_dimen
 		self.bg_color=bg_color
 		self.fg_color=fg_color
 		self.abouttext=abouttext
+		self.bgimg=bg
 
 		self.font=pygame.font.Font(None,fontsize)
 		self.clock=pygame.time.Clock()
@@ -42,6 +43,9 @@ class AboutScreen():
 				return CB_RETURN
 
 			self.screen.fill(self.bg_color)
+
+			if self.bgimg is not None:
+				self.screen.blit(self.bgimg,(0,0))
 
 			for button in buttons:
 				button_action=button.update(pygame.mouse.get_pos(),mouse_up)

@@ -11,13 +11,14 @@ CB_QUIT = -1
 CB_ABOUT = 7
 
 class MainMenuScreen():
-    def __init__(self, screen, gamename, screen_dimen, bg_color, fg_color, fontsize = r.font_size.xxxl):
+    def __init__(self, screen, gamename, screen_dimen, bg_color, fg_color, fontsize = r.font_size.xxxl, bg=None):
         self.screen = screen
         self.screen_dimen = screen_dimen
         self.bg_color = bg_color
         self.fg_color = fg_color
         self.gamename=gamename
         self.font=pygame.font.Font("r\\font_styles\Courier Italic.ttf",fontsize)
+        self.bgimg=bg
 
     def show_menu(self):
 
@@ -56,7 +57,11 @@ class MainMenuScreen():
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
+
             self.screen.fill(r.game.BLACK)
+
+            if self.bgimg is not None:
+                self.screen.blit(self.bgimg,(0,0))
 
 
             for button in buttons:

@@ -25,9 +25,10 @@ COLOR_LIST=[r.colors.BLUE,r.colors.PINK,r.colors.GREEN,r.colors.YELLOW,r.colors.
 _color_default=(255,255,255)
 
 class PlayerNamesScreen():
-    def __init__(self, screen):
+    def __init__(self, screen, bg=None):
         self.screen = screen
         self.reset()
+        self.bgimg=bg
 
     def names(self):
         self.reset()
@@ -113,6 +114,9 @@ class PlayerNamesScreen():
                     mouse_up = True
                     
             self.screen.fill(r.game.BLACK)
+
+            if self.bgimg is not None:
+                self.screen.blit(self.bgimg,(0,0))
 
             for textbox in textboxes:
                 textbox.handle_event(events)

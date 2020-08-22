@@ -12,11 +12,12 @@ CB_PLAY = 4
 
 class EndgameScreen():
 
-    def __init__(self, screen, bg_rgb):
+    def __init__(self, screen, bg_rgb, bg=None):
         self.screen=screen
         self.winnerName = ""
         self.winnerColor = r.colors.WHITE
         self.bg_rgb = bg_rgb
+        self.bgimg=bg
         self.setButtons()
 
     def setWinnerColor(self, winnerColor):
@@ -70,6 +71,10 @@ class EndgameScreen():
                     mouse_up = True
 
             self.screen.fill(self.bg_rgb)
+
+            if self.bgimg is not None:
+                self.screen.blit(self.bgimg,(0,0))
+                
             for button in buttons:
                 button_action = button.update(pygame.mouse.get_pos(), mouse_up)
                 if button_action is not None:

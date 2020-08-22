@@ -14,6 +14,8 @@ def main():
     pygame.mixer.init(22050, -16, 1, 512)
     pygame.display.set_caption(r.main.r_title_label_txt)
 
+    default_bg=pygame.image.load("image\\bg_default.jpg")
+
     screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
     game_screen = Screen.MENU
 
@@ -26,15 +28,15 @@ def main():
     game.setGameObjective(r.game.game_obj_txt)
     game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE, r.colors.WHITE)
 
-    main_menu=screens.main_menu.MainMenuScreen(screen, r.main.r_title_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE)
+    main_menu=screens.main_menu.MainMenuScreen(screen, r.main.r_title_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    player_names=screens.playernames.PlayerNamesScreen(screen)
+    player_names=screens.playernames.PlayerNamesScreen(screen,bg=default_bg)
 
-    pause_screen=screens.pause.PauseScreen(screen)
+    pause_screen=screens.pause.PauseScreen(screen,bg=default_bg)
 
-    endgame_screen=screens.endgame.EndgameScreen(screen, r.colors.BLACK)
+    endgame_screen=screens.endgame.EndgameScreen(screen, r.colors.BLACK,bg=default_bg)
 
-    about_screen=screens.about.AboutScreen(screen,r.about.text_about,(r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT),r.colors.BLACK,r.colors.WHITE,fontsize=r.font_size.s)
+    about_screen=screens.about.AboutScreen(screen,r.about.text_about,(r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT),r.colors.BLACK,r.colors.WHITE,fontsize=r.font_size.s, bg=default_bg)
 
     while True:
         if game_screen == Screen.MENU:

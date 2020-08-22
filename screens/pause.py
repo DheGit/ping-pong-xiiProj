@@ -9,10 +9,11 @@ CB_PLAY = 4
 CB_QUIT = -1
 
 class PauseScreen():
-    def __init__(self, screen):
+    def __init__(self, screen, bg=None):
         self.screen = screen
         self.scores=(0,0)
         self.setButtons()
+        self.bgimg=bg
         
     def pause_game(self):
         buttons = [self.score_label, self.paused, self.resume_btn, self.quit_btn, self.return_to_mainmenu_btn]
@@ -26,6 +27,8 @@ class PauseScreen():
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
             self.screen.fill(r.game.BLACK)
+            if self.bgimg is not None:
+                self.screen.blit(self.bgimg,(0,0))
 
             for button in buttons:
                 button_action = button.update(pygame.mouse.get_pos(), mouse_up)                    
