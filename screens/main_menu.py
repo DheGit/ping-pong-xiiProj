@@ -17,11 +17,11 @@ class MainMenuScreen():
         self.bg_color = bg_color
         self.fg_color = fg_color
         self.gamename=gamename
-        self.font=pygame.font.Font(None,fontsize) #TODO: Can add a font style to the r package to make things better and compatible with Label
+        self.font=pygame.font.Font("r\\font_styles\Courier Italic.ttf",fontsize)
 
     def show_menu(self):
 
-        game_name = Label(self.screen, pygame.Rect(250, 100, 500 ,500), self.fg_color, self.bg_color, self.font, text=self.gamename)
+        game_name = Label(self.screen, pygame.Rect(90, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.gamename)
 
         start_btn = Button(
             center_position=(r.game.SCREEN_WIDTH/2, 430),
