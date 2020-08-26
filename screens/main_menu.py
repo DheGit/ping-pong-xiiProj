@@ -16,9 +16,9 @@ class MainMenuScreen():
         self.screen_dimen = screen_dimen
         self.bg_color = bg_color
         self.fg_color = fg_color
-        self.gamename=gamename
-        self.font=pygame.font.Font("r\\font_styles\Courier Italic.ttf",fontsize)
-        self.bgimg=bg
+        self.gamename = gamename
+        self.font = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize)
+        self.bgimg = bg
 
     def show_menu(self):
 
@@ -32,6 +32,7 @@ class MainMenuScreen():
             text=r.main.r_start_button_txt,
             action=CB_NAMES,
         )
+        
         about_btn=Button( 
             center_position=(r.game.SCREEN_WIDTH/2, 515),
             font_size=r.font_size.m,
@@ -40,6 +41,7 @@ class MainMenuScreen():
             text=r.main.r_about_button_txt,
             action=CB_ABOUT,
         )
+        
         quit_btn = Button(
             center_position=(r.game.SCREEN_WIDTH/2, 600),
             font_size=r.font_size.m,
