@@ -4,6 +4,7 @@ import r
 from r.playernames import *
 from r.game import *
 
+from sprites.Label import *
 from sprites.Button import *
 from sprites.Textbox import *
 
@@ -25,54 +26,33 @@ COLOR_LIST=[r.colors.BLUE,r.colors.PINK,r.colors.GREEN,r.colors.YELLOW,r.colors.
 _color_default=(255,255,255)
 
 class PlayerNamesScreen():
-    def __init__(self, screen, bg=None):
+    def __init__(self, screen, playernames, player1, player2, name, screen_dimen, bg_color, fg_color, fontsize1 = r.font_size.l, fontsize2 = r.font_size.m, fontsize3 = r.font_size.xs, bg=None):
         self.screen = screen
+        self.screen_dimen = screen_dimen
+        self.bg_color = bg_color
+        self.fg_color = fg_color
+        self.playernames = playernames
+        self.player1 = player1
+        self.player2 = player2
+        self.name = name
+        self.font1 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize1)
+        self.font2 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize2)
+        self.font3 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize3)
         self.reset()
-        self.bgimg=bg
+        self.bgimg = bg
 
     def names(self):
         self.reset()
 
-        Player_Names = Button(
-            center_position = (SCREEN_WIDTH/2, 50),
-            font_size = r.font_size.l,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = playernames_label_txt,
-            action = None,
-        )
-        Player1 = Button(
-            center_position = (SCREEN_WIDTH/4, 135),
-            font_size = r.font_size.m,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = p1_label_txt,
-            action = None,
-        )
-        Name1 = Button(
-            center_position = (80, 205),
-            font_size = r.font_size.xs,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = name_label_txt,
-            action = None,
-        )
-        Player2 = Button(
-            center_position = (3*(SCREEN_WIDTH/4), 135),
-            font_size = r.font_size.m,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = p2_label_txt,
-            action = None,
-        )
-        Name2 = Button(
-            center_position = (SCREEN_WIDTH/2 + 80, 205),
-            font_size = r.font_size.xs,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = name_label_txt,
-            action = None,
-        )
+        Player_Names = Label(self.screen, pygame.Rect(SCREEN_WIDTH/2, 50, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.playernames)
+        
+        Player1 = Label(self.screen, pygame.Rect(SCREEN_WIDTH/4, 135, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player1)
+
+        Name1 = Label(self.screen, pygame.Rect(80, 205, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
+
+        Player2 = Label(self.screen, pygame.Rect(3*(SCREEN_WIDTH/4), 135, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player2)
+
+        Name2 = Label(self.screen, pygame.Rect(SCREEN_WIDTH/2 + 80, 205, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
 
         enter_btn = Button(
             center_position = (SCREEN_WIDTH/2, 550),
@@ -82,6 +62,7 @@ class PlayerNamesScreen():
             text = enter_button_txt,
             action = CB_PLAY,
         )
+        
         return_to_mainmenu_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 620),
             font_size = r.font_size.s,
@@ -93,13 +74,7 @@ class PlayerNamesScreen():
 
         self.setColorButtons()
 
-        Player_Names.setHighlightable(False)
-        Player1.setHighlightable(False)
-        Name1.setHighlightable(False)
-        Player2.setHighlightable(False)
-        Name2.setHighlightable(False)
-
-        buttons = [Player_Names, Player1, Name1, self.Blue1, self.Green1, self.Yellow1, self.Pink1, self.Red1, Player2, Name2, self.Blue2, self.Green2, self.Yellow2, self.Pink2, self.Red2, enter_btn, return_to_mainmenu_btn]
+        buttons = [self.Blue1, self.Green1, self.Yellow1, self.Pink1, self.Red1, self.Blue2, self.Green2, self.Yellow2, self.Pink2, self.Red2, enter_btn, return_to_mainmenu_btn]
 
         P1 = Textbox(180, 190, 200, 30)
         P2 = Textbox(SCREEN_WIDTH/2+180, 190, 200, 30)
@@ -145,6 +120,12 @@ class PlayerNamesScreen():
 
                 button.draw(self.screen)
 
+            Player_Names.draw()
+            Player1.draw()
+            Name1.draw()
+            Player2.draw()
+            Name2.draw()
+
             pygame.display.flip()
 
     def handleColorClick(self, clicked):
@@ -166,10 +147,13 @@ class PlayerNamesScreen():
 
     def getPlayer1Name(self):
         return self.p1name
+    
     def getColor1(self):
         return self.color1
+    
     def getPlayer2Name(self):
         return self.p2name
+    
     def getColor2(self):
         return self.color2
 
