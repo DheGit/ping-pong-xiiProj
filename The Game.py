@@ -19,7 +19,7 @@ def main():
     screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
     game_screen = Screen.MENU
 
-    game=screens.game.GameScreen(screen, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.game.SCORE_MARGIN, r.colors.BLACK, r.game.FPS)
+    game=screens.game.GameScreen(screen, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, r.game.SCORE_MARGIN, r.game.FPS)
     game.setPaddleMargin(r.game.PADDLE_MARGIN)
     game.setPaddleSpeed(r.game.PADDLE_SPEED)
     game.setBallResetMargin(r.game.BALL_RESET_Y_MARGIN)
@@ -30,13 +30,13 @@ def main():
 
     main_menu=screens.main_menu.MainMenuScreen(screen, r.main.r_title_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    player_names=screens.playernames.PlayerNamesScreen(screen,bg=default_bg)
+    player_names=screens.playernames.PlayerNamesScreen(screen, r.playernames.playernames_label_txt, r.playernames.p1_label_txt, r.playernames.p2_label_txt, r.playernames.name_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    pause_screen=screens.pause.PauseScreen(screen,bg=default_bg)
+    pause_screen=screens.pause.PauseScreen(screen, r.pause.paused_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    endgame_screen=screens.endgame.EndgameScreen(screen, r.colors.BLACK,bg=default_bg)
+    endgame_screen=screens.endgame.EndgameScreen(screen, r.endgame.win_statement, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    about_screen=screens.about.AboutScreen(screen,r.about.text_about,(r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT),r.colors.BLACK,r.colors.WHITE,fontsize=r.font_size.s, bg=default_bg)
+    about_screen=screens.about.AboutScreen(screen, r.about.text_about, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
     while True:
         if game_screen == Screen.MENU:
