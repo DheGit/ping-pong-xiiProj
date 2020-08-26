@@ -2,6 +2,7 @@ import pygame
 
 import r
 
+from sprites.Label import *
 from sprites.Button import *
 
 CB_RETURN = 0
@@ -9,17 +10,20 @@ CB_PLAY = 4
 CB_QUIT = -1
 
 class PauseScreen():
-    def __init__(self, screen, bg=None):
+    def __init__(self, screen, pause, screen_dimen, bg_color, fg_color, fontsize1 = r.font_size.xxl, fontsize2 = r.font_size.m, bg=None):
         self.screen = screen
-        self.scores=(0,0)
-        self.setButtons()
-        self.bgimg=bg
+        self.screen_dimen = screen_dimen
+        self.bg_color = bg_color
+        self.fg_color = fg_color
+        self.pause = pause
+        self.font1 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize1)
+        self.font2 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize2)
+        self.scores = (0,0)
+        self.setDisplay()
+        self.bgimg = bg
         
     def pause_game(self):
-        buttons = [self.score_label, self.paused, self.resume_btn, self.quit_btn, self.return_to_mainmenu_btn]
-
-        self.paused.setHighlightable(False)
-        self.score_label.setHighlightable(False)
+        buttons = [self.resume_btn, self.quit_btn, self.return_to_mainmenu_btn]
 
         while True:
             mouse_up = False
@@ -40,25 +44,16 @@ class PauseScreen():
                 if keys[pygame.K_r]:
                     return CB_PLAY
 
+            self.pause_label.draw()
+            self.score_label.draw()
+
             pygame.display.flip()
 
-    def setButtons(self):
-        self.paused = Button(
-            center_position = (r.game.SCREEN_WIDTH/2, 125),
-            font_size = r.font_size.xxl,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = r.pause.paused_label_txt,
-            action = None,
-        )
-        self.score_label=Button(
-            center_position = (r.game.SCREEN_WIDTH/2, 285),
-            font_size = r.font_size.m,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = str(self.scores[0])+" : "+str(self.scores[1]),
-            action = None,
-        )
+    def setDisplay(self):
+        self.pause_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 125, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.pause)
+
+        self.score_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 285, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=str(self.scores[0])+" : "+str(self.scores[1]))
+
         self.resume_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 385),
             font_size = r.font_size.m,
@@ -67,6 +62,7 @@ class PauseScreen():
             text = r.pause.resume_button_txt,
             action=CB_PLAY,
         )
+        
         self.return_to_mainmenu_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 485),
             font_size = r.font_size.m,
@@ -75,6 +71,7 @@ class PauseScreen():
             text = r.pause.return_to_mainmenu_button_txt,
             action=CB_RETURN,
         )
+        
         self.quit_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 585),
             font_size = r.font_size.m,
@@ -86,11 +83,4 @@ class PauseScreen():
 
     def setScores(self,a):
         self.scores=a
-        self.score_label=Button(
-            center_position = (r.game.SCREEN_WIDTH/2, 285),
-            font_size = r.font_size.m,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = str(self.scores[0])+" : "+str(self.scores[1]),
-            action = None,
-        )
+        self.score_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 285, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=str(self.scores[0])+" : "+str(self.scores[1]))
