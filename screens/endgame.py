@@ -19,28 +19,40 @@ class EndgameScreen():
         self.bg_color = bg_color
         self.fg_color = fg_color
         self.win = win
-        self.font = pygame.font.Font("r\\font_styles\Courier Italic.ttf",fontsize)
+        self.font = pygame.font.Font("r\\font_styles\Courier Bold.ttf",fontsize)
         self.winnerName = ""
         self.winnerColor = r.colors.WHITE
         self.bgimg = bg
-        self.setButtons()
+        self.setDisplay()
 
     def setWinnerColor(self, winnerColor):
         self.winnerColor = winnerColor
 
-        self.winner_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.winnerName)
+        self.winner_label = Button(
+            center_position=(r.game.SCREEN_WIDTH/2, 100),
+            font_size=r.font_size.xxl,
+            bg_rgb=r.colors.BLACK,
+            text_rgb=self.winnerColor,
+            text=self.winnerName,
+        )
 
-        self.win_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 220, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.win)
+        self.win_label = Label(self.screen, pygame.Rect(210, 185, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.win)
 
     def setWinnerName(self, winnerName):
         self.winnerName = winnerName
 
-        self.winner_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.winnerName)
+        self.winner_label = Button(
+            center_position=(r.game.SCREEN_WIDTH/2, 100),
+            font_size=r.font_size.xxl,
+            bg_rgb=r.colors.BLACK,
+            text_rgb=self.winnerColor,
+            text=self.winnerName,
+        )
 
-        self.win_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 220, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.win)
+        self.win_label = Label(self.screen, pygame.Rect(210, 185, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.win)
 
     def showEndScreen(self):
-        buttons = [self.play_btn, self.return_to_mainmenu_btn, self.quit_btn]
+        buttons = [self.winner_label, self.play_btn, self.return_to_mainmenu_btn, self.quit_btn]
 
         while True:
             mouse_up = False
@@ -64,15 +76,14 @@ class EndgameScreen():
             keys=pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
                 return CB_QUIT
-
-            self.winner_label.draw()
+            
             self.win_label.draw()
 
             pygame.display.flip()
 
-    def setButtons(self):
+    def setDisplay(self):
         self.play_btn =  Button(
-            center_position = (r.game.SCREEN_WIDTH/2, 370),
+            center_position = (r.game.SCREEN_WIDTH/2, 390),
             font_size = r.font_size.m,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
@@ -80,7 +91,7 @@ class EndgameScreen():
             action = CB_PLAY
         )
         self.return_to_mainmenu_btn = Button(
-            center_position = (r.game.SCREEN_WIDTH/2, 470), 
+            center_position = (r.game.SCREEN_WIDTH/2, 490), 
             font_size = r.font_size.m,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
@@ -88,7 +99,7 @@ class EndgameScreen():
             action = CB_RETURN
         )
         self.quit_btn = Button(
-            center_position = (r.game.SCREEN_WIDTH/2, 570),
+            center_position = (r.game.SCREEN_WIDTH/2, 590),
             font_size = r.font_size.m,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
