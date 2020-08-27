@@ -44,15 +44,15 @@ class PlayerNamesScreen():
     def names(self):
         self.reset()
 
-        Player_Names = Label(self.screen, pygame.Rect(SCREEN_WIDTH/2, 50, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.playernames)
+        Player_Names = Label(self.screen, pygame.Rect(165, 10, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.playernames)
         
-        Player1 = Label(self.screen, pygame.Rect(SCREEN_WIDTH/4, 135, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player1)
+        Player1 = Label(self.screen, pygame.Rect(80, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player1)
 
-        Name1 = Label(self.screen, pygame.Rect(80, 205, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
+        Name1 = Label(self.screen, pygame.Rect(15, 187, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
 
-        Player2 = Label(self.screen, pygame.Rect(3*(SCREEN_WIDTH/4), 135, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player2)
+        Player2 = Label(self.screen, pygame.Rect(535, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player2)
 
-        Name2 = Label(self.screen, pygame.Rect(SCREEN_WIDTH/2 + 80, 205, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
+        Name2 = Label(self.screen, pygame.Rect(465, 187, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
 
         enter_btn = Button(
             center_position = (SCREEN_WIDTH/2, 550),
