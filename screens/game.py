@@ -170,15 +170,15 @@ class GameScreen():
     def countdown(self):
         clock = pygame.time.Clock()
         
-        three = Label(self.screen, pygame.Rect(self.screen_dimen[0]//2, self.screen_dimen[1]//2, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="3")
+        three = Label(self.screen, pygame.Rect(380, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="3")
 
-        two = Label(self.screen, pygame.Rect(self.screen_dimen[0]//2, self.screen_dimen[1]//2, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="2")
+        two = Label(self.screen, pygame.Rect(380, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="2")
 
-        one = Label(self.screen, pygame.Rect(self.screen_dimen[0]//2, self.screen_dimen[1]//2, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="1")
+        one = Label(self.screen, pygame.Rect(380, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="1")
 
-        go = Label(self.screen, pygame.Rect(self.screen_dimen[0]//2, self.screen_dimen[1]//2, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="GO!")
+        go = Label(self.screen, pygame.Rect(285, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="GO!")
 
-        game_objective = Label(self.screen, pygame.Rect(self.screen_dimen[0]//2, self.screen_dimen[1]//2 + 200, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.game_obj)
+        game_objective = Label(self.screen, pygame.Rect(145, 490, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.game_obj)
 
         for i in range(1,self.fps*4+1):
             self.screen.fill(self.bg_color)
