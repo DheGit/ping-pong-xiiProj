@@ -50,9 +50,9 @@ class PauseScreen():
             pygame.display.flip()
 
     def setDisplay(self):
-        self.pause_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 125, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.pause)
+        self.pause_label = Label(self.screen, pygame.Rect(230, 70, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.pause)
 
-        self.score_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 285, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=str(self.scores[0])+" : "+str(self.scores[1]))
+        self.score_label = Label(self.screen, pygame.Rect(360, 250, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=str(self.scores[0])+" : "+str(self.scores[1]))
 
         self.resume_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 385),
@@ -83,4 +83,4 @@ class PauseScreen():
 
     def setScores(self,a):
         self.scores=a
-        self.score_label = Label(self.screen, pygame.Rect(r.game.SCREEN_WIDTH/2, 285, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=str(self.scores[0])+" : "+str(self.scores[1]))
+        self.score_label = Label(self.screen, pygame.Rect(360, 250, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=str(self.scores[0])+" : "+str(self.scores[1]))
