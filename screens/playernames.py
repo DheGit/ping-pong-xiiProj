@@ -35,9 +35,9 @@ class PlayerNamesScreen():
         self.player1 = player1
         self.player2 = player2
         self.name = name
-        self.font1 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize1)
+        self.font1 = pygame.font.Font("r\\font_styles\Courier Bold Italic.ttf", fontsize1)
         self.font2 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize2)
-        self.font3 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize3)
+        self.font3 = pygame.font.Font("r\\font_styles\Courier.ttf", fontsize3)
         self.reset()
         self.bgimg = bg
 
