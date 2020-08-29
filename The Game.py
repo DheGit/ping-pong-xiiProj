@@ -34,7 +34,7 @@ def main():
 
     pause_screen=screens.pause.PauseScreen(screen, r.pause.paused_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    endgame_screen=screens.endgame.EndgameScreen(screen, r.endgame.win_statement, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
+    endgame_screen=screens.endgame.EndgameScreen(screen, r.endgame.win_statement, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, bg=default_bg)
 
     about_screen=screens.about.AboutScreen(screen, r.about.text_about, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
