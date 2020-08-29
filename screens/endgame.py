@@ -35,7 +35,7 @@ class EndgameScreen():
             text=self.winnerName,
         )
 
-        self.win_label = Label(self.screen, pygame.Rect(215, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
+        self.win_label = Label(self.screen, pygame.Rect(225, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
 
     def setWinnerName(self, winnerName):
         self.winnerName = winnerName
@@ -48,7 +48,7 @@ class EndgameScreen():
             text=self.winnerName,
         )
 
-        self.win_label = Label(self.screen, pygame.Rect(215, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
+        self.win_label = Label(self.screen, pygame.Rect(225, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
 
     def showEndScreen(self):
         buttons = [self.winner_label, self.play_btn, self.return_to_mainmenu_btn, self.quit_btn]
