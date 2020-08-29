@@ -13,11 +13,10 @@ CB_PLAY = 4
 
 class EndgameScreen():
 
-    def __init__(self, screen, win, screen_dimen, bg_color, fg_color, fontsize = r.font_size.xxl, bg=None):
+    def __init__(self, screen, win, screen_dimen, bg_color, fontsize = r.font_size.xxl, bg=None):
         self.screen=screen
         self.screen_dimen = screen_dimen
         self.bg_color = bg_color
-        self.fg_color = fg_color
         self.win = win
         self.font = pygame.font.Font("r\\font_styles\Courier Bold.ttf",fontsize)
         self.winnerName = ""
@@ -36,7 +35,7 @@ class EndgameScreen():
             text=self.winnerName,
         )
 
-        self.win_label = Label(self.screen, pygame.Rect(210, 185, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.win)
+        self.win_label = Label(self.screen, pygame.Rect(215, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
 
     def setWinnerName(self, winnerName):
         self.winnerName = winnerName
@@ -49,7 +48,7 @@ class EndgameScreen():
             text=self.winnerName,
         )
 
-        self.win_label = Label(self.screen, pygame.Rect(210, 185, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.win)
+        self.win_label = Label(self.screen, pygame.Rect(215, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
 
     def showEndScreen(self):
         buttons = [self.winner_label, self.play_btn, self.return_to_mainmenu_btn, self.quit_btn]
