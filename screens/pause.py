@@ -17,7 +17,7 @@ class PauseScreen():
         self.fg_color = fg_color
         self.pause = pause
         self.font1 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize1)
-        self.font2 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize2)
+        self.font2 = pygame.font.Font("r\\font_styles\Courier.ttf", fontsize2)
         self.scores = (0,0)
         self.setDisplay()
         self.bgimg = bg
