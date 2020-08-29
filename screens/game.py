@@ -44,8 +44,8 @@ class GameScreen():
 
         self.bounce_acceleration = 1
         
-        self.font1 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", r.font_size.xxxxl)
-        self.font2 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", r.font_size.xl)
+        self.font1 = pygame.font.Font("r\\font_styles\Courier.ttf", r.font_size.xxxxl)
+        self.font2 = pygame.font.Font("r\\font_styles\Courier Bold Italic.ttf", r.font_size.xl)
         self.font3 = pygame.font.Font(None,r.font_size.l)
 
         self.collideSound=pygame.mixer.Sound('sound/bounce1.wav')
