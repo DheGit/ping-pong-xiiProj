@@ -1,9 +1,6 @@
 import pygame
 
 class Paddle(pygame.sprite.Sprite):
-    """
-    The constructor. All the dimen parameters are in the order (width,height)
-    """
     def __init__(self, screen_dimen, paddle_dimen, score_margin, color):
         
         super().__init__()

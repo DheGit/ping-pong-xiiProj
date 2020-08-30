@@ -2,20 +2,24 @@ import pygame
 
 from enum import Enum
 
-from sprites.UIElement import *
 import r
 
 import screens
 
 def main():
-    global game, main_menu, player_names, pause_screen, endgame_screen
+    global game, main_menu, player_names, pause_screen, endgame_screen, about_screen
+    pygame.mixer.pre_init(22050, -16, 1, 512)
     pygame.init()
+    pygame.mixer.quit()
+    pygame.mixer.init(22050, -16, 1, 512)
     pygame.display.set_caption(r.main.r_title_label_txt)
 
-    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
-    game_state = GameState.MENU
+    default_bg=pygame.image.load("image\\bg_default.jpg")
 
-    game=screens.game.GameScreen(screen, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.game.SCORE_MARGIN, r.colors.BLACK, r.game.FPS)
+    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
+    game_screen = Screen.MENU
+
+    game=screens.game.GameScreen(screen, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, r.game.SCORE_MARGIN, r.game.FPS)
     game.setPaddleMargin(r.game.PADDLE_MARGIN)
     game.setPaddleSpeed(r.game.PADDLE_SPEED)
     game.setBallResetMargin(r.game.BALL_RESET_Y_MARGIN)
@@ -24,111 +28,134 @@ def main():
     game.setGameObjective(r.game.game_obj_txt)
     game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), r.colors.WHITE, r.colors.WHITE)
 
-    main_menu=screens.main_menu.MainMenuScreen(screen)
+    main_menu=screens.main_menu.MainMenuScreen(screen, r.main.r_title_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    player_names=screens.playernames.PlayerNamesScreen(screen)
+    player_names=screens.playernames.PlayerNamesScreen(screen, r.playernames.playernames_label_txt, r.playernames.p1_label_txt, r.playernames.p2_label_txt, r.playernames.name_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    pause_screen=screens.pause.PauseScreen(screen)
+    pause_screen=screens.pause.PauseScreen(screen, r.pause.paused_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    endgame_screen=screens.endgame.EndgameScreen(screen, r.colors.BLACK)
+    endgame_screen=screens.endgame.EndgameScreen(screen, r.endgame.win_statement, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, bg=default_bg)
+
+    about_screen=screens.about.AboutScreen(screen, r.about.text_about, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
     while True:
-        if game_state == GameState.MENU:
-            game_state = start_menu(screen)
+        if game_screen == Screen.MENU:
+            game_screen = start_menu(screen)
 
-        if game_state == GameState.PLAYERNAMES:
-            game_state = names(screen) 
+        if game_screen == Screen.PLAYERNAMES:
+            game_screen = names(screen)
 
-        if game_state == GameState.PLAYGAME:
-            game_state = start_game(screen, game)
+        if game_screen == Screen.PLAYGAME:
+            game_screen = start_game(screen, game)
 
-        if game_state == GameState.PAUSE:
-            game_state = pause_game(screen)
+        if game_screen == Screen.PAUSE:
+            game_screen = pause_game(screen)
             
-        if game_state == GameState.ENDGAME:
-            game_state = launch_endgame(screen)
+        if game_screen == Screen.ENDGAME:
+            game_screen = launch_endgame(screen)
 
-        if game_state == GameState.QUIT:
+        if game_screen == Screen.ABOUT:
+            game_screen = launchAbout(screen)
+
+        if game_screen == Screen.QUIT:
             pygame.quit()
             return
 
 def start_menu(screen):
-    new_state=main_menu.show_menu()
+    new_screen=main_menu.show_menu()
 
     game.reset()
 
-    if new_state == screens.main_menu.CB_QUIT:
-        return GameState.QUIT
-    if new_state == screens.main_menu.CB_NAMES:
-        return GameState.PLAYERNAMES
+    if new_screen == screens.main_menu.CB_QUIT:
+        return Screen.QUIT
+    if new_screen == screens.main_menu.CB_NAMES:
+        return Screen.PLAYERNAMES
+    if new_screen == screens.main_menu.CB_ABOUT:
+        return Screen.ABOUT
 
-    return GameState.QUIT
+    return Screen.QUIT
 
 def names(screen):
-    new_state=player_names.names()
+    new_screen=player_names.names()
 
-    if new_state == screens.playernames.CB_PLAY:
+    if new_screen == screens.playernames.CB_PLAY:
         game.setPlayer1Name(player_names.getPlayer1Name())
         game.setPlayer2Name(player_names.getPlayer2Name())
         game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), player_names.getColor1(), player_names.getColor2())
-        return GameState.PLAYGAME
-    if new_state == screens.playernames.CB_RETURN:
-        return GameState.MENU
+        return Screen.PLAYGAME
+    if new_screen == screens.playernames.CB_RETURN:
+        return Screen.MENU
 
-    return GameState.QUIT
+    return Screen.QUIT
 
 def start_game(screen,game):
-    new_state = game.play()
+    new_screen = game.play()
 
-    if new_state == screens.game.CB_PAUSE:
-        return GameState.PAUSE
-    elif new_state == screens.game.CB_ENDGAME:
-        return GameState.ENDGAME
-    elif new_state == screens.game.CB_RETURN:
-        return GameState.MENU
-    elif new_state == screens.game.CB_QUIT:
-        return GameState.QUIT
+    if new_screen == screens.game.CB_PAUSE:
+        return Screen.PAUSE
+    elif new_screen == screens.game.CB_ENDGAME:
+        return Screen.ENDGAME
+    elif new_screen == screens.game.CB_RETURN:
+        return Screen.MENU
+    elif new_screen == screens.game.CB_QUIT:
+        return Screen.QUIT
     
-    return GameState.MENU
+    return Screen.MENU
 
 def pause_game(screen):
     global game,pause_screen
 
     pause_screen.setScores(game.getScores())
-    new_state = pause_screen.pause_game()
+    new_screen = pause_screen.pause_game()
 
 
-    if new_state == screens.pause.CB_QUIT:
-        return GameState.QUIT
-    if new_state == screens.pause.CB_PLAY:
-        return GameState.PLAYGAME
-    if new_state == screens.game.CB_RETURN:
-        return GameState.MENU
+    if new_screen == screens.pause.CB_QUIT:
+        return Screen.QUIT
+    if new_screen == screens.pause.CB_PLAY:
+        return Screen.PLAYGAME
+    if new_screen == screens.game.CB_RETURN:
+        return Screen.MENU
 
-    return GameState.MENU
+    return Screen.MENU
 
 def launch_endgame(screen):
+    global endgame_screen,game
+
     endgame_screen.setWinnerName(game.getWinnerName())
     endgame_screen.setWinnerColor(game.getWinnerColor())
 
-    new_state=endgame_screen.showEndScreen()
+    new_screen=endgame_screen.showEndScreen()
 
-    if new_state==screens.endgame.CB_PLAY:
-        return GameState.PLAYGAME
-    if new_state==screens.endgame.CB_RETURN:
-        return GameState.MENU
-    if new_state == screens.pause.CB_QUIT:
-        return GameState.QUIT
+    if new_screen==screens.endgame.CB_PLAY:
+        return Screen.PLAYGAME
+    if new_screen==screens.endgame.CB_RETURN:
+        return Screen.MENU
+    if new_screen == screens.pause.CB_QUIT:
+        return Screen.QUIT
 
-    return GameState.MENU
+    return Screen.MENU
 
-class GameState(Enum):
+def launchAbout(screen):
+    global about_screen
+
+    new_screen=about_screen.showAbout()
+
+    if new_screen==screens.about.CB_RETURN:
+        return Screen.MENU
+    if new_screen==screens.about.CB_QUIT:
+        return Screen.QUIT
+
+    return Screen.MENU
+
+
+class Screen(Enum):
     QUIT=-1
     MENU=0
     PLAYGAME=1
     PAUSE=2
     ENDGAME=3
     PLAYERNAMES=4
+    ABOUT=5
 
 if __name__=="__main__":
     main()

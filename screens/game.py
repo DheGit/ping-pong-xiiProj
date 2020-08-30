@@ -3,12 +3,13 @@ import pygame.freetype
 
 from sprites.Paddle import *
 from sprites.Ball import *
-from sprites.UIElement import *
+from sprites.Label import *
+from sprites.Button import *
+
+import r
 
 from r.main import *
 from r.game import *
-
-from r import colors
 
 CB_RETURN = 0
 CB_PAUSE = 1
@@ -21,11 +22,12 @@ fg_color_default=(255,255,255)
 A class enclosing the game logic. All dimens are tuples (width,height)
 """
 class GameScreen():
-    def __init__(self, screen, screen_dimen, score_margin, bg_color, fps):
+    def __init__(self, screen, screen_dimen, bg_color, fg_color, score_margin, fps):
         self.screen=screen
+        self.screen_dimen = screen_dimen
+        self.bg_color = bg_color
+        self.fg_color = fg_color
         self.score_margin=score_margin
-        self.screen_dimen=screen_dimen
-        self.bg_color=bg_color
 
         self.fps=fps
 
@@ -33,7 +35,7 @@ class GameScreen():
         self.p2Name="Player2"
 
         self.winnerName="TheHulk" # :P
-        self.winnerColor=colors.WHITE
+        self.winnerColor=r.colors.WHITE
 
         self.color1=fg_color_default
         self.color2=fg_color_default
@@ -41,8 +43,10 @@ class GameScreen():
         self.game_obj = ""
 
         self.bounce_acceleration = 1
-
-        self.font=pygame.font.Font(None,80)
+        
+        self.font1 = pygame.font.Font("r\\font_styles\Courier.ttf", r.font_size.xxxxl)
+        self.font2 = pygame.font.Font("r\\font_styles\Courier Bold Italic.ttf", r.font_size.xl)
+        self.font3 = pygame.font.Font(None,r.font_size.l)
 
         self.collideSound=pygame.mixer.Sound('sound/bounce1.wav')
 
@@ -135,16 +139,16 @@ class GameScreen():
 
             movingsprites.update()
 
-            pygame.draw.line(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
+            pygame.draw.line(self.screen,r.colors.WHITE,[self.screen_dimen[0]//2,self.score_margin],[self.screen_dimen[0]//2,self.screen_dimen[1]],5)
 
-            pygame.draw.line(self.screen,colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
+            pygame.draw.line(self.screen,r.colors.WHITE,[0,self.score_margin],[self.screen_dimen[0],self.score_margin],5)
 
             movingsprites.draw(self.screen)
 
-            text1 = self.font.render(str(self.score1),1,colors.WHITE)
+            text1 = self.font3.render(str(self.score1),1,r.colors.WHITE)
             self.screen.blit(text1,(int(self.screen_dimen[0]/4),10))
             
-            text2 = self.font.render(str(self.score2),1,colors.WHITE)
+            text2 = self.font3.render(str(self.score2),1,r.colors.WHITE)
             self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
 
             if self.score1 == 10 or self.score2 == 10:
@@ -164,112 +168,66 @@ class GameScreen():
             clock.tick(self.fps)
 
     def countdown(self):
-        clock=pygame.time.Clock()
-        three=UIElement(
-            center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
-            text="3",
-            font_size=200,
-            bg_rgb=self.bg_color,
-            text_rgb=fg_color_default)
+        clock = pygame.time.Clock()
+        
+        three = Label(self.screen, pygame.Rect(380, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="3")
 
-        two=UIElement(
-            center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
-            text="2",
-            font_size=200,
-            bg_rgb=self.bg_color,
-            text_rgb=fg_color_default)
+        two = Label(self.screen, pygame.Rect(380, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="2")
 
-        one=UIElement(
-            center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
-            text="1",
-            font_size=200,
-            bg_rgb=self.bg_color,
-            text_rgb=fg_color_default)
+        one = Label(self.screen, pygame.Rect(380, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="1")
 
-        go=UIElement(
-            center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2),
-            text="GO!",
-            font_size=200,
-            bg_rgb=self.bg_color,
-            text_rgb=fg_color_default)
+        go = Label(self.screen, pygame.Rect(285, 240, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text="GO!")
 
-        game_objective=UIElement(
-            center_position=(self.screen_dimen[0]//2,self.screen_dimen[1]//2+200),
-            text=self.game_obj,
-            font_size=100,
-            bg_rgb=self.bg_color,
-            text_rgb=fg_color_default)
+        game_objective = Label(self.screen, pygame.Rect(145, 490, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.game_obj)
 
         for i in range(1,self.fps*4+1):
             self.screen.fill(self.bg_color)
 
-            game_objective.draw(self.screen)
+            game_objective.draw()
             num=4-i//self.fps
             if num==1:
-                go.draw(self.screen)
+                go.draw()
             elif num==2:
-                one.draw(self.screen)
+                one.draw()
             elif num==3:
-                two.draw(self.screen)
+                two.draw()
             elif num==4:
-                three.draw(self.screen)
+                three.draw()
 
             pygame.display.flip()
             
             clock.tick(self.fps)
 
     def display(self):
-        Score1=UIElement(
-            center_position=(self.screen_dimen[0]/4,self.score_margin/2),
-            font_size=70,
-            bg_rgb=colors.BLACK,
-            text_rgb=colors.WHITE,
-            text=str(self.score1),
-            action=None
-        )
-
-        Score2=UIElement(
-            center_position=(3*(self.screen_dimen[0]/4),self.score_margin/2),
-            font_size=70,
-            bg_rgb=colors.BLACK,
-            text_rgb=colors.WHITE,
-            text=str(self.score2),
-            action=None
-        )
-
-        Pause_btn=UIElement(
+        Pause_btn=Button(
             center_position=(self.screen_dimen[0]/2,self.score_margin/2),
-            font_size=32,
-            bg_rgb=colors.BLACK,
-            text_rgb=colors.WHITE,
+            font_size=r.font_size.xxs,
+            bg_rgb=r.colors.BLACK,
+            text_rgb=r.colors.WHITE,
             text=pause_button,
             action=CB_PAUSE
         )
 
-        Score1.setHighlightable(False)
-        Score2.setHighlightable(False)
-
-        buttons = [Score1, Score2, Pause_btn]
+        buttons = [Pause_btn]
 
         while True:
             mouse_up = False
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
-            self.screen.fill(colors.BLACK)
+            self.screen.fill(r.colors.BLACK)
 
             for button in buttons:
-                ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
-                if ui_action is not None:
-                    return ui_action
+                button_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                if button_action is not None:
+                    return button_action
 
-                pygame.draw.circle(self.screen,colors.WHITE,[self.screen_dimen[0]//2,self.score_margin//2],30)
-                pygame.draw.circle(self.screen,colors.BLACK,[self.screen_dimen[0]//2,self.score_margin//2],28)
+                pygame.draw.circle(self.screen,r.colors.WHITE,[self.screen_dimen[0]//2,self.score_margin//2],30)
+                pygame.draw.circle(self.screen,r.colors.BLACK,[self.screen_dimen[0]//2,self.score_margin//2],28)
                 
                 button.draw(self.screen)
 
-            pygame.display.flip()
-        
+            pygame.display.flip()       
 
     def setGameObjective(self, game_obj):
         self.game_obj=game_obj

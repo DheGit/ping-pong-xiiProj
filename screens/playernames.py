@@ -4,7 +4,8 @@ import r
 from r.playernames import *
 from r.game import *
 
-from sprites.UIElement import *
+from sprites.Label import *
+from sprites.Button import *
 from sprites.Textbox import *
 
 CB_RETURN = 101
@@ -25,65 +26,46 @@ COLOR_LIST=[r.colors.BLUE,r.colors.PINK,r.colors.GREEN,r.colors.YELLOW,r.colors.
 _color_default=(255,255,255)
 
 class PlayerNamesScreen():
-    def __init__(self, screen):
+    def __init__(self, screen, playernames, player1, player2, name, screen_dimen, bg_color, fg_color, fontsize1 = r.font_size.l, fontsize2 = r.font_size.m, fontsize3 = r.font_size.xs, bg=None):
         self.screen = screen
+        self.screen_dimen = screen_dimen
+        self.bg_color = bg_color
+        self.fg_color = fg_color
+        self.playernames = playernames
+        self.player1 = player1
+        self.player2 = player2
+        self.name = name
+        self.font1 = pygame.font.Font("r\\font_styles\Courier Bold Italic.ttf", fontsize1)
+        self.font2 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize2)
+        self.font3 = pygame.font.Font("r\\font_styles\Courier.ttf", fontsize3)
         self.reset()
+        self.bgimg = bg
 
     def names(self):
         self.reset()
 
-        Player_Names = UIElement(
-            center_position = (SCREEN_WIDTH/2, 50),
-            font_size = 80,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = playernames_label_txt,
-            action = None,
-        )
-        Player1 = UIElement(
-            center_position = (SCREEN_WIDTH/4, 135),
-            font_size = 60,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = p1_label_txt,
-            action = None,
-        )
-        Name1 = UIElement(
-            center_position = (80, 205),
-            font_size = 40,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = name_label_txt,
-            action = None,
-        )
-        Player2 = UIElement(
-            center_position = (3*(SCREEN_WIDTH/4), 135),
-            font_size = 60,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = p2_label_txt,
-            action = None,
-        )
-        Name2 = UIElement(
-            center_position = (SCREEN_WIDTH/2 + 80, 205),
-            font_size = 40,
-            bg_rgb = r.colors.BLACK,
-            text_rgb = r.colors.WHITE,
-            text = name_label_txt,
-            action = None,
-        )
+        Player_Names = Label(self.screen, pygame.Rect(165, 10, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.playernames)
+        
+        Player1 = Label(self.screen, pygame.Rect(80, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player1)
 
-        enter_btn = UIElement(
+        Name1 = Label(self.screen, pygame.Rect(15, 187, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
+
+        Player2 = Label(self.screen, pygame.Rect(535, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=self.player2)
+
+        Name2 = Label(self.screen, pygame.Rect(465, 187, 1000 ,1000), self.fg_color, self.bg_color, self.font3, text=self.name)
+
+        enter_btn = Button(
             center_position = (SCREEN_WIDTH/2, 550),
-            font_size = 50,
+            font_size = r.font_size.s,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
             text = enter_button_txt,
             action = CB_PLAY,
         )
-        return_to_mainmenu_btn = UIElement(
+        
+        return_to_mainmenu_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 620),
-            font_size = 50,
+            font_size = r.font_size.s,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
             text = return_to_mainmenu_button_txt,
@@ -92,37 +74,34 @@ class PlayerNamesScreen():
 
         self.setColorButtons()
 
-        Player_Names.setHighlightable(False)
-        Player1.setHighlightable(False)
-        Name1.setHighlightable(False)
-        Player2.setHighlightable(False)
-        Name2.setHighlightable(False)
+        buttons = [self.Blue1, self.Green1, self.Yellow1, self.Pink1, self.Red1, self.Blue2, self.Green2, self.Yellow2, self.Pink2, self.Red2, enter_btn, return_to_mainmenu_btn]
 
-        buttons = [Player_Names, Player1, Name1, self.Blue1, self.Green1, self.Yellow1, self.Pink1, self.Red1, Player2, Name2, self.Blue2, self.Green2, self.Yellow2, self.Pink2, self.Red2, enter_btn, return_to_mainmenu_btn]
-
-        P1 = Textbox(180, 190, 200, 30, 31, 13, True)
-        P2 = Textbox(SCREEN_WIDTH/2+180, 190, 200, 30, 31, 13, False)
+        P1 = Textbox(180, 190, 200, 30)
+        P2 = Textbox(SCREEN_WIDTH/2+180, 190, 200, 30)
 
         textboxes = [P1, P2]
 
         while True:
             mouse_up = False
-            events=pygame.event.get()
+            events = pygame.event.get()
             for event in events:
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
                     
             self.screen.fill(r.game.BLACK)
 
+            if self.bgimg is not None:
+                self.screen.blit(self.bgimg,(0,0))
+
             for textbox in textboxes:
-                textbox.handle_events(events)
+                textbox.handle_event(events)
                 textbox.draw(self.screen)
 
             for button in buttons:
-                ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                button_action = button.update(pygame.mouse.get_pos(), mouse_up)
 
-                if ui_action is not None:    
-                    if ui_action==CB_PLAY:
+                if button_action is not None:    
+                    if button_action==CB_PLAY:
                         self.p1name=P1.getText()
                         self.p2name=P2.getText()
 
@@ -131,22 +110,28 @@ class PlayerNamesScreen():
                         if self.p2name=="":
                             self.p2name="Player2"
 
-                    if ui_action in COLOR_BTN_ACTIONS:
-                        self.handleColorClick(ui_action)
+                    if button_action in COLOR_BTN_ACTIONS:
+                        self.handleColorClick(button_action)
                         # print("color1: "+str(self.color1)+", color2: "+str(self.color2))
                     else:
-                        return ui_action
+                        return button_action
 
                 pygame.draw.line(self.screen,r.colors.WHITE,[r.game.SCREEN_WIDTH/2,95],[r.game.SCREEN_WIDTH/2,505],5)
 
                 button.draw(self.screen)
+
+            Player_Names.draw()
+            Player1.draw()
+            Name1.draw()
+            Player2.draw()
+            Name2.draw()
 
             pygame.display.flip()
 
     def handleColorClick(self, clicked):
         i=P1
         for p in self.colorBtnList:
-            if p[clicked//10].staysHighlighted() and i!=clicked//10:
+            if p[clicked//10].staysHighlighted() and i!=clicked%10:
                 return
             i+=1
 
@@ -162,90 +147,93 @@ class PlayerNamesScreen():
 
     def getPlayer1Name(self):
         return self.p1name
+    
     def getColor1(self):
         return self.color1
+    
     def getPlayer2Name(self):
         return self.p2name
+    
     def getColor2(self):
         return self.color2
 
     def setColorButtons(self):
-        self.Blue1 = UIElement(
+        self.Blue1 = Button(
             center_position = (SCREEN_WIDTH/4, 270),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.BLUE,
             text = color_blue_label_txt,
             action = BLUE*10+P1,
         )
-        self.Pink1 = UIElement(
+        self.Pink1 = Button(
             center_position = (SCREEN_WIDTH/4, 320),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.PINK,
             text = color_pink_label_txt,
             action = PINK*10+P1,
         )
-        self.Green1 = UIElement(
+        self.Green1 = Button(
             center_position = (SCREEN_WIDTH/4, 370),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.GREEN,
             text = color_green_label_txt,
             action = GREEN*10+P1,
         )
-        self.Yellow1 = UIElement(
+        self.Yellow1 = Button(
             center_position = (SCREEN_WIDTH/4, 420),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.YELLOW,
             text = color_yellow_label_txt,
             action = YELLOW*10+P1,
         )
-        self.Red1 = UIElement(
+        self.Red1 = Button(
             center_position = (SCREEN_WIDTH/4, 470),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.RED,
             text = color_red_label_txt,
             action = RED*10+P1,
         )
 
-        self.Blue2 = UIElement(
+        self.Blue2 = Button(
             center_position = (3*(SCREEN_WIDTH/4), 270),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.BLUE,
             text = color_blue_label_txt,
             action = BLUE*10+P2,
         )
-        self.Pink2 = UIElement(
+        self.Pink2 = Button(
             center_position = (3*(SCREEN_WIDTH/4), 320),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.PINK,
             text = color_pink_label_txt,
             action = PINK*10+P2,
         )
-        self.Green2 = UIElement(
+        self.Green2 = Button(
             center_position = (3*(SCREEN_WIDTH/4), 370),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.GREEN,
             text = color_green_label_txt,
             action = GREEN*10+P2,
         )
-        self.Yellow2 = UIElement(
+        self.Yellow2 = Button(
             center_position = (3*(SCREEN_WIDTH/4), 420),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.YELLOW,
             text = color_yellow_label_txt,
             action = YELLOW*10+P2,
         )
-        self.Red2 = UIElement(
+        self.Red2 = Button(
             center_position = (3*(SCREEN_WIDTH/4), 470),
-            font_size = 40,
+            font_size = r.font_size.xs,
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.RED,
             text = color_red_label_txt,

@@ -5,9 +5,6 @@ import math
 ball_color_default = (255,255,255)
 
 class Ball(pygame.sprite.Sprite):
-    """
-    The constructor. All the dimen parameters are in the order (width,height)
-    """
     def __init__(self, ball_dimen, screen_dimen, paddle_dimen, score_margin):
 
         super().__init__()
