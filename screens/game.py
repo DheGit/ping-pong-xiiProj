@@ -5,6 +5,7 @@ from sprites.Paddle import *
 from sprites.Ball import *
 from sprites.Label import *
 from sprites.Button import *
+from sprites.PauseButton import *
 
 import r
 
@@ -81,6 +82,9 @@ class GameScreen():
         movingsprites.add(self.paddle2)
         movingsprites.add(self.ball)
 
+        pausebutton = PauseButton(action = CB_PAUSE)
+        buttons = [pausebutton]
+
         self.countdown()
         
         exit_window = False
@@ -93,6 +97,17 @@ class GameScreen():
                 if event.type == pygame.QUIT:
                     exit_window = True
                     return CB_QUIT
+
+        mouse_up = False
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                mouse_up = True
+            self.screen.fill(r.colors.BLACK)
+        for button in buttons:
+            button_action = button.update(pygame.mouse.get_pos(), mouse_up)
+            if button_action is not None:
+                return button_action
+            button.draw(self.screen)
 
             self.ball.update()
             
@@ -196,38 +211,7 @@ class GameScreen():
 
             pygame.display.flip()
             
-            clock.tick(self.fps)
-
-    def display(self):
-        Pause_btn=Button(
-            center_position=(self.screen_dimen[0]/2,self.score_margin/2),
-            font_size=r.font_size.xxs,
-            bg_rgb=r.colors.BLACK,
-            text_rgb=r.colors.WHITE,
-            text=pause_button,
-            action=CB_PAUSE
-        )
-
-        buttons = [Pause_btn]
-
-        while True:
-            mouse_up = False
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    mouse_up = True
-            self.screen.fill(r.colors.BLACK)
-
-            for button in buttons:
-                button_action = button.update(pygame.mouse.get_pos(), mouse_up)
-                if button_action is not None:
-                    return button_action
-
-                pygame.draw.circle(self.screen,r.colors.WHITE,[self.screen_dimen[0]//2,self.score_margin//2],30)
-                pygame.draw.circle(self.screen,r.colors.BLACK,[self.screen_dimen[0]//2,self.score_margin//2],28)
-                
-                button.draw(self.screen)
-
-            pygame.display.flip()       
+            clock.tick(self.fps)     
 
     def setGameObjective(self, game_obj):
         self.game_obj=game_obj
