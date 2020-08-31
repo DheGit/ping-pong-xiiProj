@@ -1,5 +1,6 @@
 import pygame
 
+from sprites.Border import *
 from sprites.Label import *
 from sprites.Button import *
 
@@ -71,6 +72,9 @@ class EndgameScreen():
                 if button_action is not None:
                     return button_action
                 button.draw(self.screen)
+
+            border = Border()
+            border.rectangle(self.screen)
 
             keys=pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
