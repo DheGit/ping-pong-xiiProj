@@ -3,6 +3,7 @@ import pygame.freetype
 
 import r
 
+from sprites.Border import *
 from sprites.Label import *
 from sprites.Button import *
 
@@ -65,12 +66,14 @@ class MainMenuScreen():
             if self.bgimg is not None:
                 self.screen.blit(self.bgimg,(0,0))
 
-
             for button in buttons:
                 button_action = button.update(pygame.mouse.get_pos(), mouse_up)
                 if button_action is not None:
                     return button_action
                 button.draw(self.screen)
+
+            border = Border()
+            border.rectangle(self.screen)
 
             game_name.draw()
 

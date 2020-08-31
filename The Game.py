@@ -16,7 +16,7 @@ def main():
 
     default_bg=pygame.image.load("image\\bg_default.jpg")
 
-    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
     game_screen = Screen.MENU
 
     game=screens.game.GameScreen(screen, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, r.game.SCORE_MARGIN, r.game.FPS)

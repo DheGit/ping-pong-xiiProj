@@ -1,5 +1,6 @@
 import pygame
 
+from sprites.Border import *
 from sprites.Label import *
 from sprites.Button import *
 
@@ -14,7 +15,7 @@ CB_PLAY = 4
 class EndgameScreen():
 
     def __init__(self, screen, win, screen_dimen, bg_color, fontsize = r.font_size.xxl, bg=None):
-        self.screen=screen
+        self.screen = screen
         self.screen_dimen = screen_dimen
         self.bg_color = bg_color
         self.win = win
@@ -34,13 +35,6 @@ class EndgameScreen():
             text_rgb=self.winnerColor,
             text=self.winnerName,
         )
-        self.win_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 220), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=120,
-            bg_rgb=self.bg_rgb,
-            text_rgb=self.winnerColor,
-            text=r.endgame.win_statement,
-        )
 
         self.win_label = Label(self.screen, pygame.Rect(225, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
 
@@ -53,13 +47,6 @@ class EndgameScreen():
             bg_rgb=r.colors.BLACK,
             text_rgb=self.winnerColor,
             text=self.winnerName,
-        )
-        self.win_label = UIElement(
-            center_position=(r.game.SCREEN_WIDTH/2, 220), #TODO: Change these hardcoded values into variables, including margin, etc, to make the positioning more comfortable and dynamic 
-            font_size=120,
-            bg_rgb=self.bg_rgb,
-            text_rgb=self.winnerColor,
-            text=r.endgame.win_statement,
         )
 
         self.win_label = Label(self.screen, pygame.Rect(225, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
@@ -85,6 +72,9 @@ class EndgameScreen():
                 if button_action is not None:
                     return button_action
                 button.draw(self.screen)
+
+            border = Border()
+            border.rectangle(self.screen)
 
             keys=pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
