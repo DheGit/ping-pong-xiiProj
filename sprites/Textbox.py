@@ -48,6 +48,8 @@ class Textbox:
     def define_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
+                click = pygame.mixer.Sound('sound/click3.wav')
+                click.play()
                 self.active = True
                 self.color = self.activecolor
             else:
