@@ -82,7 +82,15 @@ class GameScreen():
         movingsprites.add(self.paddle2)
         movingsprites.add(self.ball)
 
-        pausebutton = PauseButton(action = CB_PAUSE)
+        # pausebutton = PauseButton(action = CB_PAUSE)
+        pausebutton=Button( 
+            center_position=(r.game.SCREEN_WIDTH/2, 30),
+            font_size=r.font_size.xs,
+            bg_rgb=r.colors.BLACK,
+            text_rgb=r.colors.WHITE,
+            text=r.game.pause_button_txt,
+            action=CB_PAUSE,
+        )
         buttons = [pausebutton]
 
         self.countdown()
@@ -90,24 +98,22 @@ class GameScreen():
         exit_window = False
         
         while not exit_window:
-
+            mouse_up=False
             self.screen.fill(self.bg_color)
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit_window = True
                     return CB_QUIT
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    mouse_up = True
 
-        mouse_up = False
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                mouse_up = True
-            self.screen.fill(r.colors.BLACK)
-        for button in buttons:
-            button_action = button.update(pygame.mouse.get_pos(), mouse_up)
-            if button_action is not None:
-                return button_action
-            button.draw(self.screen)
+            for button in buttons:
+                button_action = button.update(pygame.mouse.get_pos(), mouse_up)
+                if button_action is not None:
+                    print("Drawing Button")
+                    return button_action
+                button.draw(self.screen)
 
             self.ball.update()
             
