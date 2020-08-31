@@ -2,6 +2,7 @@ import pygame
 
 import r
 
+from sprites.Border import *
 from sprites.Label import *
 from sprites.Button import *
 
@@ -43,6 +44,9 @@ class PauseScreen():
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_r]:
                     return CB_PLAY
+
+            border = Border()
+            border.rectangle(self.screen)
 
             self.pause_label.draw()
             self.score_label.draw()
