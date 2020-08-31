@@ -4,6 +4,7 @@ import r
 from r.playernames import *
 from r.game import *
 
+from sprites.Border import *
 from sprites.Label import *
 from sprites.Button import *
 from sprites.Textbox import *
@@ -119,6 +120,9 @@ class PlayerNamesScreen():
                 pygame.draw.line(self.screen,r.colors.WHITE,[r.game.SCREEN_WIDTH/2,95],[r.game.SCREEN_WIDTH/2,505],5)
 
                 button.draw(self.screen)
+
+            border = Border()
+            border.rectangle(self.screen)
 
             Player_Names.draw()
             Player1.draw()
