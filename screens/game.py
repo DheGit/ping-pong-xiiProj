@@ -1,6 +1,7 @@
 import pygame
 import pygame.freetype
 
+from sprites.Border import *
 from sprites.Paddle import *
 from sprites.Ball import *
 from sprites.Label import *
@@ -31,6 +32,8 @@ class GameScreen():
 
         self.fps=fps
 
+        self.border = Border()
+
         self.p1Name="Player1"
         self.p2Name="Player2"
 
@@ -49,6 +52,7 @@ class GameScreen():
         self.font3 = pygame.font.Font(None,r.font_size.l)
 
         self.collideSound=pygame.mixer.Sound('sound/bounce1.wav')
+        self.crossedSound=pygame.mixer.Sound('sound/bounce2.wav')
 
     def reset(self):
         self.score1=0
@@ -94,6 +98,8 @@ class GameScreen():
                     exit_window = True
                     return CB_QUIT
 
+            self.border.rectangle(self.screen)
+
             self.ball.update()
             
             if self.collides() == 1:
@@ -130,9 +136,6 @@ class GameScreen():
                 exit_window = True
                 self.reset()
                 return CB_RETURN
-                
-            if keys[pygame.K_F11]:
-                self.screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 
             if keys[pygame.K_p]:
                 return CB_PAUSE
@@ -152,6 +155,7 @@ class GameScreen():
             self.screen.blit(text2,(3*int(self.screen_dimen[0]/4),10))
 
             if self.score1 == 10 or self.score2 == 10:
+                self.crossedSound.play()
                 if self.score1==10:
                     self.winnerName=self.p1Name
                     self.winnerColor=self.color1
@@ -183,15 +187,19 @@ class GameScreen():
         for i in range(1,self.fps*4+1):
             self.screen.fill(self.bg_color)
 
+            self.border.rectangle(self.screen)
+
             game_objective.draw()
-            num=4-i//self.fps
-            if num==1:
+            
+            num = 4 - i//self.fps
+            
+            if num == 1:
                 go.draw()
-            elif num==2:
+            elif num == 2:
                 one.draw()
-            elif num==3:
+            elif num == 3:
                 two.draw()
-            elif num==4:
+            elif num == 4:
                 three.draw()
 
             pygame.display.flip()
