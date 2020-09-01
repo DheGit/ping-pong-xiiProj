@@ -2,29 +2,29 @@ import pygame
 from pygame.sprite import Sprite
 from pygame.rect import Rect
 
+from r.game import *
+
 class PauseButton(Sprite):
-    def __init__(self, action = None, position = (0,0), dimensions=(0,0)):
+    def __init__(self, action = None):
 
         pygame.init()
 
-        pb = pygame.image.load('image\image.png')
+        self.pausebutton = pygame.image.load('image\image.png')
+        
+        self.pb = pygame.transform.scale(self.pausebutton, (50,50))
         
         self.mouse_over = False
 
-        # self.rect = pb.get_rect(center = (SCREEN_WIDTH/2, 20))
-        self.rect=pygame.Rect(position[0],position[1],dimensions[0],dimensions[1])
+        self.rect = self.pb.get_rect(center = (SCREEN_WIDTH/2, 35))
     
         self.action = action
+        
         self.clickSound=pygame.mixer.Sound('sound/click3.wav')
     
         super().__init__()
 
-    @property
-    def rects(self):
-        return self.rect
-
     def update(self, mouse_pos, mouse_up):
-        if self.rects.collidepoint(mouse_pos):
+        if self.rect.collidepoint(mouse_pos):
             self.mouse_over = True
             if mouse_up:
                 self.clickSound.play()
@@ -33,6 +33,5 @@ class PauseButton(Sprite):
             self.mouse_over = False
 
     def draw(self, surface):
-        surface.blit(pausebutton, (SCREEN_WIDTH/2, 20))
-        surface.blit(self.rects)
+        surface.blit(self.pb, self.rect)
 
