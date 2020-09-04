@@ -52,6 +52,8 @@ class EndgameScreen():
         self.win_label = Label(self.screen, pygame.Rect(225, 185, 1000 ,1000), self.winnerColor, self.bg_color, self.font, text=self.win)
 
     def showEndScreen(self):
+        self.winner_label.setHighlightable(False)
+        
         buttons = [self.winner_label, self.play_btn, self.return_to_mainmenu_btn, self.quit_btn]
 
         while True:
