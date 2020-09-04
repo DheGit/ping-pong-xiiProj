@@ -22,7 +22,7 @@ class AboutScreen():
         self.font=pygame.font.Font(None,fontsize)
         self.clock=pygame.time.Clock()
 
-        self.setUI()
+        self.setDisplay()
 
     def showAbout(self):
         exitw=False
@@ -67,7 +67,7 @@ class AboutScreen():
         self.abouttext=abouttext
         self.aboutLabel=Label(self.screen,pygame.Rect(40,40,self.screen_dimen[0]-80,self.screen_dimen[1]-80),self.fg_color,self.bg_color,self.font,text=self.abouttext,lineSpacing=6)
 
-    def setUI(self):
+    def setDisplay(self):
         self.return_btn=Button((self.screen_dimen[0]-220,self.screen_dimen[1]-40), 
             text=r.about.txt_return_btn, 
             font_size=r.font_size.xxs, 
@@ -75,13 +75,3 @@ class AboutScreen():
             text_rgb=self.fg_color, 
             action=CB_RETURN)
         self.setAboutText(self.abouttext)
-
-
-if __name__=="__main__":
-    pygame.init()
-    screen=pygame.display.set_mode((800,600))
-
-    abts=AboutScreen(screen,"Test is currently quite successful",(800,600),(0,0,0),(255,255,255),30)
-    abts.showAbout()
-
-    pygame.quit()
