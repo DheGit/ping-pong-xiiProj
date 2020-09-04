@@ -1,5 +1,4 @@
 import pygame
-import pygame.freetype
 
 class Label():
 	def __init__(self,screen,limitRect,fg_color,bg_color,font,text="",lineSpacing=-2):
