@@ -105,15 +105,15 @@ class PlayerNamesScreen():
                     if button_action==CB_PLAY:
                         self.p1name=P1.getText()
                         self.p2name=P2.getText()
-
-                        if self.p1name=="":  #TODO: Add code to check if there is an empty name(a single space also counts as empty), and make that turn into Player1 or Player2
-                            self.p1name="Player1"
-                        if self.p2name=="":
-                            self.p2name="Player2"
+                        
+                        for space in range(0,14):
+                            if self.p1name == space * " ":
+                                self.p1name = "Player1"
+                            if self.p2name == space * " ":
+                                self.p2name = "Player2"
 
                     if button_action in COLOR_BTN_ACTIONS:
                         self.handleColorClick(button_action)
-                        # print("color1: "+str(self.color1)+", color2: "+str(self.color2))
                     else:
                         return button_action
 
