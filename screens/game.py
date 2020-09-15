@@ -1,5 +1,4 @@
 import pygame
-import pygame.freetype
 
 from sprites.Border import *
 from sprites.Paddle import *
@@ -20,9 +19,6 @@ CB_QUIT = -1
 
 fg_color_default=(255,255,255)
 
-"""
-A class enclosing the game logic. All dimens are tuples (width,height)
-"""
 class GameScreen():
     def __init__(self, screen, screen_dimen, bg_color, fg_color, score_margin, fps):
         self.screen=screen
@@ -38,8 +34,8 @@ class GameScreen():
         self.p1Name="Player1"
         self.p2Name="Player2"
 
-        self.winnerName="TheHulk" # :P
-        self.winnerColor=r.colors.WHITE
+        self.winnerName="Winner"
+        self.winnerColor=fg_color_default
 
         self.color1=fg_color_default
         self.color2=fg_color_default
