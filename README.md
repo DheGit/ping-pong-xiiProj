@@ -6,8 +6,8 @@ Salient Features:
 
 	1) The project is divided into 5 packages:
 		i) image - Contains the images used in the project
-		ii) r - Contains the screen-wise string resources and font styles used in the project
-		iii) screens - Contains the logic for every screen in the project, with a file for every screen
+		ii) r - Contains the screen-wise strings, resources and font styles used in the project
+		iii) screens - Contains the logic for every screen in the project, with a module for every screen
 		iv) sound - Contains the sounds used in the project
 		v) sprites - Contains the different pygame drawables that have been used frequently in the project, like ball, paddle, button, etc.
 
