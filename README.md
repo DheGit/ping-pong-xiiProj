@@ -12,16 +12,17 @@ Salient Features:
 		v) sprites - Contains the different pygame drawables that have been used frequently in the project, like ball, paddle, button, etc.
 
 
-	2) All the GUI Elements in the project are developed solely using pygame, from scratch, in order to keep a consistent GUI
+	2) All the GUI Elements in the project are developed solely using Pygame, from scratch, in order to keep a consistent GUI.
+
 
 	3) The project also includes various sounds in it, which are played, for example, when a button is clicked, or when the ball bounces.
 
 
 	4) There are a total of 6 screens in the project
 		i) About - Tells the user about the developers and the basic controls of the game
-		ii) Main Menu - The main screen that has options to go to the other screens.
+		ii) Main Menu - The main screen that has options to go to the other screens
 		iii) Player Names - Where players can enter their names and choose their colours
-		iv) Game - The game screen, where the players play.
+		iv) Game - The game screen, where the players play
 		v) Pause - The screen which comes up when players choose to pause the game
 		vi) EndGame - The screen which declares the winner of the game just played
 
