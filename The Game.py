@@ -43,7 +43,7 @@ def main():
             game_screen = start_menu(screen)
 
         if game_screen == Screen.PLAYERNAMES:
-            game_screen = names(screen)
+            game_screen = players_details(screen)
 
         if game_screen == Screen.PLAYGAME:
             game_screen = start_game(screen, game)
@@ -55,7 +55,7 @@ def main():
             game_screen = launch_endgame(screen)
 
         if game_screen == Screen.ABOUT:
-            game_screen = launchAbout(screen)
+            game_screen = launch_about(screen)
 
         if game_screen == Screen.QUIT:
             pygame.quit()
@@ -64,7 +64,7 @@ def main():
 def start_menu(screen):
     new_screen=main_menu.show_menu()
 
-    game.reset()
+    game.gameReset()
 
     if new_screen == screens.main_menu.CB_QUIT:
         return Screen.QUIT
@@ -75,8 +75,8 @@ def start_menu(screen):
 
     return Screen.QUIT
 
-def names(screen):
-    new_screen=player_names.names()
+def players_details(screen):
+    new_screen=player_names.PlayerNames()
 
     if new_screen == screens.playernames.CB_PLAY:
         game.setPlayer1Name(player_names.getPlayer1Name())
@@ -135,7 +135,7 @@ def launch_endgame(screen):
 
     return Screen.MENU
 
-def launchAbout(screen):
+def launch_about(screen):
     global about_screen
 
     new_screen=about_screen.showAbout()
