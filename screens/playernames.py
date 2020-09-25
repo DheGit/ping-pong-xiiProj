@@ -39,11 +39,11 @@ class PlayerNamesScreen():
         self.font1 = pygame.font.Font("r\\font_styles\Courier Bold Italic.ttf", fontsize1)
         self.font2 = pygame.font.Font("r\\font_styles\Courier Italic.ttf", fontsize2)
         self.font3 = pygame.font.Font("r\\font_styles\Courier.ttf", fontsize3)
-        self.reset()
+        self.playersReset()
         self.bgimg = bg
 
-    def names(self):
-        self.reset()
+    def PlayerNames(self):
+        self.playersReset()
 
         Player_Names = Label(self.screen, pygame.Rect(165, 10, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.playernames)
         
@@ -246,7 +246,7 @@ class PlayerNamesScreen():
 
         self.colorBtnList=[[self.Blue1,self.Pink1,self.Green1,self.Yellow1,self.Red1], [self.Blue2,self.Pink2,self.Green2,self.Yellow2,self.Red2]]
 
-    def reset(self):
+    def playersReset(self):
         self.p1name="Player1"
         self.p2name="Player2"
         self.color1=_color_default
