@@ -5,7 +5,7 @@ import r
 pygame.init()
 
 class Textbox:
-    def __init__(self, x, y, width, height, fontsize=r.font_size.xxs+1, maxlength=13, text='', textcolor=r.colors.BLACK, inactivebordercolor=r.colors.SILVER, activebordercolor=r.colors.GOLD):
+    def __init__(self, x, y, width, height, fontsize=r.font_size.xxs+1, maxlength=12, text='', textcolor=r.colors.BLACK, inactivebordercolor=r.colors.SILVER, activebordercolor=r.colors.GOLD):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = inactivebordercolor
         self.inactivecolor = inactivebordercolor
