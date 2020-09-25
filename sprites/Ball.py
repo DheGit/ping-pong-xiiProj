@@ -103,19 +103,3 @@ class Ball(pygame.sprite.Sprite):
 
     def getXSpeed(self):
         return math.cos(math.radians(self.direction)) * self.speed
-
-if __name__=="__main__":
-    dir1=45
-    dir2=315
-    dir1=dir1%360
-    dir2=dir2%360
-    r1=-1
-    r2=-1
-
-    if (dir1<=90 and dir2>=0) or (dir1>=270 and dir1<=360):
-        r1=1
-    if (dir2<=90 and dir2>=0) or (dir2>=270 and dir2<=360):
-        r2=1
-
-    print(str(dir1) + " , " + str(dir2))
-    print(r1==r2)
