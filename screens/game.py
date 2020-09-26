@@ -51,7 +51,7 @@ class GameScreen():
         self.collideSound=pygame.mixer.Sound('sound/bounce1.wav')
         self.crossedSound=pygame.mixer.Sound('sound/bounce2.wav')
 
-    def reset(self):
+    def gameReset(self):
         self.score1=0
         self.score2=0
 
@@ -61,7 +61,7 @@ class GameScreen():
         self.paddle2.rect.x = SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_MARGIN
         self.paddle2.rect.y = self.screen_dimen[1]//2 - self.paddle_dimen[1]//2 + self.score_margin//2
 
-        self.ball.reset()
+        self.ball.ballReset()
 
     def collides(self):
         if (self.ball.x <= self.paddle1.rect.x + self.paddle_dimen[0] and self.ball.x >= self.paddle1.rect.x + self.paddle_dimen[0] - self.ball.speed*3) and (self.ball.y + self.ball_dimen[1] >= self.paddle1.rect.y and self.ball.y <=self.paddle1.rect.y + self.paddle_dimen[1]):
@@ -143,7 +143,7 @@ class GameScreen():
 
             if keys[pygame.K_ESCAPE]:
                 exit_window = True
-                self.reset()
+                self.gameReset()
                 return CB_RETURN
 
             if keys[pygame.K_p]:
@@ -172,7 +172,7 @@ class GameScreen():
                     self.winnerName=self.p2Name
                     self.winnerColor=self.color2
                     
-                self.reset()
+                self.gameReset()
                                 
                 return CB_ENDGAME
 
@@ -232,7 +232,7 @@ class GameScreen():
         self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
         self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
 
-        self.reset()
+        self.gameReset()
 
     def setPaddleMargin(self, paddle_margin):
         self.paddle_margin=paddle_margin

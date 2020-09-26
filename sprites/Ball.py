@@ -30,7 +30,7 @@ class Ball(pygame.sprite.Sprite):
         self.bounceSound=pygame.mixer.Sound('sound/bounce1.wav')
         self.crossedSound=pygame.mixer.Sound('sound/bounce2.wav')
 
-        self.reset()
+        self.ballReset()
 
     def bounce(self,b_param):
         p_dir=self.direction
@@ -54,7 +54,7 @@ class Ball(pygame.sprite.Sprite):
     def crossed(self,xcor):
         return (((self.x+self.px)/2-xcor)*((self.px+self.ppx)/2-self.getXSpeed()-xcor) < 0)
 
-    def reset(self):
+    def ballReset(self):
         self.speed = 4.0
         self.y = random.randrange(self.reset_margin + self.score_margin , self.screen_dimen[1] - self.reset_margin)
         self.x = self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
@@ -78,7 +78,7 @@ class Ball(pygame.sprite.Sprite):
 
         if self.x < -self.ball_dimen[0]*5 or self.x > self.screen_dimen[0] + self.ball_dimen[0]*5:
             self.crossedSound.play()
-            self.reset()        
+            self.ballReset()        
 
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
@@ -103,19 +103,3 @@ class Ball(pygame.sprite.Sprite):
 
     def getXSpeed(self):
         return math.cos(math.radians(self.direction)) * self.speed
-
-if __name__=="__main__":
-    dir1=45
-    dir2=315
-    dir1=dir1%360
-    dir2=dir2%360
-    r1=-1
-    r2=-1
-
-    if (dir1<=90 and dir2>=0) or (dir1>=270 and dir1<=360):
-        r1=1
-    if (dir2<=90 and dir2>=0) or (dir2>=270 and dir2<=360):
-        r2=1
-
-    print(str(dir1) + " , " + str(dir2))
-    print(r1==r2)
