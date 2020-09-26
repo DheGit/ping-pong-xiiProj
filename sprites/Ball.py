@@ -17,15 +17,15 @@ class Ball(pygame.sprite.Sprite):
         self.speed = 0
         self.x = 0
         self.y = 0
-        self.px=0
-        self.py=0
+        self.px = 0
+        self.py = 0
         self.direction = 0
-        self.bounce_bias=0
-        self.reset_margin=0
+        self.bounce_bias = 0
+        self.reset_margin = 0
         self.ball_dimen = ball_dimen
         self.screen_dimen = screen_dimen
         self.paddle_dimen = paddle_dimen
-        self.score_margin=score_margin
+        self.score_margin = score_margin
 
         self.bounceSound=pygame.mixer.Sound('sound/bounce1.wav')
         self.crossedSound=pygame.mixer.Sound('sound/bounce2.wav')
@@ -58,8 +58,8 @@ class Ball(pygame.sprite.Sprite):
         self.speed = 4.0
         self.y = random.randrange(self.reset_margin + self.score_margin , self.screen_dimen[1] - self.reset_margin)
         self.x = self.screen_dimen[0]/2 - self.ball_dimen[0]/2 
-        self.py=self.y
-        self.px=self.x
+        self.py = self.y
+        self.px = self.x
 
         self.direction = random.randrange(-45,45)
 
