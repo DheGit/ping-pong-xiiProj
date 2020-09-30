@@ -148,7 +148,6 @@ class PlayerNamesScreen():
         elif clicked%10==P2:
             self.color2=COLOR_LIST[clicked//10]
 
-
     def getPlayer1Name(self):
         return self.p1name
     
