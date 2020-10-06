@@ -3,8 +3,6 @@ import random
 from ai.fnn import *
 from ai import functions
 
-from r import hyperparams
-
 class QLearner():
 	def __init__(self, num_actions, input_size):		
 		self.num_actions=num_actions
@@ -13,10 +11,6 @@ class QLearner():
 		self.brain= FNN([input_size,100,100,num_actions],activation=functions.elu(1.0))
 
 	def updateIntent(self,state):
-		if random.random()>(1-self.epsilon):
-			self.intent=random.randint(0,self.num_actions-1)
-			return
-
 		biggest=-1000.0
 		newAction=0
 
@@ -47,8 +41,5 @@ class QLearner():
 
 		self.brain.setBias(b)
 		self.brain.setWeights(w)
-	def saveMemory(self,identifier):
-		np.save(identifier+"_w.npy",np.asarray(self.brain.weights,dtype=object))
-		np.save(identifier+"_b.npy",np.asarray(self.brain.bias,dtype=object))
 	def getIntent(self):
 		return self.intent
