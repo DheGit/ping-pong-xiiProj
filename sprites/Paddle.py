@@ -22,5 +22,5 @@ class Paddle(pygame.sprite.Sprite):
     def moveDown(self,pixels):
         self.rect.y += pixels
 
-        if self.rect.y > self.screen_dimen[1] - self.paddle_dimen[1]:
-            self.rect.y = self.screen_dimen[1] - self.paddle_dimen[1]
+        if self.rect.y > self.screen_dimen[1] - self.paddle_dimen[1] - 4:
+            self.rect.y = self.screen_dimen[1] - self.paddle_dimen[1] - 4
