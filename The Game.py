@@ -87,9 +87,10 @@ def start_menu(screen):
 def player1_details(screen):
     new_screen=player_names.Player1_Name()
 
-    if new_screen == screens.playernames.CB_PLAY:
+    if new_screen == screens.playernames.CB_PLAY_AI:
         game.setPlayer1Name(player_names.getPlayer1Name())
         game.setPlayer2Name(player_names.getPlayer2Name())
+        game.enableAi()
         game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), player_names.getColor1(), player_names.getColor2())
         return Screen.PLAYGAME
     if new_screen == screens.playernames.CB_RETURN:
@@ -104,6 +105,7 @@ def players2_details(screen):
         game.setPlayer1Name(player_names.getPlayer1Name())
         game.setPlayer2Name(player_names.getPlayer2Name())
         game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), player_names.getColor1(), player_names.getColor2())
+        game.disableAi()
         return Screen.PLAYGAME
     if new_screen == screens.playernames.CB_RETURN:
         return Screen.MENU

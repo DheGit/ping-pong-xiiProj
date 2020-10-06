@@ -13,6 +13,7 @@ from sprites.Textbox import *
 
 CB_RETURN = 101
 CB_PLAY = 104
+CB_PLAY_AI=105
 
 BLUE=0
 PINK=1
@@ -67,7 +68,7 @@ class PlayerNamesScreen():
             bg_rgb = r.colors.BLACK,
             text_rgb = r.colors.WHITE,
             text = enter_button_txt,
-            action = CB_PLAY,
+            action = CB_PLAY_AI,
         )
         
         return_to_mainmenu_btn = Button(
@@ -111,7 +112,7 @@ class PlayerNamesScreen():
                 button_action = button.update(pygame.mouse.get_pos(), mouse_up)
 
                 if button_action is not None:    
-                    if button_action==CB_PLAY:
+                    if button_action==CB_PLAY_AI:
                         self.p1name=Human.getText()
                         self.p2name=AI.getText()
                         

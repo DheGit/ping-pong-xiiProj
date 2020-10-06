@@ -33,6 +33,7 @@ class GameScreen():
 
         self.p1Name="Player1"
         self.p2Name="Player2"
+        self.p2ai=False
 
         self.winnerName="Winner"
         self.winnerColor=fg_color_default
@@ -89,6 +90,8 @@ class GameScreen():
         
         exit_window = False
         
+        print(self.p2ai)
+
         while not exit_window:
             mouse_up=False
             self.screen.fill(self.bg_color)
@@ -261,6 +264,14 @@ class GameScreen():
 
         self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
         self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
+
+    def enableAi(self):
+        print("Enabling AI")
+        self.p2ai=True
+
+    def disableAi(self):
+        print("Disabling AI")
+        self.p2ai=False
 
     def getWinnerColor(self):
         return self.winnerColor
