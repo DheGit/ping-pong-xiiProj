@@ -146,9 +146,9 @@ class GameScreen():
                 self.ball.bounce(-diff)
                 self.ball.speed = self.ball.speed*self.bounce_acceleration
 
-            if self.ball.crossed(self.paddle_margin):
+            if self.ball.crossed(self.paddle_margin//2):
                 self.score2+=1
-            if self.ball.crossed(self.screen_dimen[0]-self.paddle_margin):
+            if self.ball.crossed(self.screen_dimen[0]-self.paddle_margin//2):
                 self.score1+=1
 
             keys = pygame.key.get_pressed()
