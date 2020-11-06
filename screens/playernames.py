@@ -106,11 +106,10 @@ class PlayerNamesScreen():
                         self.p1name=P1.getText()
                         self.p2name=P2.getText()
                         
-                        for space in range(0,14):
-                            if self.p1name == space * " ":
-                                self.p1name = "Player1"
-                            if self.p2name == space * " ":
-                                self.p2name = "Player2"
+                        if self.p1name == '' or self.p1name.isspace():
+                            self.p1name = "Player1"
+                        if self.p2name == '' or self.p2name.isspace():
+                            self.p2name = "Player2"
 
                     if button_action in COLOR_BTN_ACTIONS:
                         self.handleColorClick(button_action)
