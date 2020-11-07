@@ -84,7 +84,6 @@ class PlayerNamesScreen():
 
         buttons = [self.Blue1, self.Green1, self.Yellow1, self.Pink1, self.Red1, self.Blue2, self.Green2, self.Yellow2, self.Pink2, self.Red2, enter_btn, return_to_mainmenu_btn]
 
-        # self.colorBtnList[0][ai_color-5].setHighlightable(False)
         self.Blue2.setHighlightable(False)
         self.Green2.setHighlightable(False)
         self.Yellow2.setHighlightable(False)
