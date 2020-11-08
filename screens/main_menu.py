@@ -23,7 +23,6 @@ class MainMenuScreen():
         self.bgimg = bg
 
     def show_menu(self):
-
         game_name = Label(self.screen, pygame.Rect(90, 100, 1000 ,1000), self.fg_color, self.bg_color, self.font, text=self.gamename)
 
         Player1_btn = Button(
@@ -64,7 +63,6 @@ class MainMenuScreen():
 
         buttons = [Player1_btn, Players2_btn, about_btn, quit_btn]
 
-
         while True:
             mouse_up = False
             for event in pygame.event.get():
@@ -84,7 +82,6 @@ class MainMenuScreen():
 
             border = Border()
             border.rectangle(self.screen)
-
             game_name.draw()
 
             pygame.display.flip()
