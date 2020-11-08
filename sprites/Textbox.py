@@ -28,7 +28,6 @@ class Textbox:
 
         self.clock=pygame.time.Clock()
 
-
     def handle_event(self, events):
         for event in events:
             self.define_event(event)
