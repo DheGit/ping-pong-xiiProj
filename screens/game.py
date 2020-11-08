@@ -10,7 +10,6 @@ from sprites.PauseButton import *
 from ai.qlearner import *
 
 import r
-
 from r.main import *
 from r.game import *
 
@@ -279,7 +278,6 @@ class GameScreen():
 
     def setPlayer1Name(self, p1Name):
         self.p1Name=p1Name
-
     def setPlayer2Name(self, p2Name):
         self.p2Name=p2Name
 
@@ -300,10 +298,8 @@ class GameScreen():
 
     def getWinnerColor(self):
         return self.winnerColor
-
     def getWinnerName(self):
         return self.winnerName
-
     def getScores(self):
         return (self.score1,self.score2)
 
