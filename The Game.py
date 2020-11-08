@@ -15,11 +15,8 @@ def main():
     pygame.display.set_caption(r.main.r_title_label_txt)
 
     default_bg=pygame.image.load("image\\bg_default.jpg")
-    # default_icon=pygame.image.load("image\\icon_default.png")
 
-    # screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
-    # pygame.display.set_icon(default_icon)
+    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
 
     game_screen = Screen.MENU
 
