@@ -67,6 +67,10 @@ def main():
             
         if game_screen == Screen.ENDGAME:
             game_screen = launch_endgame(screen)
+            
+            Winner = game.getWinnerName()
+            Loser = game.getLoserName()
+            saveGameInstance(Winner, Loser)
 
         if game_screen == Screen.ABOUT:
             game_screen = launch_about(screen)
