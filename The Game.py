@@ -42,7 +42,12 @@ def main():
 
     about_screen=screens.about.AboutScreen(screen, r.about.text_about, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    db_con=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
+    initiateConnection()
+
+    ###############################    Only for testing purposes    ###################################
+    # _addDummyInstance()
+    # _truncateTable()
+    ###################################################################################################
 
     while True:
         if game_screen == Screen.MENU:
@@ -174,12 +179,38 @@ def launch_about(screen):
 
     return Screen.MENU
 
+def createDatabase():
+    db=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS)
+    db.cursor().execute(r.db_info.Q_CREATE_PONGDATA)
+
+    db=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
+    db.cursor().execute(r.db_info.Q_CREATE_GSTAT)
+
+    db.close()
+
 def initiateConnection():
-	pass
+    global db_con
+    try:
+        db_con=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
+    except scon.errors.ProgrammingError:
+        print("No database found, initiating it now")
+        createDatabase()
+    finally:
+        db_con=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
 
 def saveGameInstance(winnerName, loserName):
-	pass
+    global db_con
+    query=r.db_info.Q_ADD_GAME_DATA.format(winnerName,loserName)
 
+    db_con.cursor().execute(query)
+    db_con.commit()
+
+def _addDummyInstance():
+    saveGameInstance("a great player","not a really great player")
+
+def _truncateTable():
+    global db_con
+    db_con.cursor().execute("TRUNCATE TABLE "+r.db_info.TB_GAMESTAT)
 
 class Screen(Enum):
     QUIT=-1
