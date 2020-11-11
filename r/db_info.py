@@ -1,10 +1,8 @@
 #Stores the information of the database
 
 HOST="localhost"
-# USER="user"
-# PASS="pass"
-USER="banker"
-PASS="mysql_banker"
+USER="user" # Place the respective
+PASS="pass"	# credentials here.
 DBNAME="pongdata"
 
 TB_GAMESTAT = "gamestat" #Name of the table storing game statuses 
