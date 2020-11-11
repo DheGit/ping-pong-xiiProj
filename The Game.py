@@ -6,8 +6,10 @@ import r
 
 import screens
 
+import mysql.connector as scon
+
 def main():
-    global game, main_menu, player_names, pause_screen, endgame_screen, about_screen
+    global game, main_menu, player_names, pause_screen, endgame_screen, about_screen, db_con
     pygame.mixer.pre_init(22050, -16, 1, 512)
     pygame.init()
     pygame.mixer.quit()
@@ -16,7 +18,8 @@ def main():
 
     default_bg=pygame.image.load("image\\bg_default.jpg")
 
-    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
+    # screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
 
     game_screen = Screen.MENU
 
@@ -38,6 +41,8 @@ def main():
     endgame_screen=screens.endgame.EndgameScreen(screen, r.endgame.win_statement, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, bg=default_bg)
 
     about_screen=screens.about.AboutScreen(screen, r.about.text_about, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
+
+    db_con=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
 
     while True:
         if game_screen == Screen.MENU:
@@ -62,6 +67,7 @@ def main():
             game_screen = launch_about(screen)
 
         if game_screen == Screen.QUIT:
+            db_con.close()
             pygame.quit()
             return
 
@@ -167,6 +173,12 @@ def launch_about(screen):
         return Screen.QUIT
 
     return Screen.MENU
+
+def initiateConnection():
+	pass
+
+def saveGameInstance(winnerName, loserName):
+	pass
 
 
 class Screen(Enum):
