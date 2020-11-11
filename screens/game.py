@@ -10,6 +10,7 @@ from sprites.PauseButton import *
 from ai.qlearner import *
 
 import r
+
 from r.main import *
 from r.game import *
 
@@ -48,14 +49,17 @@ class GameScreen():
 
         self.border = Border()
 
-        self.p1Name="Player1"
-        self.p2Name="Player2"
-        self.p2ai=False
-        self.ai=QLearner(2,12)
+        self.p1Name = "Player1"
+        self.p2Name = "Player2"
+        
+        self.p2ai = False
+        self.ai = QLearner(2,12)
         self.ai.loadMemory("mem")
 
-        self.winnerName="Winner"
-        self.winnerColor=fg_color_default
+        self.winnerName = "Winner"
+        self.winnerColor = fg_color_default
+
+        self.loserName = "Loser"
 
         self.color1=fg_color_default
         self.color2=fg_color_default
@@ -68,12 +72,12 @@ class GameScreen():
         self.font2 = pygame.font.Font("r\\font_styles\Courier Bold Italic.ttf", r.font_size.xl)
         self.font3 = pygame.font.Font(None,r.font_size.l)
 
-        self.collideSound=pygame.mixer.Sound('sound/bounce1.wav')
-        self.crossedSound=pygame.mixer.Sound('sound/bounce2.wav')
+        self.collideSound = pygame.mixer.Sound('sound/bounce1.wav')
+        self.crossedSound = pygame.mixer.Sound('sound/bounce2.wav')
 
     def gameReset(self):
-        self.score1=0
-        self.score2=0
+        self.score1 = 0
+        self.score2 = 0
 
         self.paddle1.rect.x = self.paddle_margin
         self.paddle1.rect.y = self.screen_dimen[1]//2 - self.paddle_dimen[1]//2 + self.score_margin//2
@@ -195,12 +199,14 @@ class GameScreen():
 
             if self.score1 == 10 or self.score2 == 10:
                 self.crossedSound.play()
-                if self.score1==10:
-                    self.winnerName=self.p1Name
-                    self.winnerColor=self.color1
-                if self.score2==10:
-                    self.winnerName=self.p2Name
-                    self.winnerColor=self.color2
+                if self.score1 == 10:
+                    self.winnerName = self.p1Name
+                    self.loserName = self.p2Name
+                    self.winnerColor = self.color1
+                if self.score2 == 10:
+                    self.winnerName = self.p2Name
+                    self.loserName = self.p1Name
+                    self.winnerColor = self.color2
                     
                 self.gameReset()
                                 
@@ -278,6 +284,7 @@ class GameScreen():
 
     def setPlayer1Name(self, p1Name):
         self.p1Name=p1Name
+        
     def setPlayer2Name(self, p2Name):
         self.p2Name=p2Name
 
@@ -293,13 +300,19 @@ class GameScreen():
 
     def enableAi(self):
         self.p2ai=True
+        
     def disableAi(self):
         self.p2ai=False
 
     def getWinnerColor(self):
         return self.winnerColor
+    
     def getWinnerName(self):
         return self.winnerName
+
+    def getLoserName(self):
+        return self.loserName
+    
     def getScores(self):
         return (self.score1,self.score2)
 
