@@ -7,8 +7,9 @@ from sprites.Label import *
 from sprites.Button import *
 from sprites.PauseButton import *
 
-import r
+from ai.qlearner import *
 
+import r
 from r.main import *
 from r.game import *
 
@@ -16,6 +17,22 @@ CB_RETURN = 0
 CB_PAUSE = 1
 CB_ENDGAME = 2
 CB_QUIT = -1
+
+IND_BVELX=0
+IND_BVELY=1
+IND_BVELXP=10
+IND_BVELYP=11
+IND_BPOSX=2
+IND_BPOSY=3
+IND_BPOSXP=6
+IND_BPOSYP=7
+IND_PPOSX=4
+IND_PPOSY=5
+IND_PPOSXP=8
+IND_PPOSYP=9
+
+I_UP=1
+I_DOWN=0
 
 fg_color_default=(255,255,255)
 
@@ -33,6 +50,9 @@ class GameScreen():
 
         self.p1Name="Player1"
         self.p2Name="Player2"
+        self.p2ai=False
+        self.ai=QLearner(2,12)
+        self.ai.loadMemory("mem")
 
         self.winnerName="Winner"
         self.winnerColor=fg_color_default
@@ -88,7 +108,7 @@ class GameScreen():
         self.countdown()
         
         exit_window = False
-        
+
         while not exit_window:
             mouse_up=False
             self.screen.fill(self.bg_color)
@@ -125,21 +145,31 @@ class GameScreen():
                 self.ball.bounce(-diff)
                 self.ball.speed = self.ball.speed*self.bounce_acceleration
 
-            if self.ball.crossed(self.paddle_margin):
+            if self.ball.crossed(self.paddle_margin//2):
                 self.score2+=1
-            if self.ball.crossed(self.screen_dimen[0]-self.paddle_margin):
+            if self.ball.crossed(self.screen_dimen[0]-self.paddle_margin//2):
                 self.score1+=1
 
             keys = pygame.key.get_pressed()
-            
+
+
             if keys[pygame.K_w]:
                 self.paddle1.moveUp(self.paddle_speed)
             if keys[pygame.K_s]:
                 self.paddle1.moveDown(self.paddle_speed)
-            if keys[pygame.K_UP]:
-                self.paddle2.moveUp(self.paddle_speed)
-            if keys[pygame.K_DOWN]:
-                self.paddle2.moveDown(self.paddle_speed)
+
+            if self.p2ai:
+                self.ai.updateIntent(self.getGameState())
+                aimove=self.ai.getIntent()
+                if aimove==I_UP:
+                    self.paddle2.moveUp(self.paddle_speed)
+                if aimove==I_DOWN:
+                    self.paddle2.moveDown(self.paddle_speed)
+            else: 
+                if keys[pygame.K_UP]:
+                    self.paddle2.moveUp(self.paddle_speed)
+                if keys[pygame.K_DOWN]:
+                    self.paddle2.moveDown(self.paddle_speed)
 
             if keys[pygame.K_ESCAPE]:
                 exit_window = True
@@ -248,7 +278,6 @@ class GameScreen():
 
     def setPlayer1Name(self, p1Name):
         self.p1Name=p1Name
-
     def setPlayer2Name(self, p2Name):
         self.p2Name=p2Name
 
@@ -262,11 +291,33 @@ class GameScreen():
         self.paddle1=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color1)
         self.paddle2=Paddle(self.screen_dimen, self.paddle_dimen, self.score_margin, self.color2)
 
+    def enableAi(self):
+        self.p2ai=True
+    def disableAi(self):
+        self.p2ai=False
+
     def getWinnerColor(self):
         return self.winnerColor
-
     def getWinnerName(self):
         return self.winnerName
-
     def getScores(self):
         return (self.score1,self.score2)
+
+    def getGameState(self):
+        new_state2=[None for i in range(12)]
+        new_state2[IND_BVELX]=self.ball.getXSpeed()/self.screen_dimen[0]
+        new_state2[IND_BVELY]=self.ball.getYSpeed()/self.screen_dimen[1]
+        new_state2[IND_BVELXP]=(-new_state2[IND_BVELX])
+        new_state2[IND_BVELYP]=(-new_state2[IND_BVELY])
+
+        new_state2[IND_BPOSX]=self.ball.x/self.screen_dimen[0]
+        new_state2[IND_BPOSY]=self.ball.y/self.screen_dimen[1]
+        new_state2[IND_BPOSXP]=1 - new_state2[IND_BPOSX]
+        new_state2[IND_BPOSYP]=1 - new_state2[IND_BPOSY]
+        
+        new_state2[IND_PPOSX]=self.paddle2.rect.x/self.screen_dimen[0]
+        new_state2[IND_PPOSY]=self.paddle2.rect.y/self.screen_dimen[1]
+        new_state2[IND_PPOSXP]=1 - new_state2[IND_PPOSX]
+        new_state2[IND_PPOSYP]=1 - new_state2[IND_PPOSY]
+        
+        return new_state2

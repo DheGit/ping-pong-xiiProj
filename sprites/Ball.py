@@ -103,3 +103,6 @@ class Ball(pygame.sprite.Sprite):
 
     def getXSpeed(self):
         return math.cos(math.radians(self.direction)) * self.speed
+
+    def getYSpeed(self):
+        return -math.sin(math.radians(self.direction)) * self.speed

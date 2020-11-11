@@ -15,11 +15,8 @@ def main():
     pygame.display.set_caption(r.main.r_title_label_txt)
 
     default_bg=pygame.image.load("image\\bg_default.jpg")
-    default_icon=pygame.image.load("image\\icon_default.png")
 
-    # screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
-    pygame.display.set_icon(default_icon)
+    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
 
     game_screen = Screen.MENU
 
@@ -34,7 +31,7 @@ def main():
 
     main_menu=screens.main_menu.MainMenuScreen(screen, r.main.r_title_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
-    player_names=screens.playernames.PlayerNamesScreen(screen, r.playernames.playernames_label_txt, r.playernames.p1_label_txt, r.playernames.p2_label_txt, r.playernames.name_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
+    player_names=screens.playernames.PlayerNamesScreen(screen, r.playernames.playernames_label_txt, r.playernames.p_label_txt, r.playernames.ai_label_txt, r.playernames.p1_label_txt, r.playernames.p2_label_txt, r.playernames.name_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
     pause_screen=screens.pause.PauseScreen(screen, r.pause.paused_label_txt, (r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), r.colors.BLACK, r.colors.WHITE, bg=default_bg)
 
@@ -46,8 +43,11 @@ def main():
         if game_screen == Screen.MENU:
             game_screen = start_menu(screen)
 
-        if game_screen == Screen.PLAYERNAMES:
-            game_screen = players_details(screen)
+        if game_screen == Screen.PLAYER1:
+            game_screen = player1_details(screen)
+
+        if game_screen == Screen.PLAYERS2:
+            game_screen = players2_details(screen)
 
         if game_screen == Screen.PLAYGAME:
             game_screen = start_game(screen, game)
@@ -72,20 +72,37 @@ def start_menu(screen):
 
     if new_screen == screens.main_menu.CB_QUIT:
         return Screen.QUIT
-    if new_screen == screens.main_menu.CB_NAMES:
-        return Screen.PLAYERNAMES
+    if new_screen == screens.main_menu.CB_1PLAYER:
+        return Screen.PLAYER1
+    if new_screen == screens.main_menu.CB_2PLAYERS:
+        return Screen.PLAYERS2
     if new_screen == screens.main_menu.CB_ABOUT:
         return Screen.ABOUT
 
     return Screen.QUIT
 
-def players_details(screen):
-    new_screen=player_names.PlayerNames()
+def player1_details(screen):
+    new_screen=player_names.Player1_Name()
+
+    if new_screen == screens.playernames.CB_PLAY_AI:
+        game.setPlayer1Name(player_names.getPlayer1Name())
+        game.setPlayer2Name(player_names.getPlayer2Name())
+        game.enableAi()
+        game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), player_names.getColor1(), player_names.getColor2())
+        return Screen.PLAYGAME
+    if new_screen == screens.playernames.CB_RETURN:
+        return Screen.MENU
+
+    return Screen.QUIT
+
+def players2_details(screen):
+    new_screen=player_names.Players2_Names()
 
     if new_screen == screens.playernames.CB_PLAY:
         game.setPlayer1Name(player_names.getPlayer1Name())
         game.setPlayer2Name(player_names.getPlayer2Name())
         game.setMovables(r.game.BALL_HEIGHT, (r.game.PADDLE_WIDTH, r.game.PADDLE_HEIGHT), player_names.getColor1(), player_names.getColor2())
+        game.disableAi()
         return Screen.PLAYGAME
     if new_screen == screens.playernames.CB_RETURN:
         return Screen.MENU
@@ -158,8 +175,9 @@ class Screen(Enum):
     PLAYGAME=1
     PAUSE=2
     ENDGAME=3
-    PLAYERNAMES=4
-    ABOUT=5
+    PLAYER1=4
+    PLAYERS2=5
+    ABOUT=6
 
 if __name__=="__main__":
     main()

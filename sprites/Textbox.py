@@ -28,7 +28,6 @@ class Textbox:
 
         self.clock=pygame.time.Clock()
 
-
     def handle_event(self, events):
         for event in events:
             self.define_event(event)
@@ -77,6 +76,12 @@ class Textbox:
     def draw(self, screen):
         pygame.draw.line(screen, r.colors.WHITE, (self.rect.x+2,self.rect.y+self.rect.height/2), (self.rect.x+self.rect.width-2,self.rect.y+self.rect.height/2), 30)
         pygame.draw.rect(screen, self.color, self.rect, 4)
+        screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
+
+    def ai_draw(self, screen):
+        pygame.draw.line(screen, r.colors.WHITE, (self.rect.x+2,self.rect.y+self.rect.height/2), (self.rect.x+self.rect.width-2,self.rect.y+self.rect.height/2), 30)
+        pygame.draw.rect(screen, self.color, self.rect, 4)
+        self.text_surface = self.font.render(self.text, True, self.textcolor)
         screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
 
     def getText(self):

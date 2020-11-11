@@ -50,6 +50,5 @@ class Label():
             self.screen.blit(image,(self.limitRect.left,y))
             y+=fh+self.lineSpacing
             
-
     def setText(self,text):
         self.text=text
