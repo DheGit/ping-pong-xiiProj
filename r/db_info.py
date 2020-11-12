@@ -1,6 +1,6 @@
 HostName = "localhost"
 UserName = "root"
-Password = "knowledge"	# Type your MySQL Password here
+Password = "password"	# Enter your MySQL Password here
 DatabaseName = "PongData"
 
 TableName = "GameStats"
