@@ -65,7 +65,9 @@ def main():
             
             Winner = game.getWinnerName()
             Loser = game.getLoserName()
-            saveGameInstance(Winner, Loser)
+            Winner_Score, Loser_Score = game.getFinalScores()
+            
+            saveGameInstance(Winner, Winner_Score, Loser, Loser_Score)
 
         if game_screen == Screen.ABOUT:
             game_screen = launch_about(screen)
@@ -197,9 +199,9 @@ def createDatabase():
 
     db.close()
 
-def saveGameInstance(winnerName, loserName):
+def saveGameInstance(winnerName, winnerScore, loserName, loserScore):
     global db_con
-    query=r.db_info.Q_ADD_GAME_DATA.format(winnerName, loserName)
+    query=r.db_info.Q_ADD_GAME_DATA.format(winnerName, winnerScore, loserName, loserScore)
 
     db_con.cursor().execute(query)
     db_con.commit()
