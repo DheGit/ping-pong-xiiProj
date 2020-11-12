@@ -61,13 +61,14 @@ def main():
             game_screen = pause_game(screen)
             
         if game_screen == Screen.ENDGAME:
-            game_screen = launch_endgame(screen)
             
             Winner = game.getWinnerName()
             Loser = game.getLoserName()
             Winner_Score, Loser_Score = game.getFinalScores()
             
             saveGameInstance(Winner, Winner_Score, Loser, Loser_Score)
+
+            game_screen = launch_endgame(screen)
 
         if game_screen == Screen.ABOUT:
             game_screen = launch_about(screen)
