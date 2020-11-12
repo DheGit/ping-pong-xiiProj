@@ -44,12 +44,6 @@ def main():
 
     initiateConnection()
 
-    ###############################    Only for testing purposes    ###################################
-    # _addDummyInstance()
-    # _truncateTable()
-    # _dropAndMakeTable()
-    ###################################################################################################
-
     while True:
         if game_screen == Screen.MENU:
             game_screen = start_menu(screen)
@@ -209,18 +203,6 @@ def saveGameInstance(winnerName, loserName):
 
     db_con.cursor().execute(query)
     db_con.commit()
-
-def _addDummyInstance():
-    saveGameInstance("a great player","not a really great player")
-
-def _truncateTable():
-    global db_con
-    db_con.cursor().execute("TRUNCATE TABLE "+r.db_info.TableName)
-
-def _dropAndMakeTable():
-    global db_con
-    db_con.cursor().execute("DROP TABLE "+r.db_info.TableName)
-    db_con.cursor().execute(r.db_info.Q_CREATE_GAMESTATS)
 
 class Screen(Enum):
     QUIT=-1
