@@ -61,6 +61,9 @@ class GameScreen():
 
         self.loserName = "Loser"
 
+        self.winnerScore = 0
+        self.loserScore = 0
+
         self.color1=fg_color_default
         self.color2=fg_color_default
 
@@ -201,11 +204,15 @@ class GameScreen():
                 self.crossedSound.play()
                 if self.score1 == 10:
                     self.winnerName = self.p1Name
+                    self.winnerScore = self.score1
                     self.loserName = self.p2Name
+                    self.loserScore = self.score2
                     self.winnerColor = self.color1
                 if self.score2 == 10:
                     self.winnerName = self.p2Name
+                    self.winnerScore = self.score2
                     self.loserName = self.p1Name
+                    self.loserScore = self.score1
                     self.winnerColor = self.color2
                     
                 self.gameReset()
@@ -315,6 +322,9 @@ class GameScreen():
     
     def getScores(self):
         return (self.score1,self.score2)
+
+    def getFinalScores(self):
+        return self.winnerScore, self.loserScore
 
     def getGameState(self):
         new_state2=[None for i in range(12)]
