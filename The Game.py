@@ -47,6 +47,7 @@ def main():
     ###############################    Only for testing purposes    ###################################
     # _addDummyInstance()
     # _truncateTable()
+    _dropAndMakeTable()
     ###################################################################################################
 
     while True:
@@ -215,6 +216,11 @@ def _addDummyInstance():
 def _truncateTable():
     global db_con
     db_con.cursor().execute("TRUNCATE TABLE "+r.db_info.TB_GAMESTAT)
+
+def _dropAndMakeTable():
+    global db_con
+    db_con.cursor().execute("DROP TABLE "+r.db_info.TB_GAMESTAT)
+    db_con.cursor().execute(r.db_info.Q_CREATE_GSTAT)
 
 class Screen(Enum):
     QUIT=-1
