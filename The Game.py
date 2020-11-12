@@ -47,7 +47,7 @@ def main():
     ###############################    Only for testing purposes    ###################################
     # _addDummyInstance()
     # _truncateTable()
-    _dropAndMakeTable()
+    # _dropAndMakeTable()
     ###################################################################################################
 
     while True:
