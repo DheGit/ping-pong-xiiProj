@@ -184,28 +184,28 @@ def launch_about(screen):
 
     return Screen.MENU
 
-def createDatabase():
-    db=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS)
-    db.cursor().execute(r.db_info.Q_CREATE_PONGDATA)
-
-    db=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
-    db.cursor().execute(r.db_info.Q_CREATE_GSTAT)
-
-    db.close()
-
 def initiateConnection():
     global db_con
     try:
-        db_con=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
+        db_con=scon.connect(host=r.db_info.HostName, user=r.db_info.UserName, passwd=r.db_info.Password, database=r.db_info.DatabaseName)
     except scon.errors.ProgrammingError:
         print("No database found, initiating it now")
         createDatabase()
     finally:
-        db_con=scon.connect(host=r.db_info.HOST,user=r.db_info.USER,passwd=r.db_info.PASS,database=r.db_info.DBNAME)
+        db_con=scon.connect(host=r.db_info.HostName, user=r.db_info.UserName, passwd=r.db_info.Password, database=r.db_info.DatabaseName)
+        
+def createDatabase():
+    db=scon.connect(host=r.db_info.HostName, user=r.db_info.UserName, passwd=r.db_info.Password)
+    db.cursor().execute(r.db_info.Q_CREATE_PONGDATA)
+
+    db=scon.connect(host=r.db_info.HostName, user=r.db_info.UserName, passwd=r.db_info.Password, database=r.db_info.DatabaseName)
+    db.cursor().execute(r.db_info.Q_CREATE_GAMESTATS)
+
+    db.close()
 
 def saveGameInstance(winnerName, loserName):
     global db_con
-    query=r.db_info.Q_ADD_GAME_DATA.format(winnerName,loserName)
+    query=r.db_info.Q_ADD_GAME_DATA.format(winnerName, loserName)
 
     db_con.cursor().execute(query)
     db_con.commit()
@@ -215,12 +215,12 @@ def _addDummyInstance():
 
 def _truncateTable():
     global db_con
-    db_con.cursor().execute("TRUNCATE TABLE "+r.db_info.TB_GAMESTAT)
+    db_con.cursor().execute("TRUNCATE TABLE "+r.db_info.TableName)
 
 def _dropAndMakeTable():
     global db_con
-    db_con.cursor().execute("DROP TABLE "+r.db_info.TB_GAMESTAT)
-    db_con.cursor().execute(r.db_info.Q_CREATE_GSTAT)
+    db_con.cursor().execute("DROP TABLE "+r.db_info.TableName)
+    db_con.cursor().execute(r.db_info.Q_CREATE_GAMESTATS)
 
 class Screen(Enum):
     QUIT=-1
