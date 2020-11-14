@@ -1,5 +1,7 @@
 import pygame
 
+from datetime import datetime
+
 from enum import Enum
 
 import r
@@ -55,18 +57,23 @@ def main():
             game_screen = players2_details(screen)
 
         if game_screen == Screen.PLAYGAME:
+
+            Start_Time = datetime.now().strftime("%H:%M:%S")
+            
             game_screen = start_game(screen, game)
 
         if game_screen == Screen.PAUSE:
             game_screen = pause_game(screen)
             
         if game_screen == Screen.ENDGAME:
-            
+
+            Date = datetime.now().strftime("%Y/%m/%d")
+            End_Time = datetime.now().strftime("%H:%M:%S")
             Winner = game.getWinnerName()
             Loser = game.getLoserName()
             Winner_Score, Loser_Score = game.getFinalScores()
             
-            saveGameInstance(Winner, Winner_Score, Loser, Loser_Score)
+            saveGameInstance(Date, Start_Time, End_Time, Winner, Winner_Score, Loser, Loser_Score)
 
             game_screen = launch_endgame(screen)
 
@@ -200,9 +207,9 @@ def createDatabase():
 
     db.close()
 
-def saveGameInstance(winnerName, winnerScore, loserName, loserScore):
+def saveGameInstance(date, startTime, endTime, winnerName, winnerScore, loserName, loserScore):
     global db_con
-    query=r.db_info.Q_ADD_GAME_DATA.format(winnerName, winnerScore, loserName, loserScore)
+    query=r.db_info.Q_ADD_GAME_DATA.format(date, startTime, endTime, winnerName, winnerScore, loserName, loserScore)
 
     db_con.cursor().execute(query)
     db_con.commit()
