@@ -68,7 +68,9 @@ def main():
         if game_screen == Screen.ENDGAME:
 
             Date = datetime.now().strftime("%Y/%m/%d")
+            
             End_Time = datetime.now().strftime("%H:%M:%S")
+            
             Winner = game.getWinnerName()
             Loser = game.getLoserName()
             Winner_Score, Loser_Score = game.getFinalScores()
