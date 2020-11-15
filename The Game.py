@@ -67,7 +67,7 @@ def main():
             
         if game_screen == Screen.ENDGAME:
 
-            Date = datetime.now().strftime("%Y/%m/%d")
+            Date = datetime.now().strftime("%Y-%m-%d")
             
             End_Time = datetime.now().strftime("%H:%M:%S")
             
