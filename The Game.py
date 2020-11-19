@@ -151,7 +151,6 @@ def pause_game(screen):
     pause_screen.setScores(game.getScores())
     new_screen = pause_screen.pause_game()
 
-
     if new_screen == screens.pause.CB_QUIT:
         return Screen.QUIT
     if new_screen == screens.pause.CB_PLAY:
