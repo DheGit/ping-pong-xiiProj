@@ -117,9 +117,7 @@ class PlayerNamesScreen():
                         
                         for space in range(0,14):
                             if self.p1name == space * " ":
-                                self.p1name = "Player1"
-                            if self.p2name == space * " ":
-                                self.p2name = "Player2"
+                                self.p1name = "Player"
 
                     if button_action in COLOR_BTN_ACTIONS:
                         self.handleColorClick(button_action)
