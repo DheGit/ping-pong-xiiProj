@@ -33,7 +33,6 @@ class MainMenuScreen():
             text=r.main.r_1Player_txt,
             action=CB_1PLAYER,
         )
-        
         Players2_btn = Button(
             center_position=(3*(r.game.SCREEN_WIDTH/4), 430),
             font_size=r.font_size.m,
@@ -42,7 +41,6 @@ class MainMenuScreen():
             text=r.main.r_2Players_txt,
             action=CB_2PLAYERS,
         )
-        
         about_btn=Button( 
             center_position=(r.game.SCREEN_WIDTH/2, 515),
             font_size=r.font_size.m,
@@ -51,7 +49,6 @@ class MainMenuScreen():
             text=r.main.r_about_button_txt,
             action=CB_ABOUT,
         )
-        
         quit_btn = Button(
             center_position=(r.game.SCREEN_WIDTH/2, 600),
             font_size=r.font_size.m,
@@ -60,7 +57,7 @@ class MainMenuScreen():
             text=r.main.r_quit_button_txt,
             action=CB_QUIT,
         )
-
+        
         buttons = [Player1_btn, Players2_btn, about_btn, quit_btn]
 
         while True:
