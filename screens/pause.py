@@ -31,7 +31,9 @@ class PauseScreen():
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_up = True
+                    
             self.screen.fill(r.game.BLACK)
+            
             if self.bgimg is not None:
                 self.screen.blit(self.bgimg,(0,0))
 
@@ -47,6 +49,7 @@ class PauseScreen():
 
             border = Border()
             border.rectangle(self.screen)
+            
             self.pause_label.draw()
             self.score_label.draw()
 
@@ -54,7 +57,9 @@ class PauseScreen():
 
     def setDisplay(self):
         self.pause_label = Label(self.screen, pygame.Rect(230, 70, 1000 ,1000), self.fg_color, self.bg_color, self.font1, text=self.pause)
+
         self.score_label = Label(self.screen, pygame.Rect(360, 250, 1000 ,1000), self.fg_color, self.bg_color, self.font2, text=str(self.scores[0])+" : "+str(self.scores[1]))
+
         self.resume_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 385),
             font_size = r.font_size.m,
@@ -63,6 +68,7 @@ class PauseScreen():
             text = r.pause.resume_button_txt,
             action=CB_PLAY,
         )
+        
         self.return_to_mainmenu_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 485),
             font_size = r.font_size.m,
@@ -71,6 +77,7 @@ class PauseScreen():
             text = r.pause.return_to_mainmenu_button_txt,
             action=CB_RETURN,
         )
+        
         self.quit_btn = Button(
             center_position = (r.game.SCREEN_WIDTH/2, 585),
             font_size = r.font_size.m,
