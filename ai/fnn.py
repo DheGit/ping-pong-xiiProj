@@ -22,6 +22,5 @@ class FNN():
 
 	def setBias(self,bias):
 		self.bias=bias
-
 	def setWeights(self,weights):
 		self.weights=weights
