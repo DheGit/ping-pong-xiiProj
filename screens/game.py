@@ -159,7 +159,6 @@ class GameScreen():
 
             keys = pygame.key.get_pressed()
 
-
             if keys[pygame.K_w]:
                 self.paddle1.moveUp(self.paddle_speed)
             if keys[pygame.K_s]:
