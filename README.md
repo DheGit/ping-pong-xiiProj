@@ -18,7 +18,7 @@ Salient Features :
 	2. All the GUI Elements in the project are developed solely using Pygame from scratch, in order to keep the GUI consistent throughout the application.
 
 
-	3. The project also includes various sounds in it, which are played, for example, when a button is clicked, or when the ball bounces with the paddle or the wall, etc.
+	3. The project also includes various sounds in it, which are played when a button is clicked, or when the ball bounces with the paddle or the wall.
 
 
 	4. There are a total of 6 screens in the project :
