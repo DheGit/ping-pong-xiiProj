@@ -20,8 +20,7 @@ def main():
 
     default_bg=pygame.image.load("image\\bg_default.jpg")
 
-    # screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((r.game.SCREEN_WIDTH, r.game.SCREEN_HEIGHT), pygame.FULLSCREEN)
 
     game_screen = Screen.MENU
 
