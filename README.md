@@ -4,6 +4,8 @@ PingPong - A project made by Dev Radadia and Dheer Banker
 
 The aim of the project is to create a ping-pong game with two game-modes – ‘1 Player’ and ‘2 Players’ with a smooth, intuitive gameplay.
 
+NOTE : Before running "The Game.py", change the value of the variable 'Password' to your MySQL password in 'r.db_info'.
+
 Salient Features :
 
 	1. The project is divided into 5 packages :
