@@ -54,7 +54,7 @@ class GameScreen():
         
         self.p2ai = False
         self.ai = QLearner(2,12)
-        self.ai.loadMemory("mem")
+        self.ai.loadMemory("ai/mem")
 
         self.winnerName = "Winner"
         self.winnerColor = fg_color_default
